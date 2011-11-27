@@ -17,11 +17,12 @@ namespace GetOptionKit;
  */
 class OptionResult
 {
+    public $keys = array();
+
     function __construct()
     {
 
     }
-
 
     function __get($key)
     {
@@ -38,7 +39,5 @@ class OptionResult
         $this->keys[ $key ] = $value;
     }
 
-
 }
-
 
