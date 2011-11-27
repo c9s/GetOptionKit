@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the CKOptionKit package.
+ * This file is part of the GetOptionKit package.
  *
  * (c) Yo-An Lin <cornelius.howl@gmail.com>
  *
@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  *
  */
-namespace CKOptionKit;
+namespace GetOptionKit;
 
 /**
  * SplClassLoader implementation that implements the technical interoperability
