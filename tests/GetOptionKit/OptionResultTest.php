@@ -8,25 +8,15 @@
  * file that was distributed with this source code.
  *
  */
-namespace GetOptionKit;
 
-class GetOptionKit 
+class OptionResultTest extends PHPUnit_Framework_TestCase 
 {
 
-    function add( $spec, $description , $key = null ) 
-    {
-        // parse spec
-
-    }
-
-    function parse($argv)
+    function test()
     {
 
-
     }
-
 
 }
-
 
 
