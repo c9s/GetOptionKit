@@ -25,20 +25,31 @@ class OptionPrinter implements OptionPrinterInterface
         echo "* Available options:\n";
         foreach( $this->specs->all() as $spec ) 
         {
-            $line = str_repeat(' ',4);
+            $c1 = '';
             if( $spec->short && $spec->long )
-                $line = $spec->short . ", " . $spec->long;
+                $c1 = sprintf('-%s, --%s',$spec->short,$spec->long);
             elseif( $spec->short )
-                $line = $spec->short;
+                $c1 = sprintf('-%s',$spec->short);
             elseif( $spec->long )
-                $line = $spec->long;
+                $c1 = sprintf('--%s',$spec->long );
 
-            if( strlen($line) > 25 ) {
-                $line .= "\n";
-                $line .= str_repeat(26);
-                $line .= $spec->description;  # wrap text
+            if( $spec->isAttributeRequire() ) {
+                $c1 .= ' <value>';
+            }
+            elseif( $spec->isAttributeMultiple() ) {
+                $c1 .= ' <value>';
+            }
+            elseif( $spec->isAttributeOptional() ) {
+                $c1 .= ' [<value>]';
+            }
+            elseif( $spec->isAttributeFlag() ) {
+            }
+
+
+            if( strlen($c1) > 24 ) {
+                $line = sprintf('% 24s', $c1) . "\n" . str_repeat(26) . $spec->description;  # wrap text
             } else {
-                $line = sprintf('% 26s %s',$line, $spec->description );
+                $line = sprintf('% 24s   %s',$c1, $spec->description );
             }
             echo $line . "\n";
         }

@@ -26,17 +26,33 @@ class GetOptionKit
     function parseSpec($specString)
     {
         $pattern = '/
-        ([a-zA-Z0-9]+)
-        (?:\|([a-zA-Z0-9-]+))?
+        (
+                (?:[a-zA-Z0-9]+)
+                (?:
+                    \|
+                    (?:[a-zA-Z0-9-]+)
+                )?
+        )
         ([:+?])?
         (?:=([si]|string|integer))?
         /x';
         if( preg_match( $pattern, $specString , $regs ) ) {
-            list($orig,$short,$long,$attributes,$type) = $regs;
+            list($orig,$name,$attributes,$type) = $regs;
+
+            $short = null;
+            $long = null;
+            if( strpos($name,'|') !== false ) {
+                list($short,$long) = explode('|',$name);
+            } elseif( strlen($name) == 1 ) {
+                $short = $name;
+            } elseif( strlen($name) > 1 ) {
+                $long = $name;
+            }
 
             $spec = new OptionSpec;
+
             $spec->short = $short;
-            $spec->long  = $long;
+            $spec->long   = $long;
 
             if( strpos($attributes,':') !== false ) {
                 $spec->setAttributeRequire();

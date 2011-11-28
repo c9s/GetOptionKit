@@ -110,7 +110,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
-        $opt->add( 'b|bar=s' , 'option with type' );
+        $opt->add( 'b|bar:=s' , 'option with type' );
 
         $spec = $opt->get('bar');
         ok( $spec->isTypeString() );
@@ -124,22 +124,30 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
 
-        $opt->add( 'f|foo:' , 'option requires a value' );
-        $opt->add( 'b|bar+' , 'option with multiple value' );
-        $opt->add( 'z|zoo?' , 'option with optional value' );
-        $opt->add( 'v|verbose' , 'verbose message' );
-        $opt->add( 'd|debug'   , 'debug message' );
+        $opt->add( 'f|foo:' , 'option requires a value.' );
+        $opt->add( 'b|bar+' , 'option with multiple value.' );
+        $opt->add( 'z|zoo?' , 'option with optional value.' );
+        $opt->add( 'v|verbose' , 'verbose message.' );
+        $opt->add( 'd|debug'   , 'debug message.' );
+        $opt->add( 'long'   , 'long option name only.' );
+        $opt->add( 's'   , 'short option name only.' );
 
         ok( $opt->specs->all() );
         ok( $opt->specs );
         ok( $opt->getSpecs() );
 
-        count_ok( 5 , $array = $opt->specs->toArray() );
+        count_ok( 7 , $array = $opt->specs->toArray() );
         ok( isset($array[0]['long'] ));
         ok( isset($array[0]['short'] ));
         ok( isset($array[0]['description'] ));
 
+        ob_start();
         $opt->printOptions();
+        $content = ob_get_contents();
+        ob_clean();
+        like( '/Available options/m', $content );
+
+        echo "\n".$content;
     }
 
     function test()

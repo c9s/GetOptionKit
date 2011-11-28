@@ -61,6 +61,17 @@ specify value with equal sign:
     $spec = $result->debug;
     $spec->value;  # get value
 
+GetOptionKit\OptionPrinter can print options for you:
+
+    * Available options:
+                  -f, --foo   option requires a value.
+                  -b, --bar   option with multiple value.
+                  -z, --zoo   option with optional value.
+              -v, --verbose   verbose message.
+                -d, --debug   debug message.
+                     --long   long option name only.
+                         -s   short option name only.
+
 ## Todo
 
 * Option Group
