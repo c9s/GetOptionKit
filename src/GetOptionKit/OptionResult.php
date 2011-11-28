@@ -39,5 +39,6 @@ class OptionResult
         $this->keys[ $key ] = $value;
     }
 
+
 }
 

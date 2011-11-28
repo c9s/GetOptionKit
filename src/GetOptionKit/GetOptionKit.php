@@ -10,6 +10,7 @@
  */
 namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
+use GetOptionKit\OptionResult;
 
 class GetOptionKit 
 {
@@ -75,16 +76,57 @@ class GetOptionKit
     }
 
 
+    function getLongOptionSpec( $name )
+    {
+        return @$this->longOptions[ $name ];
+    }
+
+    function getShortOptionSpec( $name )
+    {
+        return @$this->shortOptions[ $name ];
+    }
+
+
     /* get spec by spec id */
     function get($id)
     {
         return @$this->specs[ $id ];
     }
 
+    function isOption($arg)
+    {
+        return substr($arg,0,1) === '-';
+    }
+
     function parse($argv)
     {
+        $result = new OptionResult;
         $len = count($argv);
         for( $i = 0; $i < $len; ++$i ) {
+            $arg = new Argument( $argv[$i] );
+            if( $arg->isLongOption() ) {
+                $spec = $this->getLongOptionSpec($arg->getName());
+                if( $spec->isAttributeRequire() ) {
+
+
+                    $i++;
+                    $nextArgument = $args[$i];
+                    
+                }
+                elseif( $spec->isAttributeMultiple() ) {
+
+                }
+                elseif( $spec->isAttributeOptional() ) {
+
+                }
+                elseif( $spec->isAttributeFlag() ) {
+
+                }
+            }
+            elseif( $arg->isShortOption() ) {
+                $spec = $this->getShortOptionSpec($arg->getName());
+
+            }
 
         }
     }

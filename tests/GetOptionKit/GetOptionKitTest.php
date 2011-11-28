@@ -38,7 +38,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         is( 'd', $spec->short );
         ok( $spec->isAttributeFlag() );
 
-        $result = $opt->parse( array( 'program' , '-v' , '-d' ) );
+        $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
 #          ok( $result );
 #          ok( $result->verbose );
 #          ok( $result->debug );
