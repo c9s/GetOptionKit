@@ -48,13 +48,13 @@ Run:
 Print:
 
     * Available options:
-        -f, --foo <value>     option requires a value.
-        -b, --bar <value>+    option with multiple value.
-        -z, --zoo [<value>]   option with optional value.
-            -v, --verbose     verbose message.
-                -d, --debug   debug message.
-                    --long    long option name only.
-                        -s    short option name only.
+          -f, --foo <value>    option requires a value.
+         -b, --bar <value>+    option with multiple value.
+        -z, --zoo [<value>]    option with optional value.
+              -v, --verbose    verbose message.
+                -d, --debug    debug message.
+                     --long    long option name only.
+                         -s    short option name only.
     Enabled options: 
     * key:foo      spec:-f, --foo <value>  desc:option requires a value.
         value => test
