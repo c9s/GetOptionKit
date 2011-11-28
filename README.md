@@ -43,7 +43,28 @@ Please check `examples/demo.php`.
 
 Run:
 
-    $ php examples/demo.php -f test
+    % php examples/demo.php -f test -b 123 -b 333
+
+Print:
+
+    * Available options:
+        -f, --foo <value>     option requires a value.
+        -b, --bar <value>+    option with multiple value.
+        -z, --zoo [<value>]   option with optional value.
+            -v, --verbose     verbose message.
+                -d, --debug   debug message.
+                    --long    long option name only.
+                        -s    short option name only.
+    Enabled options: 
+    * key:foo      spec:-f, --foo <value>  desc:option requires a value.
+        value => test
+
+    * key:bar      spec:-b, --bar <value>+  desc:option with multiple value.
+        Array
+        (
+            [0] => 123
+            [1] => 333
+        )
 
 ## Synopsis
 
