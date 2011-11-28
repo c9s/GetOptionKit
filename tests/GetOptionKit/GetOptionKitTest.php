@@ -53,6 +53,10 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose );
         ok( $result->debug );
 
+        is_class( 'GetOptionKit\\OptionSpec' , $result->foo );
+        is_class( 'GetOptionKit\\OptionSpec' , $result->verbose );
+        is_class( 'GetOptionKit\\OptionSpec' , $result->debug );
+
         is( 'foo value', $result->foo->value );
         ok( $result->verbose->value );
         ok( $result->debug->value );
