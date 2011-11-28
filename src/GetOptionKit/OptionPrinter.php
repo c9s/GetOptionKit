@@ -14,13 +14,13 @@ class OptionPrinter implements OptionPrinterInterface
 {
     public $specs;
 
-    function __construct($specs = array())
+    function __construct( GetOptionKit\OptionSpecCollection $specs)
     {
         $this->specs = $specs;
     }
 
-    function getSpecArray()
+    function print()
     {
-    }
 
+    }
 }

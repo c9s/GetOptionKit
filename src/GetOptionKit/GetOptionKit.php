@@ -103,10 +103,10 @@ class GetOptionKit
         return $parser->parse( $argv );
     }
 
-    function printSpecs( GetOptionKit\OptionPrinterInterface $class = 'GetOptionKit\OptionPrinter')
+    function printSpecs( GetOptionKit\OptionPrinterInterface $class )
     {
         $printer = new $class;
-
+        $printer->print();
     }
 }
 
