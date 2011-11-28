@@ -155,8 +155,14 @@ class OptionSpec
 
         }
 
-        return sprintf("% 26s   %s",$c1,$this->description) 
-            . "\n" .  sprintf( str_repeat(' ',26) . "   *value => %s" , $this->value) . "\n";
+        $return = '';
+        $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->description) . "\n";
+        if( is_array($this->value) ) {
+            $return .= '  ' . print_r(  $this->value, true ) . "\n";
+        } else {
+            $return .= sprintf("  value => %s" , $this->value) . "\n";
+        }
+        return $return;
     }
 
 }

@@ -37,6 +37,14 @@ specify value with equal sign:
     program.php -a=foo
     program.php --long=foo
 
+## Demo
+
+Please check `examples/demo.php`.
+
+Run:
+
+    $ php examples/demo.php -f test
+
 ## Synopsis
 
     use GetOptionKit\GetOptionKit;
