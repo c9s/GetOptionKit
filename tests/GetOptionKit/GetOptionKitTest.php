@@ -70,16 +70,55 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         count_ok(3,$result->bar->value);
     }
 
-    function testType()
+    function testIntegerTypeNonNumeric()
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
-        $opt->add( 'b|bar+' , 'option with multiple value' );
-        $result = $opt->parse(explode(' ','program -b 1 -b 2 --bar 3'));
+        $opt->add( 'b|bar:=i' , 'option with integer type' );
 
+        $spec = $opt->get('bar');
+        ok( $spec->isTypeInteger() );
+
+        // test non numeric
+        try {
+            $result = $opt->parse(explode(' ','program -b test'));
+            ok( $result->bar );
+        } catch ( GetOptionKit\NonNumericException $e ) {
+            ok( $e );
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    function testIntegerTypeNumeric()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'b|bar:=i' , 'option with integer type' );
+
+        $spec = $opt->get('bar');
+        ok( $spec->isTypeInteger() );
+
+        $result = $opt->parse(explode(' ','program -b 123123'));
         ok( $result->bar );
-        count_ok(3,$result->bar->value);
+        ok( $result->bar->value === 123123 );
+    }
 
+
+
+
+
+    function testStringType()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'b|bar=s' , 'option with type' );
+
+        $spec = $opt->get('bar');
+        ok( $spec->isTypeString() );
+
+        $result = $opt->parse(explode(' ','program -b text'));
+        ok( $result->bar );
     }
 
     function test()

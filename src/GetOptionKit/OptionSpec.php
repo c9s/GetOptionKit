@@ -11,6 +11,13 @@
 
 namespace GetOptionKit;
 
+use Exception;
+
+class NonNumericException extends Exception
+{
+
+}
+
 class OptionSpec 
 {
     public $short;
@@ -26,7 +33,7 @@ class OptionSpec
     const attr_flag     = 8;
 
     const type_string   = 1;
-    const type_integer  = 1;
+    const type_integer  = 2;
 
     function __construct()
     {
@@ -65,17 +72,6 @@ class OptionSpec
     }
 
 
-    function setTypeString()
-    {
-        $this->type = self::type_string;
-    }
-
-    function setTypeInteger()
-    {
-        $this->type = self::type_integer;
-    }
-
-
     function isAttributeFlag()
     {
         return $this->attributes & self::attr_flag;
@@ -94,6 +90,45 @@ class OptionSpec
     function isAttributeOptional()
     {
         return $this->attributes & self::attr_optional;
+    }
+
+
+    function setTypeString()
+    {
+        $this->type = self::type_string;
+    }
+
+    function setTypeInteger()
+    {
+        $this->type = self::type_integer;
+    }
+
+    function isTypeString()
+    {
+        return $this->type & self::type_string;
+    }
+
+    function isTypeInteger()
+    {
+        return $this->type & self::type_integer;
+    }
+
+    function setValue($value)
+    {
+        if( $this->type !== null ) {
+            // check type constraints
+            if( $this->isTypeInteger() ) {
+                if( ! is_numeric($value) )
+                    throw new NonNumericException;
+                $value = (int) $value;
+            }
+        }
+        $this->value = $value;
+    }
+
+    function pushValue($value)
+    {
+
     }
 
 }

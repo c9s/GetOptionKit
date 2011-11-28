@@ -53,6 +53,16 @@ class GetOptionKit
             else {
                 $spec->setAttributeFlag();
             }
+
+            if( $type ) {
+                if( $type === 's' ) {
+                    $spec->setTypeString();
+                }
+                elseif( $type === 'i' ) {
+                    $spec->setTypeInteger();
+                }
+            }
+
             return $spec;
         }
         else {
@@ -109,10 +119,12 @@ class GetOptionKit
 
     function takeOptionValue($spec,$arg,$next)
     {
-        if( $arg->containsOptionValue() )
-            $spec->value = $arg->getOptionValue();
-        elseif( ! $next->isOption() ) 
-            $spec->value = $next->arg;
+        if( $arg->containsOptionValue() ) {
+            $spec->setValue( $arg->getOptionValue() );
+        }
+        elseif( ! $next->isOption() )  {
+            $spec->setValue( $next->arg );
+        }
     }
 
     function pushOptionValue($spec,$arg,$next)
@@ -155,7 +167,6 @@ class GetOptionKit
             if( ! $spec )
                 throw new Exception("invalid option: " . $arg );
 
-                
 
             if( $spec->isAttributeRequire() ) {
 
