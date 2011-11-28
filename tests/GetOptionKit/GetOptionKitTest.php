@@ -25,6 +25,8 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $spec = $opt->get( 'debug' );
         ok( $spec );
         is_class( 'GetOptionKit\\OptionSpec', $spec );
+        is( 'debug', $spec->long );
+        is( 'd', $spec->short );
 
 
         $result = $opt->parse( array( 'program' , '-v' , '-d' ) );
