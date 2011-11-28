@@ -132,7 +132,7 @@ class OptionSpec
         $this->value[] = $value;
     }
 
-    function getSpecString()
+    function getReadableSpec()
     {
         $c1 = '';
         if( $this->short && $this->long )
@@ -159,7 +159,7 @@ class OptionSpec
 
     function __toString()
     {
-        $c1 = $this->getSpecString();
+        $c1 = $this->getReadableSpec();
         $return = '';
         $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->description) . "\n";
         if( is_array($this->value) ) {

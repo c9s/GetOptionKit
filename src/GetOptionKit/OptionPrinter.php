@@ -25,7 +25,7 @@ class OptionPrinter implements OptionPrinterInterface
         echo "* Available options:\n";
         foreach( $this->specs->all() as $spec ) 
         {
-            $c1 = $spec->getSpecString();
+            $c1 = $spec->getReadableSpec();
             if( strlen($c1) > 24 ) {
                 $line = sprintf('% 24s', $c1) . "\n" . str_repeat(26) . $spec->description;  # wrap text
             } else {
