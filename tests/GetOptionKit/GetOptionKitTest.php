@@ -106,8 +106,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
 
 
-
-
     function testStringType()
     {
         $opt = new \GetOptionKit\GetOptionKit;
@@ -154,7 +152,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         is( 'foo value', $result->foo->value );
         ok( $result->verbose->value );
         ok( $result->debug->value );
-
 
         $result = $opt->parse( array( 'program' , '-vd' ) );
         ok( $result->verbose );

@@ -25,11 +25,28 @@ specify value with equal sign:
     program.php -a=foo
     program.php --long=foo
 
-# Usage
+# Synopsis
 
+    use GetOptionKit\GetOptionKit;
 
+    $getopt = new GetOptionKit;
+    $getopt->add( 'f|foo:' , 'option require value' );
+    $getopt->add( 'b|bar+' , 'option with multiple value' );
+    $getopt->add( 'z|zoo?' , 'option with optional value' );
 
+    $getopt->add( 'f|foo:=i' , 'option require value, with integer type' );
+    $getopt->add( 'f|foo:=s' , 'option require value, with string type' );
 
+    $getopt->add( 'v|verbose' , 'verbose flag' );
+    $getopt->add( 'd|debug'   , 'debug flag' );
+
+    $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
+
+    $result = $opt->parse( $argv );
+
+    $spec = $result->verbose;
+    $spec = $result->debug;
+    $spec->value;  # get value
 
 # Command Line Utility Design Concept
 
