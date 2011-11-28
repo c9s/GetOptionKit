@@ -17,7 +17,7 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
         $arg = new Argument( '--option' );
         ok( $arg->isLongOption() );
         not_ok( $arg->isShortOption() );
-        is( 'option' , $arg->getName() );
+        is( 'option' , $arg->getOptionName() );
     }
 
 

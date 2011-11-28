@@ -17,6 +17,7 @@ class OptionSpec
     public $long;
     public $description; /* description */
     public $key;  /* key to store values */
+    public $value;
 
     const attr_multiple = 1;
     const attr_optional = 2;
@@ -46,6 +47,7 @@ class OptionSpec
     function setAttributeMultiple()
     {
         $this->attributes = self::attr_multiple;
+        $this->value = array();  # for value pushing
     }
 
     function setAttributeOptional()

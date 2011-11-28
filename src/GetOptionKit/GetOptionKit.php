@@ -105,13 +105,12 @@ class GetOptionKit
         for( $i = 0; $i < $len; ++$i ) {
             $arg = new Argument( $argv[$i] );
             if( $arg->isLongOption() ) {
-                $spec = $this->getLongOptionSpec($arg->getName());
+                $spec = $this->getLongOptionSpec($arg->getOptionName());
                 if( $spec->isAttributeRequire() ) {
-
-
                     $i++;
-                    $nextArgument = $args[$i];
-                    
+                    $nextArgument = new Argument( $args[$i] );
+                    if( $nextArgument->isOption() )
+                        throw new Exception( "option {$arg->getOptionName()} require a value." );
                 }
                 elseif( $spec->isAttributeMultiple() ) {
 
@@ -124,7 +123,7 @@ class GetOptionKit
                 }
             }
             elseif( $arg->isShortOption() ) {
-                $spec = $this->getShortOptionSpec($arg->getName());
+                $spec = $this->getShortOptionSpec($arg->getOptionName());
 
             }
 

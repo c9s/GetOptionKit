@@ -31,7 +31,12 @@ class Argument
             && (substr($this->arg,1,1) !== '-');
     }
 
-    function getName()
+    function isOption()
+    {
+        return $this->isShortOption() || $this->isLongOption();
+    }
+
+    function getOptionName()
     {
         if( preg_match('/^[-]+([a-zA-Z0-9-]+)/',$this->arg,$regs) ) {
             return $regs[1];
