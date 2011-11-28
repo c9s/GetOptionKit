@@ -14,13 +14,16 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     function test()
     {
         $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+
         $opt->add( 'v|verbose' , 'verbose message' , 'verbose' );
         $opt->add( 'd|debug'   , 'debug message' , 'debug' );
+
         $result = $opt->parse( array( 'program' , '-v' , '-d' ) );
 
-        $this->assertNotEmpty( $result );
-        $this->assertTrue( $result->verbose );
-        $this->assertTrue( $result->debug );
+        ok( $result );
+        ok( $result->verbose );
+        ok( $result->debug );
     }
 
 

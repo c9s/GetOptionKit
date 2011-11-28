@@ -16,6 +16,7 @@ class OptionResultTest extends PHPUnit_Framework_TestCase
     {
         $option = new \GetOptionKit\OptionResult;
         ok( $option );
+
     }
 
 }
