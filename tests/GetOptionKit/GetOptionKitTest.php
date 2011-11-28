@@ -62,6 +62,9 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->debug->value );
 
 
+        $result = $opt->parse( array( 'program' , '-vd' ) );
+        ok( $result->verbose );
+        ok( $result->debug );
 
         // option required a value should throw an exception
         try {

@@ -140,10 +140,22 @@ class GetOptionKit
                 continue;
 
 
+            // if the option is with extra flags,
+            //   split it out, and insert into the argv array
+            if( $arg->withExtraFlagOptions() ) {
+                $extra = $arg->extractExtraFlagOptions();
+                array_splice( $argv, $i+1, 0, $extra );
+                $argv[$i] = $arg->arg; // update argument to current argv list.
+                $len = count($argv);   // update argv list length
+            }
+            
+
             $next = new Argument( $argv[$i + 1] );
             $spec = $this->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("invalid option: " . $arg );
+
+                
 
             if( $spec->isAttributeRequire() ) {
 
