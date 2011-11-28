@@ -77,12 +77,12 @@ class GetOptionKit
     }
 
 
-    function getLongOptionSpec( $name )
+    function getLongOption( $name )
     {
         return @$this->longOptions[ $name ];
     }
 
-    function getShortOptionSpec( $name )
+    function getShortOption( $name )
     {
         return @$this->shortOptions[ $name ];
     }
@@ -107,6 +107,29 @@ class GetOptionKit
         return substr($arg,0,1) === '-';
     }
 
+    function takeOptionValue($spec,$arg,$next)
+    {
+        if( $arg->containsOptionValue() )
+            $spec->value = $arg->getOptionValue();
+        elseif( ! $next->isOption() ) 
+            $spec->value = $next->arg;
+    }
+
+    function pushOptionValue($spec,$arg,$next)
+    {
+        if( $arg->containsOptionValue() )
+            $spec->value[] = $arg->getOptionValue();
+        elseif( ! $next->isOption() ) 
+            $spec->value[] = $next->arg;
+    }
+
+    function checkValue($spec,$arg,$next)
+    {
+        /* argument doesn't contain value and next argument is option */
+        return ( ! $arg->containsOptionValue() 
+                            && ( $next !== null && $next->isOption() ) );
+    }
+
     function parse($argv)
     {
         $result = new OptionResult;
@@ -116,32 +139,40 @@ class GetOptionKit
             if( ! $arg->isOption() )
                 continue;
 
-            $next = new Argument( $args[$i] );
+            $next = new Argument( $argv[$i + 1] );
             $spec = $this->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("invalid option: " . $arg );
 
             if( $spec->isAttributeRequire() ) {
-                /* argument doesn't contain value and next argument is not option */
-                if( ! $arg->containsOptionValue() && $next->isOption() )
+
+                if( $this->checkValue($spec,$arg,$next) )
                     throw new Exception( "option {$arg->getOptionName()} require a value." );
 
-                if( $arg->containsOptionValue() )
-                    $spec->value = $arg->getOptionValue();
-                else
-                    $spec->value = $next->arg;
-                $i++;
+                $this->takeOptionValue($spec,$arg,$next);
+                if( ! $next->isOption() )
+                    $i++;
                 $result->{ $spec->getId() } = $spec;
             }
             elseif( $spec->isAttributeMultiple() ) {
-
+                $this->pushOptionValue($spec,$arg,$next);
+                if( $next->isOption() )
+                    $i++;
+                $result->{ $spec->getId() } = $spec;
             }
             elseif( $spec->isAttributeOptional() ) {
-
+                $result->{ $spec->getId() } = $spec;
+                $this->takeOptionValue($spec,$arg,$next);
+                if( $spec->value && ! $next->isOption() )
+                    $i++;
+                $result->{ $spec->getId() } = $spec;
             }
             elseif( $spec->isAttributeFlag() ) {
                 $spec->value = true;
                 $result->{ $spec->getId() } = $spec;
+            }
+            else {
+                throw new Exception('Unknown attribute.');
             }
         }
         return $result;

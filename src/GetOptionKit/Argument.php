@@ -45,12 +45,12 @@ class Argument
 
     function containsOptionValue()
     {
-        return preg_match('/=\S+/',$this->arg);
+        return preg_match('/=.+/',$this->arg);
     }
 
     function getOptionValue()
     {
-        if( preg_match('/=(\S+)/',$this->arg,$regs) ) {
+        if( preg_match('/=(.+)/',$this->arg,$regs) ) {
             return $regs[1];
         }
     }
