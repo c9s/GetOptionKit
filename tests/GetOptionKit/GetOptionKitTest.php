@@ -39,6 +39,26 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $spec->isAttributeFlag() );
     }
 
+    function testRequire()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'f|foo:' , 'option require value' );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
+        $opt->add( 'z|zoo?' , 'option with optional value' );
+        $opt->add( 'v|verbose' , 'verbose message' );
+        $opt->add( 'd|debug'   , 'debug message' );
+
+        // option required a value should throw an exception
+        try {
+            $result = $opt->parse( array( 'program' , '-f' , '-v' , '-d' ) );
+        }
+        catch (Exception $e) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
     function test()
     {
         $opt = new \GetOptionKit\GetOptionKit;
@@ -77,15 +97,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $result = $opt->parse( array( 'program' , '-vd' ) );
         ok( $result->verbose );
         ok( $result->debug );
-
-        // option required a value should throw an exception
-        try {
-            $result = $opt->parse( array( 'program' , '-f' , '-v' , '-d' ) );
-        }
-        catch (Exception $e) {
-            return;
-        }
-        $this->fail('An expected exception has not been raised.');
     }
 
 
