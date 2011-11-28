@@ -60,6 +60,11 @@ specify value with equal sign:
     $spec = $result->debug;
     $spec->value;  # get value
 
+# Todo
+
+* Conflict option checking.
+* option valid value checking.
+
 # Command Line Utility Design Concept
 
 * main program name should be easy to type, easy to remember.
