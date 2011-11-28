@@ -9,19 +9,38 @@
  *
  */
 namespace GetOptionKit;
+use GetOptionKit\OptionSpecCollection;
 
 class OptionPrinter implements OptionPrinterInterface
 {
     public $specs;
 
-    function __construct( GetOptionKit\OptionSpecCollection $specs)
+    function __construct( OptionSpecCollection $specs)
     {
         $this->specs = $specs;
     }
 
-    function print()
+    function printOptions()
     {
+        echo "* Available options:\n";
+        foreach( $this->specs->all() as $spec ) 
+        {
+            $line = str_repeat(' ',4);
+            if( $spec->short && $spec->long )
+                $line = $spec->short . ", " . $spec->long;
+            elseif( $spec->short )
+                $line = $spec->short;
+            elseif( $spec->long )
+                $line = $spec->long;
 
-
+            if( strlen($line) > 25 ) {
+                $line .= "\n";
+                $line .= str_repeat(26);
+                $line .= $spec->description;  # wrap text
+            } else {
+                $line = sprintf('% 26s %s',$line, $spec->description );
+            }
+            echo $line . "\n";
+        }
     }
 }

@@ -63,6 +63,8 @@ specify value with equal sign:
 
 ## Todo
 
+* Option Group
+* Named Option Value.
 * Conflict option checking.
 * option valid value checking.
 
