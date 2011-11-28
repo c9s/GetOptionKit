@@ -18,11 +18,15 @@ class OptionSpec
     public $description; /* description */
     public $key;  /* key to store values */
     public $value;
+    public $type;
 
     const attr_multiple = 1;
     const attr_optional = 2;
     const attr_require  = 4;
     const attr_flag     = 8;
+
+    const type_string   = 1;
+    const type_integer  = 1;
 
     function __construct()
     {
@@ -61,6 +65,15 @@ class OptionSpec
     }
 
 
+    function setTypeString()
+    {
+        $this->type = self::type_string;
+    }
+
+    function setTypeInteger()
+    {
+        $this->type = self::type_integer;
+    }
 
 
     function isAttributeFlag()

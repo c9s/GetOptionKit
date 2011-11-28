@@ -70,6 +70,18 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         count_ok(3,$result->bar->value);
     }
 
+    function testType()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
+        $result = $opt->parse(explode(' ','program -b 1 -b 2 --bar 3'));
+
+        ok( $result->bar );
+        count_ok(3,$result->bar->value);
+
+    }
+
     function test()
     {
         $opt = new \GetOptionKit\GetOptionKit;
