@@ -147,7 +147,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ob_clean();
         like( '/Available options/m', $content );
 
-        echo "\n".$content;
+        # echo "\n".$content;
     }
 
     function test()

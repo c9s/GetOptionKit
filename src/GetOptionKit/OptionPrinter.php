@@ -37,7 +37,7 @@ class OptionPrinter implements OptionPrinterInterface
                 $c1 .= ' <value>';
             }
             elseif( $spec->isAttributeMultiple() ) {
-                $c1 .= ' <value>';
+                $c1 .= ' <value>+';
             }
             elseif( $spec->isAttributeOptional() ) {
                 $c1 .= ' [<value>]';
