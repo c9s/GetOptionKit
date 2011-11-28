@@ -28,6 +28,16 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
         is( 'option' , $arg->getOptionName() );
     }
 
+    function test3()
+    {
+        $arg = new Argument( '-abc' );
+        ok( $arg->withExtraFlagOptions() );
+
+        $args = $arg->extractExtraFlagOptions();
+        ok( $args );
+        count_ok( 2, $args );
+    }
+
 
 }
 

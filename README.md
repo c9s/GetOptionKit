@@ -1,12 +1,12 @@
-CLIFramework SPEC
-=================
+GetOptionKit
+============
 
-# option spec
+# Option SPEC
 
-    v|verbose.  flag option
-    d|dir:      option require a value
+    v|verbose   flag option (with boolean value true)
+    d|dir:      option require a value (MUST require)
     d|dir+      option with multiple values.
-    d|dir?      optional value
+    d|dir?      option with optional value
     d           single character only option
     dir         long option name
 
@@ -25,12 +25,8 @@ specify value with equal sign:
     program.php -a=foo
     program.php --long=foo
 
-# Program Interface
+# Usage
 
-    x = new GetOptX;
-    x.option  "v|verbose" "verbose message" "key"
-    r = x.parse [ argv array .... ]
-    r.key
 
 
 

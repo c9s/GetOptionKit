@@ -139,6 +139,7 @@ class GetOptionKit
             if( ! $arg->isOption() )
                 continue;
 
+
             $next = new Argument( $argv[$i + 1] );
             $spec = $this->getSpec( $arg->getOptionName() );
             if( ! $spec )

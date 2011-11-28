@@ -55,6 +55,21 @@ class Argument
         }
     }
 
+    function withExtraFlagOptions()
+    {
+        return preg_match('/^-[a-zA-Z0-9]+/',$this->arg);
+    }
+
+    function extractExtraFlagOptions()
+    {
+        $args = array();
+        for($i=2;$i< strlen($this->arg); ++$i) {
+            $args[] = $this->arg[$i];
+        }
+        $this->arg = substr($this->arg,0,2); # -[a-z]
+        return $args;
+    }
+
     function __toString()
     {
         return $this->arg;

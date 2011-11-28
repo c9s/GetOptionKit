@@ -17,7 +17,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $opt );
 
         $opt->add( 'f|foo:' , 'option require value' );
-        $opt->add( 'b|bar+' , 'option require multiple value' );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
         $opt->add( 'z|zoo?' , 'option with optional value' );
         $opt->add( 'v|verbose' , 'verbose message' );
         $opt->add( 'd|debug'   , 'debug message' );
@@ -71,7 +71,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
             return;
         }
         $this->fail('An expected exception has not been raised.');
-
     }
 
 
