@@ -132,6 +132,33 @@ class OptionSpec
         $this->value[] = $value;
     }
 
+    function __toString()
+    {
+        $c1 = '';
+        if( $this->short && $this->long )
+            $c1 = sprintf('-%s, --%s',$this->short,$this->long);
+        elseif( $this->short )
+            $c1 = sprintf('-%s',$this->short);
+        elseif( $this->long )
+            $c1 = sprintf('--%s',$this->long );
+
+        if( $this->isAttributeRequire() ) {
+            $c1 .= ' <value>';
+        }
+        elseif( $this->isAttributeMultiple() ) {
+            $c1 .= ' <value>+';
+        }
+        elseif( $this->isAttributeOptional() ) {
+            $c1 .= ' [<value>]';
+        }
+        elseif( $this->isAttributeFlag() ) {
+
+        }
+
+        return sprintf("% 26s   %s",$c1,$this->description) 
+            . "\n" .  sprintf( str_repeat(' ',26) . "   *value => %s" , $this->value) . "\n";
+    }
+
 }
 
 

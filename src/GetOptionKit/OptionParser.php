@@ -78,9 +78,12 @@ class OptionParser
 
     function checkValue($spec,$arg,$next)
     {
+        if( ! $next )
+            return false;
+
         /* argument doesn't contain value and next argument is option */
         return ( ! $arg->containsOptionValue() 
-                            && ( $next !== null && $next->isOption() ) );
+                            && $next->isOption() );
     }
 
     function parse($argv)

@@ -9,15 +9,17 @@
  *
  */
 namespace GetOptionKit;
+use Iterator;
 
 
 /* 
  * define the getopt parsing result
  *
  */
-class OptionResult
+class OptionResult implements Iterator
 {
     public $keys = array();
+    private $currentKey;
 
     function __construct()
     {
@@ -32,6 +34,34 @@ class OptionResult
     function __set($key,$value)
     {
         $this->keys[ $key ] = $value;
+    }
+
+
+
+
+    function rewind() 
+    {
+        return reset($this->keys);
+    }
+
+    function current() 
+    {
+        return current($this->keys);
+    }
+
+    function key() 
+    {
+        return key($this->keys);
+    }
+
+    function next() 
+    {
+        return next($this->keys);
+    }
+
+    function valid() 
+    {
+        return key($this->keys) !== null;
     }
 }
 
