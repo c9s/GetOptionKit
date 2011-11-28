@@ -11,7 +11,7 @@
 class GetOptionKitTest extends PHPUnit_Framework_TestCase 
 {
 
-    function test()
+    function testSpec()
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
@@ -37,6 +37,18 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         is( 'debug', $spec->long );
         is( 'd', $spec->short );
         ok( $spec->isAttributeFlag() );
+    }
+
+    function test()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+
+        $opt->add( 'f|foo:' , 'option require value' );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
+        $opt->add( 'z|zoo?' , 'option with optional value' );
+        $opt->add( 'v|verbose' , 'verbose message' );
+        $opt->add( 'd|debug'   , 'debug message' );
 
         $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
         ok( $result );
