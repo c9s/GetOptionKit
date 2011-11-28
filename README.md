@@ -42,7 +42,8 @@ specify value with equal sign:
     use GetOptionKit\GetOptionKit;
 
     $getopt = new GetOptionKit;
-    $getopt->add( 'f|foo:' , 'option require value' );
+    $spec = $getopt->add( 'f|foo:' , 'option require value' );  # returns spec object.
+
     $getopt->add( 'b|bar+' , 'option with multiple value' );
     $getopt->add( 'z|zoo?' , 'option with optional value' );
 
