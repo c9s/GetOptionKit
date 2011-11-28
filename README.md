@@ -4,7 +4,7 @@ CLIFramework SPEC
 # option spec
 
     v|verbose.  flag option
-    d|dir:      option with a value.
+    d|dir:      option require a value
     d|dir+      option with multiple values.
     d|dir?      optional value
     d           single character only option

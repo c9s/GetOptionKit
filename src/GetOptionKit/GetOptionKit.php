@@ -9,37 +9,49 @@
  *
  */
 namespace GetOptionKit;
+use GetOptionKit\OptionSpec;
 
 class GetOptionKit 
 {
-    public $options;
-    public $descriptions;
-
-    const OPT_MULTIPLE = 1;
-    const OPT_OPTIONAL = 2;
-    const OPT_REQUIRE  = 4;
-    const OPT_FLAG     = 8;
+    public $specs;
+    public $longOptions;
+    public $shortOptions;
 
     function __construct()
     {
-        $this->options = array();
-        $this->descriptions = array();
+        $this->specs = array();
+        $this->longOptions = array();
+        $this->shortOptions = array();
     }
 
-    function parseSpec($spec)
+    function parseSpec($specString)
     {
-        $options = 0;
-
         $pattern = '/
         ([a-zA-Z0-9]+)
-        (?:([a-zA-Z0-9-]+))?
+        (?:\|([a-zA-Z0-9-]+))?
         ([:+?])?
-        (=[si])?
+        (?:=([si]))?
         /x';
-        if( preg_match( $pattern, $spec , $regs ) ) {
-            list($short,$long,$options,$type) = $regs;
+        if( preg_match( $pattern, $specString , $regs ) ) {
+            list($orig,$short,$long,$attributes,$type) = $regs;
 
+            $spec = new OptionSpec;
+            $spec->short = $short;
+            $spec->long  = $long;
 
+            if( strpos($attributes,':') !== false ) {
+                $spec->setAttributeRequire();
+            }
+            elseif( strpos($attributes,'+') !== false ) {
+                $spec->setAttributeMultiple();
+            }
+            elseif( strpos($attributes,'?') !== false ) {
+                $spec->setAttributeOptional();
+            } 
+            else {
+                $spec->setAttributeFlag();
+            }
+            return $spec;
         }
         else {
             throw new Exception( "Unknown spec string" );
@@ -49,8 +61,24 @@ class GetOptionKit
     function add( $spec, $description , $key = null ) 
     {
         // parse spec
-        $this->parseSpec($spec);
+        $spec = $this->parseSpec($spec);
+        $spec->description = $description;
+        $spec->key = $key;
+        $this->specs[ $spec->getId() ] = $spec;
 
+        if( $spec->long )
+            $this->longOptions[ $spec->long ] = $spec;
+        elseif( $spec->short )
+            $this->longOptions[ $spec->short ] = $spec;
+        else
+            throw new Exception;
+    }
+
+
+    /* get spec by spec id */
+    function get($id)
+    {
+        return @$this->specs[ $id ];
     }
 
     function parse($argv)

@@ -30,12 +30,20 @@ function is( $expected , $v , $msg = null )
     $testobj->assertEquals( $expected , $v , $msg );
 }
 
+function is_class( $expected , $v , $msg = null )
+{
+    $stacks = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT ); # XXX: limit is only availabel in PHP5.4
+    $testobj = $stacks[1]['object'];
+    $testobj->assertInstanceOf( $expected , $v , $msg );
+}
+
 function count_ok( $expected,$v, $msg = null ) 
 {
     $stacks = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT ); # XXX: limit is only availabel in PHP5.4
     $testobj = $stacks[1]['object'];
     $testobj->assertCount( $expected , $v , $msg );
 }
+
 
 function like( $e, $v , $msg = null )
 {
