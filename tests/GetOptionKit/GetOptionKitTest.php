@@ -59,6 +59,17 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $this->fail('An expected exception has not been raised.');
     }
 
+    function testMultiple()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
+        $result = $opt->parse(explode(' ','program -b 1 -b 2 --bar 3'));
+
+        ok( $result->bar );
+        count_ok(3,$result->bar->value);
+    }
+
     function test()
     {
         $opt = new \GetOptionKit\GetOptionKit;
