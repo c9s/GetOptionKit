@@ -9,5 +9,8 @@
  *
  */
 require 'SplClassLoader.php';
+require 'tests/helpers.php';
 $classLoader = new SplClassLoader( null, dirname(__DIR__) . '/src' );
 $classLoader->register();
+
+

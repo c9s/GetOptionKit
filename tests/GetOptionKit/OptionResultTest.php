@@ -12,10 +12,10 @@
 class OptionResultTest extends PHPUnit_Framework_TestCase 
 {
 
-    function test()
+    function testOption()
     {
-
-
+        $option = new \GetOptionKit\OptionResult;
+        ok( $option );
     }
 
 }

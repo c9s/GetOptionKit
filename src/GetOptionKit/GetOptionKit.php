@@ -28,19 +28,28 @@ class GetOptionKit
 
     function parseSpec($spec)
     {
-        $opt_multiple = false;
-        $opt_optional = false;
-        $opt_flag     = false;
+        $options = 0;
 
-        // explode('|',$spec);
-        // strrpos($spec,'?')
+        $pattern = '/
+        ([a-zA-Z0-9]+)
+        (?:([a-zA-Z0-9-]+))?
+        ([:+?])?
+        (=[si])?
+        /x';
+        if( preg_match( $pattern, $spec , $regs ) ) {
+            list($short,$long,$options,$type) = $regs;
 
+
+        }
+        else {
+            throw new Exception( "Unknown spec string" );
+        }
     }
 
     function add( $spec, $description , $key = null ) 
     {
         // parse spec
-
+        $this->parseSpec($spec);
 
     }
 
