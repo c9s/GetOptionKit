@@ -25,27 +25,7 @@ class OptionPrinter implements OptionPrinterInterface
         echo "* Available options:\n";
         foreach( $this->specs->all() as $spec ) 
         {
-            $c1 = '';
-            if( $spec->short && $spec->long )
-                $c1 = sprintf('-%s, --%s',$spec->short,$spec->long);
-            elseif( $spec->short )
-                $c1 = sprintf('-%s',$spec->short);
-            elseif( $spec->long )
-                $c1 = sprintf('--%s',$spec->long );
-
-            if( $spec->isAttributeRequire() ) {
-                $c1 .= ' <value>';
-            }
-            elseif( $spec->isAttributeMultiple() ) {
-                $c1 .= ' <value>+';
-            }
-            elseif( $spec->isAttributeOptional() ) {
-                $c1 .= ' [<value>]';
-            }
-            elseif( $spec->isAttributeFlag() ) {
-            }
-
-
+            $c1 = $spec->getSpecString();
             if( strlen($c1) > 24 ) {
                 $line = sprintf('% 24s', $c1) . "\n" . str_repeat(26) . $spec->description;  # wrap text
             } else {
