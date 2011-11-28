@@ -9,7 +9,7 @@ testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
-# Option SPEC
+## Option SPEC
 
     v|verbose   flag option (with boolean value true)
     d|dir:      option require a value (MUST require)
@@ -22,7 +22,7 @@ GetOptionKit is object-oriented, it's flexible and extendable.
     d           single character only option
     dir         long option name
 
-# Supported formats
+## Supported formats
 
     program.php -a -b -c
     program.php -abc
@@ -37,7 +37,7 @@ specify value with equal sign:
     program.php -a=foo
     program.php --long=foo
 
-# Synopsis
+## Synopsis
 
     use GetOptionKit\GetOptionKit;
 
@@ -61,19 +61,19 @@ specify value with equal sign:
     $spec = $result->debug;
     $spec->value;  # get value
 
-# Todo
+## Todo
 
 * Conflict option checking.
 * option valid value checking.
 
-# Command Line Utility Design Concept
+## Command Line Utility Design Concept
 
 * main program name should be easy to type, easy to remember.
 * subcommand should be easy to type, easy to remember. length should be shorter than 7 characters.
 * options should always have long descriptive name
 * a program should be easy to check usage.
 
-# General command interface
+## General command interface
 
 To list usage of all subcommands or the program itself:
 
