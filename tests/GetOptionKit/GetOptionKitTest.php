@@ -22,12 +22,21 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'v|verbose' , 'verbose message' );
         $opt->add( 'd|debug'   , 'debug message' );
 
+        $spec = $opt->get('foo');
+        ok( $spec->isAttributeRequire() );
+
+        $spec = $opt->get('bar');
+        ok( $spec->isAttributeMultiple() );
+
+        $spec = $opt->get('zoo');
+        ok( $spec->isAttributeOptional() );
+
         $spec = $opt->get( 'debug' );
         ok( $spec );
         is_class( 'GetOptionKit\\OptionSpec', $spec );
         is( 'debug', $spec->long );
         is( 'd', $spec->short );
-
+        ok( $spec->isAttributeFlag() );
 
         $result = $opt->parse( array( 'program' , '-v' , '-d' ) );
 #          ok( $result );

@@ -58,6 +58,8 @@ class OptionSpec
         $this->attributes = self::attr_flag;
     }
 
+
+
     function isAttributeFlag()
     {
         return $this->attributes & self::attr_flag;
@@ -77,7 +79,6 @@ class OptionSpec
     {
         return $this->attributes & self::attr_optional;
     }
-
 
 }
 
