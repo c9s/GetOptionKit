@@ -119,6 +119,22 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->bar );
     }
 
+    function testSpecCollection()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+
+        $opt->add( 'f|foo:' , 'option require value' );
+        $opt->add( 'b|bar+' , 'option with multiple value' );
+        $opt->add( 'z|zoo?' , 'option with optional value' );
+        $opt->add( 'v|verbose' , 'verbose message' );
+        $opt->add( 'd|debug'   , 'debug message' );
+
+        ok( $opt->specs->all() );
+        ok( $opt->specs );
+        ok( $opt->getSpecs() );
+    }
+
     function test()
     {
         $opt = new \GetOptionKit\GetOptionKit;

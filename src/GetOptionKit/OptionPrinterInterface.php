@@ -10,17 +10,9 @@
  */
 namespace GetOptionKit;
 
-class OptionPrinter implements OptionPrinterInterface
+interface OptionPrinterInterface 
 {
-    public $specs;
-
-    function __construct($specs = array())
-    {
-        $this->specs = $specs;
-    }
-
-    function getSpecArray()
-    {
-    }
 
 }
+
+

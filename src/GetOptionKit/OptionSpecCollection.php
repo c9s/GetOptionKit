@@ -35,6 +35,11 @@ class OptionSpecCollection
         return count($this->data);
     }
 
+    function all()
+    {
+        return $this->data;
+    }
+
     function toArray()
     {
         $array = array();

@@ -22,6 +22,7 @@ class GetOptionKit
         $this->specs = new OptionSpecCollection;
     }
 
+
     function parseSpec($specString)
     {
         $pattern = '/
@@ -66,6 +67,14 @@ class GetOptionKit
         }
     }
 
+
+    /* add option specification from string spec 
+     *
+     * @param $spec string
+     * @param $description string
+     * @param $key
+     *
+     * */
     function add( $spec, $description , $key = null ) 
     {
         // parse spec
@@ -76,15 +85,28 @@ class GetOptionKit
         return $spec;
     }
 
+    /* get option specification by Id */
     function get($id)
     {
         return $this->specs->get($id);
+    }
+
+    /* get all option specification */
+    function getSpecs()
+    {
+        return $this->specs;
     }
 
     function parse( $argv ) 
     {
         $parser = new OptionParser( $this->specs->data );
         return $parser->parse( $argv );
+    }
+
+    function printSpecs( GetOptionKit\OptionPrinterInterface $class = 'GetOptionKit\OptionPrinter')
+    {
+        $printer = new $class;
+
     }
 }
 
