@@ -124,7 +124,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
 
-        $opt->add( 'f|foo:' , 'option require value' );
+        $opt->add( 'f|foo:' , 'option requires a value' );
         $opt->add( 'b|bar+' , 'option with multiple value' );
         $opt->add( 'z|zoo?' , 'option with optional value' );
         $opt->add( 'v|verbose' , 'verbose message' );
@@ -133,6 +133,10 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $opt->specs->all() );
         ok( $opt->specs );
         ok( $opt->getSpecs() );
+
+        count_ok( 5 , $array = $opt->specs->toArray() );
+        ok( isset($array[0]['long'] ));
+        ok( isset($array[0]['short'] ));
     }
 
     function test()
