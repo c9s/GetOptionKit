@@ -10,13 +10,7 @@
  */
 
 namespace GetOptionKit;
-
-use Exception;
-
-class NonNumericException extends Exception
-{
-
-}
+use GetOptionKit\NonNumericException;
 
 class OptionSpec 
 {
@@ -113,7 +107,7 @@ class OptionSpec
         return $this->type & self::type_integer;
     }
 
-    function setValue($value)
+    function checkType($value)
     {
         if( $this->type !== null ) {
             // check type constraints
@@ -123,12 +117,19 @@ class OptionSpec
                 $value = (int) $value;
             }
         }
+        return $value;
+    }
+
+    function setValue($value)
+    {
+        $value = $this->checkType($value);
         $this->value = $value;
     }
 
     function pushValue($value)
     {
-
+        $value = $this->checkType($value);
+        $this->value[] = $value;
     }
 
 }

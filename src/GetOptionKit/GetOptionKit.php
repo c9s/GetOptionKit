@@ -84,6 +84,7 @@ class GetOptionKit
             $this->longOptions[ $spec->short ] = $spec;
         if( ! $spec->long && ! $spec->short )
             throw new Exception('Wrong option spec');
+        return $spec;
     }
 
 
@@ -130,9 +131,9 @@ class GetOptionKit
     function pushOptionValue($spec,$arg,$next)
     {
         if( $arg->containsOptionValue() )
-            $spec->value[] = $arg->getOptionValue();
+            $spec->pushValue( $arg->getOptionValue() );
         elseif( ! $next->isOption() ) 
-            $spec->value[] = $next->arg;
+            $spec->pushValue( $next->arg );
     }
 
     function checkValue($spec,$arg,$next)
