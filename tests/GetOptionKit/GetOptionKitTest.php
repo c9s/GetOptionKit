@@ -39,9 +39,14 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $spec->isAttributeFlag() );
 
         $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
-#          ok( $result );
-#          ok( $result->verbose );
-#          ok( $result->debug );
+
+        ok( $result );
+        ok( $result->foo );
+        ok( $result->verbose );
+        ok( $result->debug );
+
+        $foo = $result->foo;
+
     }
 
 

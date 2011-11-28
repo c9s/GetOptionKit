@@ -11,6 +11,7 @@
 namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
 use GetOptionKit\OptionResult;
+use Exception;
 
 class GetOptionKit 
 {
@@ -69,10 +70,10 @@ class GetOptionKit
 
         if( $spec->long )
             $this->longOptions[ $spec->long ] = $spec;
-        elseif( $spec->short )
+        if( $spec->short )
             $this->longOptions[ $spec->short ] = $spec;
-        else
-            throw new Exception;
+        if( ! $spec->long && ! $spec->short )
+            throw new Exception('Wrong option spec');
     }
 
 
@@ -93,6 +94,14 @@ class GetOptionKit
         return @$this->specs[ $id ];
     }
 
+    function getSpec($name)
+    {
+        if( isset($this->longOptions[ $name ] ))
+            return $this->longOptions[ $name ];
+        if( isset($this->shortOptions[ $name ] ))
+            return $this->shortOptions[ $name ];
+    }
+
     function isOption($arg)
     {
         return substr($arg,0,1) === '-';
@@ -104,30 +113,38 @@ class GetOptionKit
         $len = count($argv);
         for( $i = 0; $i < $len; ++$i ) {
             $arg = new Argument( $argv[$i] );
+            if( ! $arg->isOption() )
+                continue;
+
             $next = new Argument( $args[$i] );
-            if( $arg->isLongOption() ) {
-                $spec = $this->getLongOptionSpec($arg->getOptionName());
-                if( $spec->isAttributeRequire() ) {
-                    if( $next->isOption() )
-                        throw new Exception( "option {$arg->getOptionName()} require a value." );
-                    $i++;
-                }
-                elseif( $spec->isAttributeMultiple() ) {
+            $spec = $this->getSpec( $arg->getOptionName() );
+            if( ! $spec )
+                throw new Exception("invalid option: " . $arg );
 
-                }
-                elseif( $spec->isAttributeOptional() ) {
+            if( $spec->isAttributeRequire() ) {
+                /* argument doesn't contain value and next argument is not option */
+                if( ! $arg->containsOptionValue() && $next->isOption() )
+                    throw new Exception( "option {$arg->getOptionName()} require a value." );
 
-                }
-                elseif( $spec->isAttributeFlag() ) {
-
-                }
+                if( $arg->containsOptionValue() )
+                    $spec->value = $arg->getOptionValue();
+                else
+                    $spec->value = $next->arg;
+                $i++;
+                $result->{ $spec->getId() } = $spec;
             }
-            elseif( $arg->isShortOption() ) {
-                $spec = $this->getShortOptionSpec($arg->getOptionName());
+            elseif( $spec->isAttributeMultiple() ) {
 
             }
+            elseif( $spec->isAttributeOptional() ) {
 
+            }
+            elseif( $spec->isAttributeFlag() ) {
+                $spec->value = true;
+                $result->{ $spec->getId() } = $spec;
+            }
         }
+        return $result;
     }
 
 

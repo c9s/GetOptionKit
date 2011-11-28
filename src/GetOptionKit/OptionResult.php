@@ -26,19 +26,12 @@ class OptionResult
 
     function __get($key)
     {
-        return $this->keys[ $key ];
-    }
-
-    function __isset($key)
-    {
-        return isset( $this->keys[ $key ] );
+        return @$this->keys[ $key ];
     }
 
     function __set($key,$value)
     {
         $this->keys[ $key ] = $value;
     }
-
-
 }
 

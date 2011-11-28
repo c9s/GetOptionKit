@@ -54,6 +54,12 @@ class Argument
             return $regs[1];
         }
     }
+
+    function __toString()
+    {
+        return $this->arg;
+    }
 }
+
 
 
