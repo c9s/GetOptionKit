@@ -10,17 +10,16 @@
  */
 namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
+use GetOptionKit\OptionSpecCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\OptionParser;
 use Exception;
 
 class GetOptionKit 
 {
-    public $specs;
-
     function __construct()
     {
-        $this->specs = array();
+        $this->specs = new OptionSpecCollection;
     }
 
     function parseSpec($specString)
@@ -73,19 +72,18 @@ class GetOptionKit
         $spec = $this->parseSpec($spec);
         $spec->description = $description;
         $spec->key = $key;
-        $this->specs[ $spec->getId() ] = $spec;
+        $this->specs->add( $spec );
         return $spec;
     }
 
-    /* get spec by spec id */
     function get($id)
     {
-        return @$this->specs[ $id ];
+        return $this->specs->get($id);
     }
 
     function parse( $argv ) 
     {
-        $parser = new OptionParser( $this->specs );
+        $parser = new OptionParser( $this->specs->data );
         return $parser->parse( $argv );
     }
 }
