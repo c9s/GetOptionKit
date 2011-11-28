@@ -62,6 +62,7 @@ class OptionSpec
 
 
 
+
     function isAttributeFlag()
     {
         return $this->attributes & self::attr_flag;

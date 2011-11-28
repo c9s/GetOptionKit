@@ -43,6 +43,17 @@ class Argument
         }
     }
 
+    function containsOptionValue()
+    {
+        return preg_match('/=\S+/',$this->arg);
+    }
+
+    function getOptionValue()
+    {
+        if( preg_match('/=(\S+)/',$this->arg,$regs) ) {
+            return $regs[1];
+        }
+    }
 }
 
 

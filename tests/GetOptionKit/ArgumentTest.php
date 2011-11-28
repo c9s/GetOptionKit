@@ -20,6 +20,14 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
         is( 'option' , $arg->getOptionName() );
     }
 
+    function test2()
+    {
+        $arg = new Argument( '--option=value' );
+        ok( $arg->containsOptionValue() );
+        is( 'value' , $arg->getOptionValue() );
+        is( 'option' , $arg->getOptionName() );
+    }
+
 
 }
 
