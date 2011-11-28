@@ -32,7 +32,7 @@ class GetOptionKit
         ([a-zA-Z0-9]+)
         (?:\|([a-zA-Z0-9-]+))?
         ([:+?])?
-        (?:=([si]))?
+        (?:=([si]|string|integer))?
         /x';
         if( preg_match( $pattern, $specString , $regs ) ) {
             list($orig,$short,$long,$attributes,$type) = $regs;
@@ -55,10 +55,10 @@ class GetOptionKit
             }
 
             if( $type ) {
-                if( $type === 's' ) {
+                if( $type === 's' || $type === 'string' ) {
                     $spec->setTypeString();
                 }
-                elseif( $type === 'i' ) {
+                elseif( $type === 'i' || $type === 'integer' ) {
                     $spec->setTypeInteger();
                 }
             }
