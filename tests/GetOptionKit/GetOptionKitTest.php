@@ -115,8 +115,14 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $spec = $opt->get('bar');
         ok( $spec->isTypeString() );
 
-        $result = $opt->parse(explode(' ','program -b text'));
+        $result = $opt->parse(explode(' ','program -b text arg1 arg2 arg3'));
         ok( $result->bar );
+
+        $args = $result->getArguments();
+        ok( $args );
+        count_ok( 3,$args);
+
+        ok( $result->program );
     }
 
     function testSpecCollection()

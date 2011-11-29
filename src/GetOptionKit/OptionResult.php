@@ -10,7 +10,8 @@
  */
 namespace GetOptionKit;
 use Iterator;
-
+use GetOptionKit\Argument;
+use GetOptionKit\OptionSpec;
 
 /* 
  * define the getopt parsing result
@@ -18,8 +19,17 @@ use Iterator;
  */
 class OptionResult implements Iterator
 {
+
+    /* option specs , key => spec object */
     public $keys = array();
+
     private $currentKey;
+
+    /* arguments */
+    public $arguments = array();
+
+    /* program name */
+    public $program;
 
     function __construct()
     {
@@ -36,9 +46,30 @@ class OptionResult implements Iterator
         $this->keys[ $key ] = $value;
     }
 
+    function set($key, OptionSpec $value)
+    {
+        $this->keys[ $key ] = $value;
+    }
+
+
+    function setProgram( $program )
+    {
+        $this->program = $program;
+    }
+
+    function addArgument( Argument $arg)
+    {
+        $this->arguments[] = $arg;
+    }
+
+    function getArguments()
+    {
+        return $this->arguments;
+    }
 
 
 
+    /* iterator methods */
     function rewind() 
     {
         return reset($this->keys);
@@ -63,5 +94,6 @@ class OptionResult implements Iterator
     {
         return key($this->keys) !== null;
     }
+
 }
 

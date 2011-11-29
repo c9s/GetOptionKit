@@ -90,10 +90,15 @@ class OptionParser
     {
         $result = new OptionResult;
         $len = count($argv);
-        for( $i = 0; $i < $len; ++$i ) {
+        $result->setProgram( $argv[0] );
+
+        for( $i = 1; $i < $len; ++$i ) 
+        {
             $arg = new Argument( $argv[$i] );
-            if( ! $arg->isOption() )
+            if( ! $arg->isOption() ) {
+                $result->addArgument( $arg );
                 continue;
+            }
 
             // if the option is with extra flags,
             //   split it out, and insert into the argv array
@@ -108,35 +113,34 @@ class OptionParser
             $next = new Argument( $argv[$i + 1] );
             $spec = $this->getSpec( $arg->getOptionName() );
             if( ! $spec )
-                throw new Exception("invalid option: " . $arg );
+                throw new Exception("Invalid option: " . $arg );
 
 
             if( $spec->isAttributeRequire() ) {
 
                 if( $this->checkValue($spec,$arg,$next) )
-                    throw new Exception( "option {$arg->getOptionName()} require a value." );
+                    throw new Exception( "Option {$arg->getOptionName()} require a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
                 if( ! $next->isOption() )
                     $i++;
-                $result->{ $spec->getId() } = $spec;
+                $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isAttributeMultiple() ) {
                 $this->pushOptionValue($spec,$arg,$next);
                 if( $next->isOption() )
                     $i++;
-                $result->{ $spec->getId() } = $spec;
+                $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeOptional() ) {
-                $result->{ $spec->getId() } = $spec;
                 $this->takeOptionValue($spec,$arg,$next);
                 if( $spec->value && ! $next->isOption() )
                     $i++;
-                $result->{ $spec->getId() } = $spec;
+                $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeFlag() ) {
                 $spec->value = true;
-                $result->{ $spec->getId() } = $spec;
+                $result->set( $spec->getId() , $spec);
             }
             else {
                 throw new Exception('Unknown attribute.');
