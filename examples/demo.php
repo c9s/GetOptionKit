@@ -9,7 +9,7 @@
  *
  */
 require 'SplClassLoader.php';
-$classLoader = new SplClassLoader( null, 'src' );
+$classLoader = new SplClassLoader;
 $classLoader->register();
 
 
