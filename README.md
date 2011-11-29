@@ -4,7 +4,7 @@ GetOptionKit
 A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
 multiple flag, multiple values, required value checking.
 
-GetOptionKit is designed based on PHP5.3, with fine unit testing with PHPUnit
+GetOptionKit is based on PHP5.3, with fine unit testing with PHPUnit
 testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
