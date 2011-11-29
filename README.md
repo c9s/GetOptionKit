@@ -9,6 +9,12 @@ testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
+## Install
+
+    git clone git://github.com/c9s/GetOptionKit.git
+    cd GetOptionKit
+    sudo pear install -f package.xml
+
 ## Option SPEC
 
     v|verbose    flag option (with boolean value true)
