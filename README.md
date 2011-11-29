@@ -11,16 +11,16 @@ GetOptionKit is object-oriented, it's flexible and extendable.
 
 ## Option SPEC
 
-    v|verbose   flag option (with boolean value true)
-    d|dir:      option require a value (MUST require)
-    d|dir+      option with multiple values.
-    d|dir?      option with optional value
-    dir=s       option with type constraint of string
-    dir=string  option with type constraint of string
-    dir=i       option with type constraint of integer
-    dir=integer option with type constraint of integer
-    d           single character only option
-    dir         long option name
+    v|verbose    flag option (with boolean value true)
+    d|dir:       option require a value (MUST require)
+    d|dir+       option with multiple values.
+    d|dir?       option with optional value
+    dir:=s       option with type constraint of string
+    dir:=string  option with type constraint of string
+    dir:=i       option with type constraint of integer
+    dir:=integer option with type constraint of integer
+    d            single character only option
+    dir          long option name
 
 ## Supported formats
 
