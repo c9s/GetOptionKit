@@ -9,12 +9,17 @@ testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
+
+## Requirements
+
+* PHP 5.3
+* PEAR
+
 ## Install
 
     git clone git://github.com/c9s/GetOptionKit.git
     cd GetOptionKit
     sudo pear install -f package.xml
-
 
 ## Supported formats
 
