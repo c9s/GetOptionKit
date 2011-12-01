@@ -1,5 +1,58 @@
 <?xml version="1.0"?>
 <package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.4.10" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0                                 http://pear.php.net/dtd/tasks-1.0.xsd                                 http://pear.php.net/dtd/package-2.0                                 http://pear.php.net/dtd/package-2.0.xsd">
-            <name>GetOptionKit</name><channel>pear.corneltek.com</channel><summary>A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
-multiple flag, multiple values, required value checking.</summary><description>A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
-multiple flag, multiple values, required value checking.</description><lead><name>Yo-An Lin</name><user>c9s</user><email>cornelius.howl@gmail.com</email><active>1</active></lead><date>2011-11-29</date><time>16:01:31</time><version><release>0.0.1</release><api>0.0.1</api></version><stability><release>alpha</release><api>alpha</api></stability><license>PHP LICENSE</license><notes>-</notes><contents><dir name="/"><file install-as="GetOptionKit/Argument.php" name="src/GetOptionKit/Argument.php" role="php" md5sum="b8ec8849196381f9992f4d43169d8178"/><file install-as="GetOptionKit/GetOptionKit.php" name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="d9f18643d4e502b70d4dedcceefe93d7"/><file install-as="GetOptionKit/NonNumericException.php" name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/><file install-as="GetOptionKit/OptionParser.php" name="src/GetOptionKit/OptionParser.php" role="php" md5sum="ae7a4eb2d896e2e14412ed9d50a772c0"/><file install-as="GetOptionKit/OptionPrinter.php" name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="80c990c3c3edb306150f40d3eff1f2c2"/><file install-as="GetOptionKit/OptionPrinterInterface.php" name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/><file install-as="GetOptionKit/OptionResult.php" name="src/GetOptionKit/OptionResult.php" role="php" md5sum="bfc43ecb3915d48dd4b4ea0222ee903c"/><file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="6bb4f9c1a7dedf0ba4153aa3e98cf708"/><file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="bfe50d1ebf8e6ed8f063f4251e07bef0"/><file install-as="GetOptionKit/SplClassLoader.php" name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/></dir></contents><dependencies><required><php><min>5.3</min></php><pearinstaller><min>1.4.1</min></pearinstaller><extension><name>reflection</name></extension><extension><name>ctype</name></extension><extension><name>pcre</name></extension></required></dependencies><phprelease/></package>
+  <name>GetOptionKit</name>
+  <channel>pear.corneltek.com</channel>
+  <summary>A powerful GetOpt toolkit for PHP, which supports type constraints, flag,</summary>
+  <description>A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
+multiple flag, multiple values, required value checking.</description>
+  <lead>
+    <name>Yo-An Lin (c9s)</name>
+    <user/>
+    <email>cornelius.howl@gmail.com</email>
+    <active>1</active>
+  </lead>
+  <date>2011-12-01</date>
+  <time>16:24:51</time>
+  <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+  </version>
+  <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+  </stability>
+  <license>PHP LICENSE</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <file install-as="GetOptionKit/Argument.php" name="src/GetOptionKit/Argument.php" role="php" md5sum="b8ec8849196381f9992f4d43169d8178"/>
+      <file install-as="GetOptionKit/GetOptionKit.php" name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="d9f18643d4e502b70d4dedcceefe93d7"/>
+      <file install-as="GetOptionKit/NonNumericException.php" name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/>
+      <file install-as="GetOptionKit/OptionParser.php" name="src/GetOptionKit/OptionParser.php" role="php" md5sum="ae7a4eb2d896e2e14412ed9d50a772c0"/>
+      <file install-as="GetOptionKit/OptionPrinter.php" name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="80c990c3c3edb306150f40d3eff1f2c2"/>
+      <file install-as="GetOptionKit/OptionPrinterInterface.php" name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
+      <file install-as="GetOptionKit/OptionResult.php" name="src/GetOptionKit/OptionResult.php" role="php" md5sum="bfc43ecb3915d48dd4b4ea0222ee903c"/>
+      <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="6bb4f9c1a7dedf0ba4153aa3e98cf708"/>
+      <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="bfe50d1ebf8e6ed8f063f4251e07bef0"/>
+      <file install-as="GetOptionKit/SplClassLoader.php" name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
+      <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="31ff26c54e739eb7843a5c90f80a20de"/>
+      <file install-as="GetOptionKit/ArgumentTest.php" name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
+      <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="17640b0ec9d94bae1490c9e7858836a1"/>
+      <file install-as="GetOptionKit/OptionResultTest.php" name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
+      <file install-as="helpers.php" name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
+      <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="94df8592a3913acdcb91cb9271429e57"/>
+      <file install-as="README.md" name="README.md" role="doc" md5sum="21a2669cce1ef624c59398015b40d045"/>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3</min>
+      </php>
+      <pearinstaller>
+        <min>1.4</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <phprelease/>
+</package>
