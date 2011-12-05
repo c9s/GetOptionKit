@@ -36,8 +36,34 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $spec_color = $specs->addFromSpecString('c|color');
         $spec_debug = $specs->addFromSpecString('d|debug');
 
-        $parser = new ContinuousOptionParser;
+        $parser = new ContinuousOptionParser( $specs );
         ok( $parser );
+
+        $result = $parser->parse(explode(' ','program -v -d test'));
+        ok( $parser->isEnd() );
+        ok( $result );
+        ok( $result->debug );
+        ok( $result->verbose );
+    }
+
+    function testParser3()
+    {
+        $specs = new OptionSpecCollection;
+        $specs->addFromSpecString('v|verbose');
+        $specs->addFromSpecString('c|color');
+        $specs->addFromSpecString('d|debug');
+        $specs->addFromSpecString('a');
+        $specs->addFromSpecString('b');
+        $specs->addFromSpecString('c');
+
+        $parser = new ContinuousOptionParser( $specs );
+        ok( $parser );
+
+        $result = $parser->parse(explode(' ','program -v -d test'));
+        ok( $parser->isEnd() );
+        ok( $result );
+        ok( $result->debug );
+        ok( $result->verbose );
     }
 }
 

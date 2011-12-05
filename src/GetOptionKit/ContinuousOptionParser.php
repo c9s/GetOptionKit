@@ -33,11 +33,15 @@ class ContinuousOptionParser extends OptionParser
         $this->index = 1;
     }
 
-    function isEnd()
+    function startFrom($index)
     {
-        return $this->index >= $length;
+        $this->index = $index;
     }
 
+    function isEnd()
+    {
+        return $this->index + 1 >= $length;
+    }
 
     function parse($argv)
     {

@@ -125,6 +125,22 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->program );
     }
 
+
+    function testSpec2()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        ok( $opt );
+        $opt->add( 'long'   , 'long option name only.' );
+        $opt->add( 'a'   , 'short option name only.' );
+        $opt->add( 'b'   , 'short option name only.' );
+        ok( $opt->specs->all() );
+        ok( $opt->specs );
+        ok( $opt->getSpecs() );
+        ok( $result = $opt->parse(explode(' ','program -a -b --long')) );
+        ok( $result->a );
+        ok( $result->b );
+    }
+
     function testSpecCollection()
     {
         $opt = new \GetOptionKit\GetOptionKit;
