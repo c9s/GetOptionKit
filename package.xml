@@ -12,7 +12,7 @@ multiple flag, multiple values, required value checking.</description>
     <active>1</active>
   </lead>
   <date>2011-12-06</date>
-  <time>01:50:09</time>
+  <time>02:11:13</time>
   <version>
     <release>0.0.2</release>
     <api>0.0.2</api>
@@ -26,20 +26,21 @@ multiple flag, multiple values, required value checking.</description>
   <contents>
     <dir name="/">
       <file install-as="GetOptionKit/Argument.php" name="src/GetOptionKit/Argument.php" role="php" md5sum="b8ec8849196381f9992f4d43169d8178"/>
-      <file install-as="GetOptionKit/ContinuousOptionParser.php" name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="0f48731343f23b637566031c57ba64e3"/>
-      <file install-as="GetOptionKit/GetOptionKit.php" name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="1550bcbb61d5af7b75fcb421a3a7bfd0"/>
+      <file install-as="GetOptionKit/ContinuousOptionKit.php" name="src/GetOptionKit/ContinuousOptionKit.php" role="php" md5sum="7b7f6a5ca0e180db4139f160b68195e7"/>
+      <file install-as="GetOptionKit/ContinuousOptionParser.php" name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="53838130a8a2d66acaffe7637a80a796"/>
+      <file install-as="GetOptionKit/GetOptionKit.php" name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="46740c8c152d3ff78ca3149b0e891eb4"/>
       <file install-as="GetOptionKit/NonNumericException.php" name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/>
-      <file install-as="GetOptionKit/OptionParser.php" name="src/GetOptionKit/OptionParser.php" role="php" md5sum="419fc1ac8e54b83c92e8b161e53a71eb"/>
+      <file install-as="GetOptionKit/OptionParser.php" name="src/GetOptionKit/OptionParser.php" role="php" md5sum="6c4aa598a7ccb70b6d55abdf0f4817db"/>
       <file install-as="GetOptionKit/OptionPrinter.php" name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="80c990c3c3edb306150f40d3eff1f2c2"/>
       <file install-as="GetOptionKit/OptionPrinterInterface.php" name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file install-as="GetOptionKit/OptionResult.php" name="src/GetOptionKit/OptionResult.php" role="php" md5sum="bfc43ecb3915d48dd4b4ea0222ee903c"/>
-      <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="7168341e3f0cb676d185879832c3a553"/>
-      <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="fd38054fc28f5d7aafa9d4064070231e"/>
+      <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="05c8cd5bddec61d0c1fd346155716b85"/>
+      <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="bb20654fbbc8dbb9993b1c02680d8146"/>
       <file install-as="GetOptionKit/SplClassLoader.php" name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
       <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="31ff26c54e739eb7843a5c90f80a20de"/>
       <file install-as="GetOptionKit/ArgumentTest.php" name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
       <file install-as="GetOptionKit/ContinuousOptionParserTest.php" name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="269b96c69626fd47c9fec10e530b38c9"/>
-      <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="6fa84ccf81369652e7bb52d32441f5da"/>
+      <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="0ce6df23b3b4b77d6f81eb35f4052864"/>
       <file install-as="GetOptionKit/OptionResultTest.php" name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
       <file install-as="helpers.php" name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
       <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="abaeb930e11819756a899d87cab4808e"/>
