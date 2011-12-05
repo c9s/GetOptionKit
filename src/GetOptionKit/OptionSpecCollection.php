@@ -19,16 +19,19 @@ class OptionSpecCollection
         $this->data = array();
     }
 
-    function addFromSpecString($specString)
+    function addFromSpecString($specString,$description = null,$key = null)
     {
         // parse spec
         $spec = new OptionSpec($specString);
-        $spec->description = $description;
+        if( $description )
+            $spec->description = $description;
+        if( $key )
+            $spec->key = $key;
         $this->add( $spec );
         return $spec;
     }
 
-    function add($spec)
+    function add($spec )
     {
         $this->data[ $spec->getId() ] = $spec;
     }
@@ -62,6 +65,15 @@ class OptionSpecCollection
             $array[] = $item;
         }
         return $array;
+    }
+
+    function printOptions( $class = 'GetOptionKit\OptionPrinter' )
+    {
+        $printer = new $class( $this );
+        if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {
+            throw new Exception("$class does not implement GetOptionKit\OptionPrinterInterface.");
+        }
+        $printer->printOptions();
     }
 
 }

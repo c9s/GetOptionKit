@@ -31,10 +31,7 @@ class GetOptionKit
      * */
     function add( $specString, $description , $key = null ) 
     {
-        $spec = $this->specs->addFromSpecString($specString);
-        $spec->description = $description;
-        if( $key )
-            $spec->key = $key;
+        $spec = $this->specs->addFromSpecString($specString,$description,$key);
         return $spec;
     }
 
@@ -58,11 +55,7 @@ class GetOptionKit
 
     function printOptions( $class = 'GetOptionKit\OptionPrinter' )
     {
-        $printer = new $class( $this->specs );
-        if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {
-            throw new Exception("$class does not implement GetOptionKit\OptionPrinterInterface.");
-        }
-        $printer->printOptions();
+        $this->specs->printOptions( $class );
     }
 }
 

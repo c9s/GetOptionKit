@@ -190,6 +190,16 @@ class OptionSpec
         $this->value[] = $value;
     }
 
+    function setDescription($desc)
+    {
+        $this->description = $desc;
+    }
+
+    function setKey($key)
+    {
+        $this->key = $key;
+    }
+
     function getReadableSpec()
     {
         $c1 = '';
