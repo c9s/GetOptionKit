@@ -26,6 +26,20 @@ class GetOptionKit
         $this->parser = new OptionParser( $this->specs );
     }
 
+    /* 
+     * return current parser 
+     * */
+    function getParser()
+    {
+        return $this->parser;
+    }
+
+    /* get all option specification */
+    function getSpecs()
+    {
+        return $this->specs;
+    }
+
     /* a helper to build option specification object from string spec 
      *
      * @param $specString string
@@ -45,11 +59,6 @@ class GetOptionKit
         return $this->specs->get($id);
     }
 
-    /* get all option specification */
-    function getSpecs()
-    {
-        return $this->specs;
-    }
 
     function parse( $argv ) 
     {

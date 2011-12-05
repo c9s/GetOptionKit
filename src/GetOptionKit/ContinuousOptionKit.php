@@ -19,11 +19,20 @@ use Exception;
 /* A wrapper class for continuous option parser */
 class ContinuousOptionKit extends GetOptionKit
 {
-    public $parser;
+    function __construct()
+    {
+        $this->specs = new OptionSpecCollection;
+        $this->parser = new ContinuousOptionParser( $this->specs );
+    }
 
     function parse( $argv ) 
     {
         return $this->parser->parse( $argv );
+    }
+
+    function isEnd()
+    {
+        return $this->parser->isEnd();
     }
 
     function continueParse()
