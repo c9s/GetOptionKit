@@ -22,82 +22,19 @@ class GetOptionKit
         $this->specs = new OptionSpecCollection;
     }
 
-
-    function parseSpec($specString)
-    {
-        $pattern = '/
-        (
-                (?:[a-zA-Z0-9]+)
-                (?:
-                    \|
-                    (?:[a-zA-Z0-9-]+)
-                )?
-        )
-        ([:+?])?
-        (?:=([si]|string|integer))?
-        /x';
-        if( preg_match( $pattern, $specString , $regs ) ) {
-            list($orig,$name,$attributes,$type) = $regs;
-
-            $short = null;
-            $long = null;
-            if( strpos($name,'|') !== false ) {
-                list($short,$long) = explode('|',$name);
-            } elseif( strlen($name) == 1 ) {
-                $short = $name;
-            } elseif( strlen($name) > 1 ) {
-                $long = $name;
-            }
-
-            $spec = new OptionSpec;
-
-            $spec->short = $short;
-            $spec->long   = $long;
-
-            if( strpos($attributes,':') !== false ) {
-                $spec->setAttributeRequire();
-            }
-            elseif( strpos($attributes,'+') !== false ) {
-                $spec->setAttributeMultiple();
-            }
-            elseif( strpos($attributes,'?') !== false ) {
-                $spec->setAttributeOptional();
-            } 
-            else {
-                $spec->setAttributeFlag();
-            }
-
-            if( $type ) {
-                if( $type === 's' || $type === 'string' ) {
-                    $spec->setTypeString();
-                }
-                elseif( $type === 'i' || $type === 'integer' ) {
-                    $spec->setTypeInteger();
-                }
-            }
-
-            return $spec;
-        }
-        else {
-            throw new Exception( "Unknown spec string" );
-        }
-    }
-
-
-    /* add option specification from string spec 
+    /* a helper to build option specification object from string spec 
      *
-     * @param $spec string
+     * @param $specString string
      * @param $description string
      * @param $key
      *
      * */
-    function add( $spec, $description , $key = null ) 
+    function add( $specString, $description , $key = null ) 
     {
-        // parse spec
-        $spec = $this->parseSpec($spec);
+        $spec = $this->specs->addFromSpecString($specString);
         $spec->description = $description;
-        $spec->key = $key;
-        $this->specs->add( $spec );
+        if( $key )
+            $spec->key = $key;
         return $spec;
     }
 

@@ -12,98 +12,55 @@ namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
+use GetOptionKit\OptionParser;
 use Exception;
 
-class OptionParser 
+/* 
+ * when parser meets arguments, 
+ * parser should take the arguments, save current index, and return the option result.
+ * when next parsing started, parser should start from last index, and return another option result.
+ *
+ * application is able to use isEnd() method to check the parser status.
+ * */
+class ContinuousOptionParser extends OptionParser
 {
-    public $specs;
-    public $longOptions;
-    public $shortOptions;
+    public $index;
+    public $length;
 
     function __construct($specs = array())
     {
-        if( is_a($specs,'\GetOptionKit\OptionSpecCollection') ) {
-            // typecast to array 
-            $specs = $specs->data;
-        }
-
-        $this->specs = $specs;
-        $this->longOptions = array();
-        $this->shortOptions = array();
-        foreach( $specs as $spec ) {
-            if( $spec->long )
-                $this->longOptions[ $spec->long ] = $spec;
-            if( $spec->short )
-                $this->longOptions[ $spec->short ] = $spec;
-            if( ! $spec->long && ! $spec->short )
-                throw new Exception('Wrong option spec');
-        }
+        parent::__construct($specs);
+        $this->index = 1;
     }
 
-    function getLongOption( $name )
+    function isEnd()
     {
-        return @$this->longOptions[ $name ];
+        return $this->index >= $length;
     }
 
-    function getShortOption( $name )
-    {
-        return @$this->shortOptions[ $name ];
-    }
-
-    function getSpec($name)
-    {
-        if( isset($this->longOptions[ $name ] ))
-            return $this->longOptions[ $name ];
-        if( isset($this->shortOptions[ $name ] ))
-            return $this->shortOptions[ $name ];
-    }
-
-    function isOption($arg)
-    {
-        return substr($arg,0,1) === '-';
-    }
-
-    function takeOptionValue($spec,$arg,$next)
-    {
-        if( $arg->containsOptionValue() ) {
-            $spec->setValue( $arg->getOptionValue() );
-        }
-        elseif( ! $next->isOption() )  {
-            $spec->setValue( $next->arg );
-        }
-    }
-
-    function pushOptionValue($spec,$arg,$next)
-    {
-        if( $arg->containsOptionValue() )
-            $spec->pushValue( $arg->getOptionValue() );
-        elseif( ! $next->isOption() ) 
-            $spec->pushValue( $next->arg );
-    }
-
-    function checkValue($spec,$arg,$next)
-    {
-        if( ! $next )
-            return false;
-
-        /* argument doesn't contain value and next argument is option */
-        return ( ! $arg->containsOptionValue() 
-                            && $next->isOption() );
-    }
 
     function parse($argv)
     {
+        // create new Result object.
         $result = new OptionResult;
-        $len = count($argv);
+        $this->length = count($argv);
         $result->setProgram( $argv[0] );
 
-        for( $i = 1; $i < $len; ++$i ) 
+        $gotArguments = false;
+
+        // from last parse index
+        for( $i = $this->index; $i < $this->length; ++$i ) 
         {
             $arg = new Argument( $argv[$i] );
             if( ! $arg->isOption() ) {
                 $result->addArgument( $arg );
+                $gotArguments = true;
                 continue;
             }
+            elseif( $gotArguments ) {
+                return $result;
+            }
+
 
             // if the option is with extra flags,
             //   split it out, and insert into the argv array
@@ -156,4 +113,6 @@ class OptionParser
         }
         return $result;
     }
+
+
 }

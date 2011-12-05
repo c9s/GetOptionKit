@@ -12,14 +12,14 @@ multiple flag, multiple values, required value checking.</description>
     <active>1</active>
   </lead>
   <date>2011-12-01</date>
-  <time>16:24:51</time>
+  <time>17:30:45</time>
   <version>
     <release>0.0.1</release>
     <api>0.0.1</api>
   </version>
   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>stable</release>
+    <api>stable</api>
   </stability>
   <license>PHP LICENSE</license>
   <notes>-</notes>

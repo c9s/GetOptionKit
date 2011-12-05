@@ -19,6 +19,15 @@ class OptionSpecCollection
         $this->data = array();
     }
 
+    function addFromSpecString($specString)
+    {
+        // parse spec
+        $spec = new OptionSpec($specString);
+        $spec->description = $description;
+        $this->add( $spec );
+        return $spec;
+    }
+
     function add($spec)
     {
         $this->data[ $spec->getId() ] = $spec;

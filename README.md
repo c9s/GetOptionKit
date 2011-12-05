@@ -104,7 +104,6 @@ Print:
     $getopt->add( 'd|debug'   , 'debug flag' );
 
     $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
-
     $result = $opt->parse( $argv );
 
     $spec = $result->verbose;

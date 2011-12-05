@@ -29,9 +29,67 @@ class OptionSpec
     const type_string   = 1;
     const type_integer  = 2;
 
-    function __construct()
+    function __construct($specString = null)
     {
+        if($specString) {
+            $this->initFromSpecString($specString);
+        }
+    }
 
+    function initFromSpecString($specString)
+    {
+        $pattern = '/
+        (
+                (?:[a-zA-Z0-9]+)
+                (?:
+                    \|
+                    (?:[a-zA-Z0-9-]+)
+                )?
+        )
+        ([:+?])?
+        (?:=([si]|string|integer))?
+        /x';
+
+        if( preg_match( $pattern, $specString , $regs ) === false ) {
+            throw new Exception( "Unknown spec string" );
+        }
+
+        list($orig,$name,$attributes,$type) = $regs;
+
+        $short = null;
+        $long = null;
+        if( strpos($name,'|') !== false ) {
+            list($short,$long) = explode('|',$name);
+        } elseif( strlen($name) == 1 ) {
+            $short = $name;
+        } elseif( strlen($name) > 1 ) {
+            $long = $name;
+        }
+
+        $this->short = $short;
+        $this->long   = $long;
+
+        if( strpos($attributes,':') !== false ) {
+            $this->setAttributeRequire();
+        }
+        elseif( strpos($attributes,'+') !== false ) {
+            $this->setAttributeMultiple();
+        }
+        elseif( strpos($attributes,'?') !== false ) {
+            $this->setAttributeOptional();
+        } 
+        else {
+            $this->setAttributeFlag();
+        }
+
+        if( $type ) {
+            if( $type === 's' || $type === 'string' ) {
+                $this->setTypeString();
+            }
+            elseif( $type === 'i' || $type === 'integer' ) {
+                $this->setTypeInteger();
+            }
+        }
     }
 
     function getId()
