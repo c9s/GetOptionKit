@@ -31,11 +31,16 @@ class OptionSpec
 
     function __construct($specString = null)
     {
-        if($specString) {
+        if( $specString ) {
             $this->initFromSpecString($specString);
         }
     }
 
+
+    /* 
+     * build spec attributes from spec string 
+     *
+     **/
     function initFromSpecString($specString)
     {
         $pattern = '/
@@ -58,6 +63,8 @@ class OptionSpec
 
         $short = null;
         $long = null;
+
+        // check long,short option name.
         if( strpos($name,'|') !== false ) {
             list($short,$long) = explode('|',$name);
         } elseif( strlen($name) == 1 ) {
@@ -66,18 +73,22 @@ class OptionSpec
             $long = $name;
         }
 
-        $this->short = $short;
+        $this->short  = $short;
         $this->long   = $long;
 
+        // option is required.
         if( strpos($attributes,':') !== false ) {
             $this->setAttributeRequire();
         }
+        // option with multiple value
         elseif( strpos($attributes,'+') !== false ) {
             $this->setAttributeMultiple();
         }
+        // option is optional.
         elseif( strpos($attributes,'?') !== false ) {
             $this->setAttributeOptional();
         } 
+        // is a flag option
         else {
             $this->setAttributeFlag();
         }
@@ -92,6 +103,10 @@ class OptionSpec
         }
     }
 
+
+    /*
+     * get the option key for result key mapping.
+     */
     function getId()
     {
         if( $this->key )
@@ -165,6 +180,10 @@ class OptionSpec
         return $this->type & self::type_integer;
     }
 
+    /*
+     * check value constraint type
+     * current for integer and string.
+     */
     function checkType($value)
     {
         if( $this->type !== null ) {
@@ -178,12 +197,19 @@ class OptionSpec
         return $value;
     }
 
+    /*
+     * set option value
+     */
     function setValue($value)
     {
         $value = $this->checkType($value);
         $this->value = $value;
     }
 
+
+    /*
+     * push option value, when the option accept multiple values 
+     */
     function pushValue($value)
     {
         $value = $this->checkType($value);
@@ -195,11 +221,19 @@ class OptionSpec
         $this->description = $desc;
     }
 
+
+    /*
+     * set option spec key for saving option result
+     */
     function setKey($key)
     {
         $this->key = $key;
     }
 
+    /*
+     * get readable spec for printing
+     *
+     */
     function getReadableSpec()
     {
         $c1 = '';
