@@ -21,6 +21,8 @@ class OptionSpec
     public $value;
     public $type;
 
+    public $valueName; /* name for the value place holder, for printing */
+
     const attr_multiple = 1;
     const attr_optional = 2;
     const attr_require  = 4;
@@ -221,6 +223,11 @@ class OptionSpec
         $this->description = $desc;
     }
 
+    function setValueName($name)
+    {
+        $this->valueName = $name;
+    }
+
 
     /*
      * set option spec key for saving option result
@@ -244,14 +251,18 @@ class OptionSpec
         elseif( $this->long )
             $c1 = sprintf('--%s',$this->long );
 
+        $valueName = 'value';
+        if( $this->valueName )
+            $valueName = $this->valueName;
+
         if( $this->isAttributeRequire() ) {
-            $c1 .= ' <value>';
+            $c1 .= " <$valueName>";
         }
         elseif( $this->isAttributeMultiple() ) {
-            $c1 .= ' <value>+';
+            $c1 .= " <$valueName>+"; // better expression
         }
         elseif( $this->isAttributeOptional() ) {
-            $c1 .= ' [<value>]';
+            $c1 .= " [<$valueName>]";
         }
         elseif( $this->isAttributeFlag() ) {
 
