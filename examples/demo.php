@@ -23,7 +23,7 @@ $opt->add( 'v|verbose' , 'verbose message.' );
 $opt->add( 'd|debug'   , 'debug message.' );
 $opt->add( 'long'   , 'long option name only.' );
 $opt->add( 's'   , 'short option name only.' );
-$opt->printOptions();
+$opt->specs->printOptions();
 
 
 echo "Enabled options: \n";

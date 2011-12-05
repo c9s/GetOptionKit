@@ -20,49 +20,24 @@ class OptionParser
     public $longOptions;
     public $shortOptions;
 
-    function __construct($specs = array())
+    function __construct($specs)
     {
-        if( is_a($specs,'\GetOptionKit\OptionSpecCollection') ) {
-            // typecast to array 
-            $specs = $specs->data;
-        }
-
-        $this->specs = $specs;
-        $this->longOptions = array();
-        $this->shortOptions = array();
-        foreach( $specs as $spec ) {
-            if( $spec->long )
-                $this->longOptions[ $spec->long ] = $spec;
-            if( $spec->short )
-                $this->longOptions[ $spec->short ] = $spec;
-            if( ! $spec->long && ! $spec->short )
-                throw new Exception('Wrong option spec');
+        if( $specs ) {
+            if( ! is_a($specs,'\GetOptionKit\OptionSpecCollection') )
+                throw new Exception('not option spec collection class.');
+            $this->specs = $specs;
+        } else {
+            $this->specs = new \GetOptionKit\OptionSpecCollection;
         }
     }
 
-    function getLongOption( $name )
-    {
-        return @$this->longOptions[ $name ];
-    }
-
-    function getShortOption( $name )
-    {
-        return @$this->shortOptions[ $name ];
-    }
-
-    function getSpec($name)
-    {
-        if( isset($this->longOptions[ $name ] ))
-            return $this->longOptions[ $name ];
-        if( isset($this->shortOptions[ $name ] ))
-            return $this->shortOptions[ $name ];
-    }
-
+    /* detect option */
     function isOption($arg)
     {
         return substr($arg,0,1) === '-';
     }
 
+    /* take option value from current argument or from the next argument */
     function takeOptionValue($spec,$arg,$next)
     {
         if( $arg->containsOptionValue() ) {
@@ -73,6 +48,9 @@ class OptionParser
         }
     }
 
+    /* 
+     * push value to multipl value option
+     */
     function pushOptionValue($spec,$arg,$next)
     {
         if( $arg->containsOptionValue() )
@@ -115,7 +93,7 @@ class OptionParser
             }
 
             $next = new Argument( $argv[$i + 1] );
-            $spec = $this->getSpec( $arg->getOptionName() );
+            $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
 

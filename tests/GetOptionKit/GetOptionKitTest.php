@@ -164,7 +164,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( isset($array[0]['description'] ));
 
         ob_start();
-        $opt->printOptions();
+        $opt->specs->printOptions();
         $content = ob_get_contents();
         ob_clean();
         like( '/Available options/m', $content );

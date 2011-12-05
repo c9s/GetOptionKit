@@ -12,7 +12,10 @@ namespace GetOptionKit;
 
 class OptionSpecCollection
 {
-    public $data;
+    public $data = array();
+
+    public $longOptions = array();
+    public $shortOptions = array();
 
     function __construct()
     {
@@ -34,12 +37,36 @@ class OptionSpecCollection
     function add($spec )
     {
         $this->data[ $spec->getId() ] = $spec;
+        if( $spec->long )
+            $this->longOptions[ $spec->long ] = $spec;
+        if( $spec->short )
+            $this->longOptions[ $spec->short ] = $spec;
+        if( ! $spec->long && ! $spec->short )
+            throw new Exception('Wrong option spec');
+    }
+
+    function getLongOption( $name )
+    {
+        return @$this->longOptions[ $name ];
+    }
+
+    function getShortOption( $name )
+    {
+        return @$this->shortOptions[ $name ];
     }
 
     /* get spec by spec id */
     function get($id)
     {
         return @$this->data[ $id ];
+    }
+
+    function getSpec($name)
+    {
+        if( isset($this->longOptions[ $name ] ))
+            return $this->longOptions[ $name ];
+        if( isset($this->shortOptions[ $name ] ))
+            return $this->shortOptions[ $name ];
     }
 
     function size()

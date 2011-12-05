@@ -17,9 +17,13 @@ use Exception;
 
 class GetOptionKit 
 {
+    public $parser;
+    public $specs;
+
     function __construct()
     {
         $this->specs = new OptionSpecCollection;
+        $this->parser = new OptionParser( $this->specs );
     }
 
     /* a helper to build option specification object from string spec 
@@ -49,13 +53,13 @@ class GetOptionKit
 
     function parse( $argv ) 
     {
-        $parser = new OptionParser( $this->specs->data );
-        return $parser->parse( $argv );
+        return $this->parser->parse( $argv );
     }
 
     function printOptions( $class = 'GetOptionKit\OptionPrinter' )
     {
         $this->specs->printOptions( $class );
     }
+
 }
 
