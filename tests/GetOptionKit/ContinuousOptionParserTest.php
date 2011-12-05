@@ -40,7 +40,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( $parser );
 
         $result = $parser->parse(explode(' ','program -v -d test'));
-        ok( $parser->isEnd() );
+        ok( $parser->isEnd() ,'should be end' );
         ok( $result );
         ok( $result->debug );
         ok( $result->verbose );
@@ -59,11 +59,17 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $parser = new ContinuousOptionParser( $specs );
         ok( $parser );
 
-        $result = $parser->parse(explode(' ','program -v -d test'));
-        ok( $parser->isEnd() );
+        // test subcommand and sub-options
+        $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcmd'));
         ok( $result );
         ok( $result->debug );
         ok( $result->verbose );
+        ok( ! $parser->isEnd() , 'is not end' ); 
+
+        // continue the parsing
+        $result2 = $parser->continueParse();
+        ok( $result2 );
+        ok( $parser->isEnd() );
     }
 }
 

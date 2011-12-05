@@ -26,6 +26,7 @@ class ContinuousOptionParser extends OptionParser
 {
     public $index;
     public $length;
+    public $argv;
 
     function __construct($specs = array())
     {
@@ -40,22 +41,28 @@ class ContinuousOptionParser extends OptionParser
 
     function isEnd()
     {
-        return $this->index + 1 >= $length;
+        # echo "!! {$this->index} >= {$this->length}\n";
+        return ($this->index >= $this->length);
+    }
+
+    function continueParse()
+    {
+        return $this->parse( $this->argv );
     }
 
     function parse($argv)
     {
         // create new Result object.
         $result = new OptionResult;
+        $this->argv = $argv;
         $this->length = count($argv);
         $result->setProgram( $argv[0] );
-
         $gotArguments = false;
 
         // from last parse index
-        for( $i = $this->index; $i < $this->length; ++$i ) 
+        for( ; $this->index < $this->length; ++$this->index ) 
         {
-            $arg = new Argument( $argv[$i] );
+            $arg = new Argument( $argv[$this->index] );
             if( ! $arg->isOption() ) {
                 $result->addArgument( $arg );
                 $gotArguments = true;
@@ -70,12 +77,12 @@ class ContinuousOptionParser extends OptionParser
             //   split it out, and insert into the argv array
             if( $arg->withExtraFlagOptions() ) {
                 $extra = $arg->extractExtraFlagOptions();
-                array_splice( $argv, $i+1, 0, $extra );
-                $argv[$i] = $arg->arg; // update argument to current argv list.
+                array_splice( $argv, $this->index +1, 0, $extra );
+                $argv[$this->index] = $arg->arg; // update argument to current argv list.
                 $len = count($argv);   // update argv list length
             }
 
-            $next = new Argument( $argv[$i + 1] );
+            $next = new Argument( $argv[$this->index + 1] );
             $spec = $this->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
@@ -88,21 +95,21 @@ class ContinuousOptionParser extends OptionParser
 
                 $this->takeOptionValue($spec,$arg,$next);
                 if( ! $next->isOption() )
-                    $i++;
+                    $this->index++;
                 $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isAttributeMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if( $next->isOption() )
-                    $i++;
+                    $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
                 if( $spec->value && ! $next->isOption() )
-                    $i++;
+                    $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeFlag() ) 
