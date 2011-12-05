@@ -110,6 +110,19 @@ Print:
     $spec = $result->debug;
     $spec->value;  # get value
 
+More low-level usage:
+
+    $specs = new OptionSpecCollection;
+    $spec_verbose = $specs->addFromSpecString('v|verbose');
+    $spec_color = $specs->addFromSpecString('c|color');
+    $spec_debug = $specs->addFromSpecString('d|debug');
+    $spec_verbose->description = 'verbose flag';
+
+    // ContinuousOptionParser
+    $parser = new ContinuousOptionParser( $specs );
+    $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcommand -e -f -g subcommand2'));
+    $result2 = $parser->continueParse();
+
 GetOptionKit\OptionPrinter can print options for you:
 
     * Available options:
