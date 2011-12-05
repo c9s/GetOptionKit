@@ -56,6 +56,9 @@ class ContinuousOptionParser extends OptionParser
         $result = new OptionResult;
         $this->argv = $argv;
         $this->length = count($argv);
+        if( $this->isEnd() )
+            return;
+
         $result->setProgram( $argv[0] );
         $gotArguments = false;
 
