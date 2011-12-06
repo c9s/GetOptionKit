@@ -143,10 +143,11 @@ GetOptionKit\OptionPrinter can print options for you:
 
 ## Todo
 
-* Option Group
-* Named Option Value.
+* Option Spec group.
+* Named option value.
 * Conflict option checking.
 * option valid value checking.
+* Custom command mapping.
 
 ## Command Line Utility Design Concept
 
