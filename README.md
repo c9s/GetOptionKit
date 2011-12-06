@@ -57,6 +57,13 @@ with normal arguments:
     dir          long option name
 
 
+## Commnad Line Forms
+
+    app [app-opts] [app arguments]
+
+    app [app-opts] subcommand [subcommand-opts] [subcommand-args]
+
+    app [app-opts] subcmd1 [subcmd-opts1] subcmd2 [subcmd-opts] subcmd3 [subcmd-opts3] [subcommand arguments....]
 
 ## Demo
 
