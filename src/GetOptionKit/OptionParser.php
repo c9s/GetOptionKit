@@ -10,6 +10,7 @@
  */
 namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
+use GetOptionKit\OptionSpecCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use Exception;
@@ -29,6 +30,11 @@ class OptionParser
         } else {
             $this->specs = new \GetOptionKit\OptionSpecCollection;
         }
+    }
+
+    function setOptions(OptionSpecCollection $specs)
+    {
+        $this->specs = $specs;
     }
 
     /* detect option */

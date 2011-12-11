@@ -15,6 +15,7 @@ use GetOptionKit\OptionSpecCollection;
 
 class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase 
 {
+
     function testParser() 
     {
         $specs = new OptionSpecCollection;
@@ -36,40 +37,60 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $spec_color = $specs->addFromSpecString('c|color');
         $spec_debug = $specs->addFromSpecString('d|debug');
 
-        $parser = new ContinuousOptionParser( $specs );
-        ok( $parser );
-
-        $result = $parser->parse(explode(' ','program -v -d test'));
-        ok( $parser->isEnd() ,'should be end' );
-        ok( $result );
-        ok( $result->debug );
-        ok( $result->verbose );
+#          $parser = new ContinuousOptionParser( $specs );
+#          ok( $parser );
+#          $result = $parser->parse(explode(' ','program -v -d test'));
+#          ok( $parser->isEnd() ,'should be end' );
+#          ok( $result );
+#          ok( $result->debug );
+#          ok( $result->verbose );
     }
 
     function testParser3()
     {
-        $specs = new OptionSpecCollection;
-        $specs->addFromSpecString('v|verbose');
-        $specs->addFromSpecString('c|color');
-        $specs->addFromSpecString('d|debug');
-        $specs->addFromSpecString('a');
-        $specs->addFromSpecString('b');
-        $specs->addFromSpecString('c');
+        $appspecs = new OptionSpecCollection;
+        $appspecs->addFromSpecString('v|verbose');
+        $appspecs->addFromSpecString('c|color');
+        $appspecs->addFromSpecString('d|debug');
 
-        $parser = new ContinuousOptionParser( $specs );
+        $cmdspecs = new OptionSpecCollection;
+        $cmdspecs->addFromSpecString('a');
+        $cmdspecs->addFromSpecString('b');
+        $cmdspecs->addFromSpecString('c');
+
+
+        $parser = new ContinuousOptionParser( $appspecs );
         ok( $parser );
 
-        // test subcommand and sub-options
-        $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcmd'));
-        ok( $result );
-        ok( $result->debug );
-        ok( $result->verbose );
-        ok( ! $parser->isEnd() , 'is not end' ); 
+        $subcommands = array('subcommand1','subcommand2','subcommand3');
+        $subcommand_specs = array(
+            'subcommand1' => $cmdspecs,
+            'subcommand2' => $cmdspecs,
+            'subcommand3' => $cmdspecs,
+        );
+        $subcommand_options = array();
 
-        // continue the parsing
-        $result2 = $parser->continueParse();
-        ok( $result2 );
-        ok( $parser->isEnd() );
+        $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 subcommand3 arg1 arg2 arg3');
+        $app_options = $parser->parse( $argv );
+        $arguments = array();
+        while( ! $parser->isEnd() ) {
+            if( $parser->getCurrentArgument() == $subcommands[0] ) {
+                $parser->advance();
+                $subcommand = array_shift( $subcommands );
+                $parser->setOptions( $subcommand_specs[$subcommand] );
+                $subcommand_options[ $subcommand ] = $parser->continueParse();
+            } else {
+                $arguments[] = $parser->advance();
+            }
+        }
+
+        is( 'arg1', $arguments[0] );
+        is( 'arg2', $arguments[1] );
+        is( 'arg3', $arguments[2] );
+        ok( $subcommand_options );
+        ok( $subcommand_options['subcommand1'] );
+        ok( $subcommand_options['subcommand2'] );
+        ok( $subcommand_options['subcommand3'] );
     }
 }
 

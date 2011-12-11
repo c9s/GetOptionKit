@@ -15,12 +15,40 @@ use GetOptionKit\Argument;
 use GetOptionKit\OptionParser;
 use Exception;
 
-/* 
- * when parser meets arguments, 
- * parser should take the arguments, save current index, and return the option result.
- * when next parsing started, parser should start from last index, and return another option result.
+/**
+ * A common command line argument format:
  *
- * application is able to use isEnd() method to check the parser status.
+ *      app.php
+ *         [--app-options]
+ *
+ *      [subcommand
+ *          --subcommand-options]
+ *      [subcommand
+ *          --subcommand-options]
+ *      [subcommand
+ *          --subcommand-options]
+ *
+ *      [arguments]
+ *
+ * ContinuousOptionParser is for the process flow:
+ *
+ * init app options,
+ * parse app options
+ * 
+ * if stop,
+ * if stop at command
+ *    shift command
+ *    parse command options
+ *
+ *    if stop
+ *      if stop at command
+ *        shift command
+ *        init command options
+ *        parse command options
+ *      if stop at arguments
+ *        shift arguments
+ *        execute current command with the arguments.
+ *
  * */
 class ContinuousOptionParser extends OptionParser
 {
@@ -28,6 +56,7 @@ class ContinuousOptionParser extends OptionParser
     public $length;
     public $argv;
 
+    /* for the constructor , the option specs is application options */
     function __construct($specs = array())
     {
         parent::__construct($specs);
@@ -45,10 +74,22 @@ class ContinuousOptionParser extends OptionParser
         return ($this->index >= $this->length);
     }
 
+    function advance()
+    {
+        $arg = $this->argv[ $this->index++ ];
+        return $arg;
+    }
+
+    function getCurrentArgument()
+    {
+        return $this->argv[ $this->index ];
+    }
+
     function continueParse()
     {
         return $this->parse( $this->argv );
     }
+
 
     function parse($argv)
     {
@@ -60,21 +101,16 @@ class ContinuousOptionParser extends OptionParser
             return;
 
         $result->setProgram( $argv[0] );
-        $gotArguments = false;
 
         // from last parse index
         for( ; $this->index < $this->length; ++$this->index ) 
         {
             $arg = new Argument( $argv[$this->index] );
+
+            /* let the application decide for: command or arguments */
             if( ! $arg->isOption() ) {
-                $result->addArgument( $arg );
-                $gotArguments = true;
-                continue;
-            }
-            elseif( $gotArguments ) {
                 return $result;
             }
-
 
             // if the option is with extra flags,
             //   split it out, and insert into the argv array
