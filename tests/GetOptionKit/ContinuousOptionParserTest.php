@@ -70,7 +70,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         );
         $subcommand_options = array();
 
-        $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 subcommand3 arg1 arg2 arg3');
+        $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();
         while( ! $parser->isEnd() ) {
@@ -89,7 +89,15 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         is( 'arg3', $arguments[2] );
         ok( $subcommand_options );
         ok( $subcommand_options['subcommand1'] );
+        ok( $subcommand_options['subcommand1']->a );
+        ok( $subcommand_options['subcommand1']->b );
+        ok( $subcommand_options['subcommand1']->c );
+
         ok( $subcommand_options['subcommand2'] );
+        ok( ! $subcommand_options['subcommand2']->a );
+        ok( ! $subcommand_options['subcommand2']->b );
+        ok( $subcommand_options['subcommand2']->c );
+
         ok( $subcommand_options['subcommand3'] );
     }
 }
