@@ -92,8 +92,6 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $cmdspecs->addFromSpecString('c');
 
 
-        $parser = new ContinuousOptionParser( $appspecs );
-        ok( $parser );
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
         $subcommand_specs = array(
@@ -102,10 +100,12 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
             'subcommand3' => $cmdspecs,
         );
         $subcommand_options = array();
+        $arguments = array();
 
         $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+        $parser = new ContinuousOptionParser( $appspecs );
+        ok( $parser );
         $app_options = $parser->parse( $argv );
-        $arguments = array();
         while( ! $parser->isEnd() ) {
             if( $parser->getCurrentArgument() == $subcommands[0] ) {
                 $parser->advance();
