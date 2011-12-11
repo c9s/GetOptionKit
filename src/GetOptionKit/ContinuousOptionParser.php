@@ -47,18 +47,28 @@ use Exception;
  *
  *  Example code:
  *
- *      $parser = new ContinuousOptionParser( $appspecs );
+ *
+ *      // subcommand stack
  *      $subcommands = array('subcommand1','subcommand2','subcommand3');
+ *
+ *      // different command has its own options
  *      $subcommand_specs = array(
  *          'subcommand1' => $cmdspecs,
  *          'subcommand2' => $cmdspecs,
  *          'subcommand3' => $cmdspecs,
  *      );
+ *
+ *      // for saved options
  *      $subcommand_options = array();
+ *
+ *      // command arguments
+ *      $arguments = array();
  * 
  *      $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+ *
+ *      // parse application options first
+ *      $parser = new ContinuousOptionParser( $appspecs );
  *      $app_options = $parser->parse( $argv );
- *      $arguments = array();
  *      while( ! $parser->isEnd() ) {
  *          if( $parser->getCurrentArgument() == $subcommands[0] ) {
  *              $parser->advance();
@@ -111,7 +121,6 @@ class ContinuousOptionParser extends OptionParser
     {
         return $this->parse( $this->argv );
     }
-
 
     function parse($argv)
     {
