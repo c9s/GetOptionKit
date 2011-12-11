@@ -117,6 +117,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
             }
         }
 
+        count_ok( 3, $arguments );
         is( 'arg1', $arguments[0] );
         is( 'arg2', $arguments[1] );
         is( 'arg3', $arguments[2] );
@@ -130,7 +131,6 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( ! $subcommand_options['subcommand2']->a );
         ok( ! $subcommand_options['subcommand2']->b );
         ok( $subcommand_options['subcommand2']->c );
-
         ok( $subcommand_options['subcommand3'] );
     }
 }
