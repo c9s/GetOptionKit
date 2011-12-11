@@ -34,20 +34,42 @@ use Exception;
  *
  * init app options,
  * parse app options
- * 
- * if stop,
- * if stop at command
- *    shift command
- *    parse command options
  *
- *    if stop
- *      if stop at command
- *        shift command
- *        init command options
- *        parse command options
- *      if stop at arguments
- *        shift arguments
- *        execute current command with the arguments.
+ *
+ *
+ * while not end
+ *   if stop at command
+ *     shift command
+ *     parse command options
+ *   else if stop at arguments
+ *     shift arguments
+ *     execute current command with the arguments.
+ *
+ *  Example code:
+ *
+ *      $parser = new ContinuousOptionParser( $appspecs );
+ *      $subcommands = array('subcommand1','subcommand2','subcommand3');
+ *      $subcommand_specs = array(
+ *          'subcommand1' => $cmdspecs,
+ *          'subcommand2' => $cmdspecs,
+ *          'subcommand3' => $cmdspecs,
+ *      );
+ *      $subcommand_options = array();
+ * 
+ *      $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+ *      $app_options = $parser->parse( $argv );
+ *      $arguments = array();
+ *      while( ! $parser->isEnd() ) {
+ *          if( $parser->getCurrentArgument() == $subcommands[0] ) {
+ *              $parser->advance();
+ *              $subcommand = array_shift( $subcommands );
+ *              $parser->setOptions( $subcommand_specs[$subcommand] );
+ *              $subcommand_options[ $subcommand ] = $parser->continueParse();
+ *          } else {
+ *              $arguments[] = $parser->advance();
+ *          }
+ *      }
+ *
  *
  * */
 class ContinuousOptionParser extends OptionParser
