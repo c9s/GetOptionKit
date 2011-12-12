@@ -73,7 +73,7 @@ use Exception;
  *          if( $parser->getCurrentArgument() == $subcommands[0] ) {
  *              $parser->advance();
  *              $subcommand = array_shift( $subcommands );
- *              $parser->setOptions( $subcommand_specs[$subcommand] );
+ *              $parser->setSpecs( $subcommand_specs[$subcommand] );
  *              $subcommand_options[ $subcommand ] = $parser->continueParse();
  *          } else {
  *              $arguments[] = $parser->advance();
@@ -194,6 +194,5 @@ class ContinuousOptionParser extends OptionParser
         }
         return $result;
     }
-
 
 }

@@ -32,10 +32,33 @@ class OptionParser
         }
     }
 
-    function setOptions(OptionSpecCollection $specs)
+    function setSpecs(OptionSpecCollection $specs)
     {
         $this->specs = $specs;
     }
+
+
+    /* a helper to build option specification object from string spec 
+     *
+     * @param $specString string
+     * @param $description string
+     * @param $key
+     *
+     * */
+    function addSpec( $specString, $description , $key = null ) 
+    {
+        $spec = $this->specs->addFromSpecString($specString,$description,$key);
+        return $spec;
+    }
+
+    /* get option specification by Id */
+    function getSpec($id)
+    {
+        return $this->specs->get($id);
+    }
+
+
+
 
     /* detect option */
     function isOption($arg)
