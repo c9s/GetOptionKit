@@ -9,6 +9,7 @@
  *
  */
 namespace GetOptionKit;
+use GetOptionKit\OptionSpec;
 
 class OptionSpecCollection
 {
@@ -34,7 +35,7 @@ class OptionSpecCollection
         return $spec;
     }
 
-    function add($spec )
+    function add( OptionSpec $spec )
     {
         $this->data[ $spec->getId() ] = $spec;
         if( $spec->long )
