@@ -12,7 +12,7 @@ multiple flag, multiple values, required value checking.</description>
     <active>1</active>
   </lead>
   <date>2011-12-12</date>
-  <time>12:39:02</time>
+  <time>12:48:07</time>
   <version>
     <release>0.0.3</release>
     <api>0.0.3</api>
@@ -35,7 +35,7 @@ multiple flag, multiple values, required value checking.</description>
       <file install-as="GetOptionKit/OptionPrinterInterface.php" name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file install-as="GetOptionKit/OptionResult.php" name="src/GetOptionKit/OptionResult.php" role="php" md5sum="bfc43ecb3915d48dd4b4ea0222ee903c"/>
       <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="05c8cd5bddec61d0c1fd346155716b85"/>
-      <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="bb20654fbbc8dbb9993b1c02680d8146"/>
+      <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="35cc53d1a25dcd223e64616b9c94e580"/>
       <file install-as="GetOptionKit/SplClassLoader.php" name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
       <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="31ff26c54e739eb7843a5c90f80a20de"/>
       <file install-as="GetOptionKit/ArgumentTest.php" name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>

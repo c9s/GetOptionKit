@@ -23,19 +23,33 @@ class OptionSpecCollection
         $this->data = array();
     }
 
-    function addFromSpecString($specString,$description = null,$key = null)
+    function add()
     {
-        // parse spec
-        $spec = new OptionSpec($specString);
-        if( $description )
-            $spec->description = $description;
-        if( $key )
-            $spec->key = $key;
-        $this->add( $spec );
-        return $spec;
+        $num = func_num_args();
+        $args = func_get_args();
+        $first = $args[0];
+
+        if( is_object($first) && is_a( $first , '\GetOptionKit\OptionSpec' ) ) {
+            $this->addSpec( $first );
+        }
+        elseif( is_string( $first ) ) {
+            list($specString,$description,$key) = $args;
+
+            // parse spec string
+            $spec = new OptionSpec($specString);
+            if( $description )
+                $spec->description = $description;
+            if( $key )
+                $spec->key = $key;
+            $this->add( $spec );
+            return $spec;
+        }
+        else {
+            throw new Exception( 'Unknown Spec Type' );
+        }
     }
 
-    function add( OptionSpec $spec )
+    function addSpec( OptionSpec $spec )
     {
         $this->data[ $spec->getId() ] = $spec;
         if( $spec->long )

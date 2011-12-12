@@ -19,9 +19,9 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
     function testParser() 
     {
         $specs = new OptionSpecCollection;
-        $spec_verbose = $specs->addFromSpecString('v|verbose');
-        $spec_color = $specs->addFromSpecString('c|color');
-        $spec_debug = $specs->addFromSpecString('d|debug');
+        $spec_verbose = $specs->add('v|verbose');
+        $spec_color = $specs->add('c|color');
+        $spec_debug = $specs->add('d|debug');
 
         ok( $spec_verbose );
         ok( $spec_color );
@@ -35,14 +35,14 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
     function testParser2()
     {
         $appspecs = new OptionSpecCollection;
-        $appspecs->addFromSpecString('v|verbose');
-        $appspecs->addFromSpecString('c|color');
-        $appspecs->addFromSpecString('d|debug');
+        $appspecs->add('v|verbose');
+        $appspecs->add('c|color');
+        $appspecs->add('d|debug');
 
         $cmdspecs = new OptionSpecCollection;
-        $cmdspecs->addFromSpecString('a');
-        $cmdspecs->addFromSpecString('b');
-        $cmdspecs->addFromSpecString('c');
+        $cmdspecs->add('a');
+        $cmdspecs->add('b');
+        $cmdspecs->add('c');
 
 
         $parser = new ContinuousOptionParser( $appspecs );
@@ -82,14 +82,14 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
     function testParser3()
     {
         $appspecs = new OptionSpecCollection;
-        $appspecs->addFromSpecString('v|verbose');
-        $appspecs->addFromSpecString('c|color');
-        $appspecs->addFromSpecString('d|debug');
+        $appspecs->add('v|verbose');
+        $appspecs->add('c|color');
+        $appspecs->add('d|debug');
 
         $cmdspecs = new OptionSpecCollection;
-        $cmdspecs->addFromSpecString('a');
-        $cmdspecs->addFromSpecString('b');
-        $cmdspecs->addFromSpecString('c');
+        $cmdspecs->add('a');
+        $cmdspecs->add('b');
+        $cmdspecs->add('c');
 
 
 

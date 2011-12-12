@@ -120,9 +120,9 @@ Print:
 More low-level usage:
 
     $specs = new OptionSpecCollection;
-    $spec_verbose = $specs->addFromSpecString('v|verbose');
-    $spec_color = $specs->addFromSpecString('c|color');
-    $spec_debug = $specs->addFromSpecString('d|debug');
+    $spec_verbose = $specs->add('v|verbose');
+    $spec_color = $specs->add('c|color');
+    $spec_debug = $specs->add('d|debug');
     $spec_verbose->description = 'verbose flag';
 
     // ContinuousOptionParser

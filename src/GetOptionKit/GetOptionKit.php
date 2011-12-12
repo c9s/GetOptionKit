@@ -49,7 +49,7 @@ class GetOptionKit
      * */
     function add( $specString, $description , $key = null ) 
     {
-        $spec = $this->specs->addFromSpecString($specString,$description,$key);
+        $spec = $this->specs->add($specString,$description,$key);
         return $spec;
     }
 
