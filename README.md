@@ -141,6 +141,52 @@ GetOptionKit\OptionPrinter can print options for you:
                      --long   long option name only.
                          -s   short option name only.
 
+
+## For Command-line application with subcommands
+
+For application with subcommands is designed by following form:
+
+
+    [app name] [app opts] 
+                 [subcommand1] [subcommand-opts]
+                 [subcommand2] [subcommand-opts]
+                 [subcommand3] [subcommand-opts]
+                 [arguments]
+
+You can check the `tests/GetOptionKit/ContinuousOptionParserTest.php` unit test file:
+
+    // subcommand stack
+    $subcommands = array('subcommand1','subcommand2','subcommand3');
+
+    // different command has its own options
+    $subcommand_specs = array(
+        'subcommand1' => $cmdspecs,
+        'subcommand2' => $cmdspecs,
+        'subcommand3' => $cmdspecs,
+    );
+
+    // for saved options
+    $subcommand_options = array();
+
+    // command arguments
+    $arguments = array();
+
+    $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+
+    // parse application options first
+    $parser = new ContinuousOptionParser( $appspecs );
+    $app_options = $parser->parse( $argv );
+    while( ! $parser->isEnd() ) {
+        if( $parser->getCurrentArgument() == $subcommands[0] ) {
+            $parser->advance();
+            $subcommand = array_shift( $subcommands );
+            $parser->setSpecs( $subcommand_specs[$subcommand] );
+            $subcommand_options[ $subcommand ] = $parser->continueParse();
+        } else {
+            $arguments[] = $parser->advance();
+        }
+    }
+
 ## Todo
 
 * Option Spec group.
