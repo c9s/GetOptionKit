@@ -60,7 +60,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $app_options = $parser->parse( $argv );
         $arguments = array();
         while( ! $parser->isEnd() ) {
-            if( $parser->getCurrentArgument() == $subcommands[0] ) {
+            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
                 $parser->advance();
                 $subcommand = array_shift( $subcommands );
                 $parser->setSpecs( $subcommand_specs[$subcommand] );
@@ -107,7 +107,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( $parser );
         $app_options = $parser->parse( $argv );
         while( ! $parser->isEnd() ) {
-            if( $parser->getCurrentArgument() == $subcommands[0] ) {
+            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
                 $parser->advance();
                 $subcommand = array_shift( $subcommands );
                 $parser->setSpecs( $subcommand_specs[$subcommand] );

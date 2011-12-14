@@ -33,7 +33,9 @@ class OptionSpecCollection
             $this->addSpec( $first );
         }
         elseif( is_string( $first ) ) {
-            list($specString,$description,$key) = $args;
+            $specString  = $args[0];
+            $description = @$args[1];
+            $key         = @$args[2];
 
             // parse spec string
             $spec = new OptionSpec($specString);

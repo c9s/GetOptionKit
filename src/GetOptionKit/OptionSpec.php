@@ -61,7 +61,10 @@ class OptionSpec
             throw new Exception( "Unknown spec string" );
         }
 
-        list($orig,$name,$attributes,$type) = $regs;
+        $orig       = $regs[0];
+        $name       = $regs[1];
+        $attributes = @$regs[2];
+        $type       = @$regs[3];
 
         $short = null;
         $long = null;

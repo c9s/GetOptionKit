@@ -121,7 +121,7 @@ class OptionParser
                 $len = count($argv);   // update argv list length
             }
 
-            $next = new Argument( $argv[$i + 1] );
+            $next = new Argument( @$argv[$i + 1] );
             $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
