@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /*
  * This file is part of the GetOptionKit package.
@@ -8,10 +9,9 @@
  * file that was distributed with this source code.
  *
  */
-require 'SplClassLoader.php';
-$classLoader = new SplClassLoader;
+require 'Universal/ClassLoader/SplClassLoader.php';
+$classLoader = new Universal\ClassLoader\SplClassLoader(array( 'GetOptionKit' => 'src' ));
 $classLoader->register();
-
 
 
 use GetOptionKit\GetOptionKit;
