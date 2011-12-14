@@ -9,7 +9,6 @@
  *
  */
 require 'Universal/ClassLoader/SplClassLoader.php';
-
 require 'tests/helpers.php';
 $classLoader = new \Universal\ClassLoader\SplClassLoader( 
     array( "GetOptionKit"  => dirname(__DIR__) . '/src' )
