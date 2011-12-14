@@ -11,11 +11,11 @@ multiple flag, multiple values, required value checking.</description>
     <email>cornelius.howl@gmail.com</email>
     <active>1</active>
   </lead>
-  <date>2011-12-14</date>
-  <time>22:10:09</time>
+  <date>2011-12-15</date>
+  <time>00:57:08</time>
   <version>
-    <release>0.0.3</release>
-    <api>0.0.3</api>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
   </version>
   <stability>
     <release>stable</release>
@@ -37,11 +37,11 @@ multiple flag, multiple values, required value checking.</description>
       <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="eba5c209ffc27d31485fd815d26e829b"/>
       <file install-as="GetOptionKit/OptionSpecCollection.php" name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="f49ad1efeff454e6d9bae4c07c7f3b92"/>
       <file install-as="GetOptionKit/SplClassLoader.php" name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
+      <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="bf7805a7403de3707721386f57a416f6"/>
       <file install-as="GetOptionKit/ArgumentTest.php" name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
       <file install-as="GetOptionKit/ContinuousOptionParserTest.php" name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="9941a4c0b08d6a41f3d5633d74060c57"/>
       <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="0ce6df23b3b4b77d6f81eb35f4052864"/>
       <file install-as="GetOptionKit/OptionResultTest.php" name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
-      <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="91bd82ad510a13e386e374630431955a"/>
       <file install-as="helpers.php" name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
       <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="abaeb930e11819756a899d87cab4808e"/>
       <file install-as="README.md" name="README.md" role="doc" md5sum="77df47b2dab14d79ce2c77ec2defa432"/>
