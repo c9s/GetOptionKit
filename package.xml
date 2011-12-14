@@ -12,7 +12,7 @@ multiple flag, multiple values, required value checking.</description>
     <active>1</active>
   </lead>
   <date>2011-12-15</date>
-  <time>00:57:08</time>
+  <time>02:02:04</time>
   <version>
     <release>0.0.4</release>
     <api>0.0.4</api>
@@ -43,7 +43,7 @@ multiple flag, multiple values, required value checking.</description>
       <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="0ce6df23b3b4b77d6f81eb35f4052864"/>
       <file install-as="GetOptionKit/OptionResultTest.php" name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
       <file install-as="helpers.php" name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
-      <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="abaeb930e11819756a899d87cab4808e"/>
+      <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="1a06806fbe3d4e9fcd8a34f0c74b9320"/>
       <file install-as="README.md" name="README.md" role="doc" md5sum="77df47b2dab14d79ce2c77ec2defa432"/>
     </dir>
   </contents>
