@@ -11,8 +11,8 @@ multiple flag, multiple values, required value checking.</description>
     <email>cornelius.howl@gmail.com</email>
     <active>1</active>
   </lead>
-  <date>2011-12-15</date>
-  <time>02:02:04</time>
+  <date>2011-12-19</date>
+  <time>03:14:16</time>
   <version>
     <release>0.0.4</release>
     <api>0.0.4</api>
@@ -31,7 +31,7 @@ multiple flag, multiple values, required value checking.</description>
       <file install-as="GetOptionKit/GetOptionKit.php" name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="5d3e2e2290c59d6938e1364b274a523c"/>
       <file install-as="GetOptionKit/NonNumericException.php" name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/>
       <file install-as="GetOptionKit/OptionParser.php" name="src/GetOptionKit/OptionParser.php" role="php" md5sum="f5a65dbb36637bd6c73be40a40fcde23"/>
-      <file install-as="GetOptionKit/OptionPrinter.php" name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="80c990c3c3edb306150f40d3eff1f2c2"/>
+      <file install-as="GetOptionKit/OptionPrinter.php" name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="d43dcbcb57f2520db2a7c37ce15d1c4d"/>
       <file install-as="GetOptionKit/OptionPrinterInterface.php" name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file install-as="GetOptionKit/OptionResult.php" name="src/GetOptionKit/OptionResult.php" role="php" md5sum="bfc43ecb3915d48dd4b4ea0222ee903c"/>
       <file install-as="GetOptionKit/OptionSpec.php" name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="eba5c209ffc27d31485fd815d26e829b"/>
@@ -40,7 +40,7 @@ multiple flag, multiple values, required value checking.</description>
       <file install-as="bootstrap.php" name="tests/bootstrap.php" role="test" md5sum="bf7805a7403de3707721386f57a416f6"/>
       <file install-as="GetOptionKit/ArgumentTest.php" name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
       <file install-as="GetOptionKit/ContinuousOptionParserTest.php" name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="9941a4c0b08d6a41f3d5633d74060c57"/>
-      <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="0ce6df23b3b4b77d6f81eb35f4052864"/>
+      <file install-as="GetOptionKit/GetOptionKitTest.php" name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="2cc79972f5732b9c18f45f1ea572395c"/>
       <file install-as="GetOptionKit/OptionResultTest.php" name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
       <file install-as="helpers.php" name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
       <file install-as="demo.php" name="examples/demo.php" role="doc" md5sum="1a06806fbe3d4e9fcd8a34f0c74b9320"/>

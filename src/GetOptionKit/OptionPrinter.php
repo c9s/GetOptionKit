@@ -44,7 +44,6 @@ class OptionPrinter implements OptionPrinterInterface
         return $lines;
     }
 
-
     /**
      * print options descriptions to stdout
      *
