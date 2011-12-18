@@ -20,18 +20,38 @@ class OptionPrinter implements OptionPrinterInterface
         $this->specs = $specs;
     }
 
-    function printOptions()
+
+    /**
+     * render option descriptions
+     *
+     * @param integer $width column width
+     * @return string output
+     */
+    function outputOptions($width = 24)
     {
-        echo "* Available options:\n";
+        # echo "* Available options:\n";
+        $lines = array();
         foreach( $this->specs->all() as $spec ) 
         {
             $c1 = $spec->getReadableSpec();
-            if( strlen($c1) > 24 ) {
-                $line = sprintf('% 24s', $c1) . "\n" . str_repeat(26) . $spec->description;  # wrap text
+            if( strlen($c1) > $width ) {
+                $line = sprintf("% {$width}s", $c1) . "\n" . str_repeat( $width + 2 ) . $spec->description;  # wrap text
             } else {
-                $line = sprintf('% 24s   %s',$c1, $spec->description );
+                $line = sprintf("% {$width}s   %s",$c1, $spec->description );
             }
-            echo $line . "\n";
+            $lines[] = $line;
         }
+        return $lines;
+    }
+
+
+    /**
+     * print options descriptions to stdout
+     *
+     */
+    function printOptions()
+    {
+        $lines = $this->outputOptions();
+        echo join( "\n" , $lines );
     }
 }
