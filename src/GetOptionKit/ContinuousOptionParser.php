@@ -129,7 +129,7 @@ class ContinuousOptionParser extends OptionParser
         $this->argv = $argv;
         $this->length = count($argv);
         if( $this->isEnd() )
-            return;
+            return $result;
 
         $result->setProgram( $argv[0] );
 
