@@ -81,7 +81,7 @@ use Exception;
  *      }
  *
  *
- * */
+ **/
 class ContinuousOptionParser extends OptionParser
 {
     public $index;
@@ -152,7 +152,9 @@ class ContinuousOptionParser extends OptionParser
                 $len = count($argv);   // update argv list length
             }
 
-            $next = new Argument( $argv[$this->index + 1] );
+            $next = null;
+            if( $this->index + 1 > count($argv)  ) 
+                $next = new Argument( $argv[$this->index + 1] );
             $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
@@ -164,21 +166,21 @@ class ContinuousOptionParser extends OptionParser
                     throw new Exception( "Option {$arg->getOptionName()} require a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
-                if( ! $next->isOption() )
+                if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isAttributeMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if( $next->isOption() )
+                if( $next && $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $spec->value && ! $next->isOption() )
+                if( $spec->value && ( $next && ! $next->isOption() ) )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
