@@ -38,7 +38,8 @@ class OptionResult implements Iterator
 
     function __get($key)
     {
-        return @$this->keys[ $key ];
+        if( isset($this->keys[ $key ]) )
+            return @$this->keys[ $key ];
     }
 
     function __set($key,$value)
