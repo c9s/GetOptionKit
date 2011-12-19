@@ -169,21 +169,21 @@ class ContinuousOptionParser extends OptionParser
                     throw new Exception( "Option {$arg->getOptionName()} requires a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
-                if( ! $next->isOption() )
+                if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isAttributeMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if( ! $next->isOption() )
+                if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $spec->value && ! $next->isOption() )
+                if( $spec->value && $next && ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }

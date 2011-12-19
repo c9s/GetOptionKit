@@ -182,10 +182,15 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $r = $subcommand_options['subcommand3'];
         ok( $r );
 
-        var_dump( $r ); 
+
+        
         ok( $r->a , 'option a' );
         ok( $r->b , 'option b' );
         ok( $r->c , 'option c' );
+
+        is( 'a', $r->a->value );
+        is( 'b', $r->b->value );
+        is( 'c', $r->c->value[0] );
     }
 }
 
