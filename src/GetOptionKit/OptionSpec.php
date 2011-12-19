@@ -47,7 +47,7 @@ class OptionSpec
     {
         $pattern = '/
         (
-                (?:[a-zA-Z0-9]+)
+                (?:[a-zA-Z0-9-]+)
                 (?:
                     \|
                     (?:[a-zA-Z0-9-]+)
@@ -93,6 +93,10 @@ class OptionSpec
         elseif( strpos($attributes,'?') !== false ) {
             $this->setAttributeOptional();
         } 
+        // option is multiple value and optional
+        elseif( strpos($attributes,'*') !== false ) {
+            throw new Exception('not implemented yet');
+        }
         // is a flag option
         else {
             $this->setAttributeFlag();
