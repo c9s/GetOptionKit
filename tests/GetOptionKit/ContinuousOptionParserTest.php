@@ -133,5 +133,59 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( $subcommand_options['subcommand2']->c );
         ok( $subcommand_options['subcommand3'] );
     }
+
+
+    /* test parser without options */
+    function testParser4()
+    {
+        $appspecs = new OptionSpecCollection;
+        $appspecs->add('v|verbose');
+        $appspecs->add('c|color');
+        $appspecs->add('d|debug');
+
+        $cmdspecs = new OptionSpecCollection;
+        $cmdspecs->add('a:'); // required
+        $cmdspecs->add('b?'); // optional
+        $cmdspecs->add('c+'); // multiple (required)
+
+
+        $parser = new ContinuousOptionParser( $appspecs );
+        ok( $parser );
+
+        $subcommands = array('subcommand1','subcommand2','subcommand3');
+        $subcommand_specs = array(
+            'subcommand1' => $cmdspecs,
+            'subcommand2' => $cmdspecs,
+            'subcommand3' => $cmdspecs,
+        );
+        $subcommand_options = array();
+
+        $argv = explode(' ','program subcommand1 subcommand2 subcommand3 -a a -b b -c c');
+        $app_options = $parser->parse( $argv );
+        $arguments = array();
+        while( ! $parser->isEnd() ) {
+            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
+                $parser->advance();
+                $subcommand = array_shift( $subcommands );
+                $parser->setSpecs( $subcommand_specs[$subcommand] );
+                $subcommand_options[ $subcommand ] = $parser->continueParse();
+            } else {
+                $arguments[] = $parser->advance();
+            }
+        }
+
+        ok( $subcommand_options );
+        ok( $subcommand_options['subcommand1'] );
+        ok( $subcommand_options['subcommand2'] );
+        ok( $subcommand_options['subcommand3'] );
+
+        $r = $subcommand_options['subcommand3'];
+        ok( $r );
+
+        var_dump( $r ); 
+        ok( $r->a , 'option a' );
+        ok( $r->b , 'option b' );
+        ok( $r->c , 'option c' );
+    }
 }
 

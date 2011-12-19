@@ -31,6 +31,14 @@ class Argument
             && (substr($this->arg,1,1) !== '-');
     }
 
+
+
+    /**
+     * check current argument is an option
+     *
+     *   -a
+     *   --foo
+     */
     function isOption()
     {
         return $this->isShortOption() || $this->isLongOption();
@@ -55,6 +63,11 @@ class Argument
         }
     }
 
+    /** 
+     * check combined short flags
+     *
+     * like: -abc
+     */
     function withExtraFlagOptions()
     {
         return preg_match('/^-[a-zA-Z0-9]{2,}/',$this->arg);

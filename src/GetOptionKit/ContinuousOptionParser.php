@@ -145,42 +145,45 @@ class ContinuousOptionParser extends OptionParser
 
             // if the option is with extra flags,
             //   split it out, and insert into the argv array
+            //
+            //   like -abc
             if( $arg->withExtraFlagOptions() ) {
                 $extra = $arg->extractExtraFlagOptions();
-                array_splice( $argv, $this->index +1, 0, $extra );
+                array_splice( $argv, $this->index + 1, 0, $extra );
                 $argv[$this->index] = $arg->arg; // update argument to current argv list.
                 $len = count($argv);   // update argv list length
             }
 
             $next = null;
-            if( $this->index + 1 > count($argv)  ) 
+            if( $this->index + 1 < count($argv)  ) 
                 $next = new Argument( $argv[$this->index + 1] );
+
             $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
 
+
             if( $spec->isAttributeRequire() ) 
             {
-
                 if( $this->checkValue($spec,$arg,$next) )
-                    throw new Exception( "Option {$arg->getOptionName()} require a value." );
+                    throw new Exception( "Option {$arg->getOptionName()} requires a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $next && ! $next->isOption() )
+                if( ! $next->isOption() )
                     $this->index++;
                 $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isAttributeMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if( $next && $next->isOption() )
+                if( ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isAttributeOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $spec->value && ( $next && ! $next->isOption() ) )
+                if( $spec->value && ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
