@@ -9,10 +9,10 @@ multiple flag, multiple values, required value checking.</description>
     <name>Yo-An Lin (c9s)</name>
     <user/>
     <email>cornelius.howl@gmail.com</email>
-    <active>1</active>
+    <active>yes</active>
   </lead>
   <date>2011-12-25</date>
-  <time>17:57:22</time>
+  <time>19:56:02</time>
   <version>
     <release>0.0.6</release>
     <api>0.0.6</api>
