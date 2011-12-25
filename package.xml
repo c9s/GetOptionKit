@@ -12,7 +12,7 @@ multiple flag, multiple values, required value checking.</description>
     <active>1</active>
   </lead>
   <date>2011-12-25</date>
-  <time>14:18:49</time>
+  <time>16:18:58</time>
   <version>
     <release>0.0.6</release>
     <api>0.0.6</api>
@@ -52,8 +52,16 @@ multiple flag, multiple values, required value checking.</description>
         <min>5.3</min>
       </php>
       <pearinstaller>
-        <min>1.4</min>
+        <min>1.4.1</min>
       </pearinstaller>
+      <package>
+        <name>Universal</name>
+        <channel>pear.corneltek.com</channel>
+        <min>0.0.0</min>
+      </package>
+      <extension>
+        <name>pcre</name>
+      </extension>
     </required>
   </dependencies>
   <phprelease/>
