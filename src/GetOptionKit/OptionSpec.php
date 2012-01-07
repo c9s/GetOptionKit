@@ -277,6 +277,11 @@ class OptionSpec
         return $c1;
     }
 
+    function validate()
+    {
+        // validate current value
+    }
+
     function __toString()
     {
         $c1 = $this->getReadableSpec();

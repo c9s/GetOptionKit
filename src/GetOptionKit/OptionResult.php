@@ -13,14 +13,21 @@ use Iterator;
 use GetOptionKit\Argument;
 use GetOptionKit\OptionSpec;
 
-/* 
- * define the getopt parsing result
+/**
+ * Define the getopt parsing result
+ *
+ * create option result from array()
+ *
+ *     OptionResult::create($spec, array( 
+ *         'key' => 'value'
+ *     ), array( ... arguments ... ) );
  *
  */
 class OptionResult implements Iterator
 {
-
-    /* option specs , key => spec object */
+    /**
+     * @var array option specs, key => OptionSpec object 
+     * */
     public $keys = array();
 
     private $currentKey;
@@ -85,6 +92,24 @@ class OptionResult implements Iterator
     function valid() 
     {
         return key($this->keys) !== null;
+    }
+
+    static function create($specs,$values = array(),$arguments = null )
+    {
+        $new = new self;
+        foreach( $specs as $spec ) {
+            $id = $spec->getId();
+            if( isset($values[ $id ]) ) {
+                $new->$id = $spec;
+                $spec->setValue( $values[$id] );
+            }
+            if( $arguments ) {
+                foreach( $arguments as $arg ) {
+                    $new->addArgument( new Argument( $arg ) );
+                }
+            }
+        }
+        return $new;
     }
 
 }
