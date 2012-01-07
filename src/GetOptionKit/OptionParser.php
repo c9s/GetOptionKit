@@ -98,13 +98,14 @@ class OptionParser
                             && $next->isOption() );
     }
 
+
     function parse($argv)
     {
         $result = new OptionResult;
         $len = count($argv);
-        $result->setProgram( $argv[0] );
+        // $result->setProgram( $argv[0] );
 
-        for( $i = 1; $i < $len; ++$i ) 
+        for( $i = 0; $i < $len; ++$i ) 
         {
             $arg = new Argument( $argv[$i] );
             if( ! $arg->isOption() ) {
