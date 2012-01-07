@@ -56,7 +56,7 @@ class OptionResult implements Iterator
 
     function getArguments()
     {
-        return $this->arguments;
+        return array_map( function($e) { return $e->__toString(); }, $this->arguments );
     }
 
 
