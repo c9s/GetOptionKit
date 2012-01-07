@@ -51,7 +51,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         // option required a value should throw an exception
         try {
-            $result = $opt->parse( array( 'program' , '-f' , '-v' , '-d' ) );
+            $result = $opt->parse( array( '-f' , '-v' , '-d' ) );
         }
         catch (Exception $e) {
             return;
@@ -64,7 +64,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
         $opt->add( 'b|bar+' , 'option with multiple value' );
-        $result = $opt->parse(explode(' ','program -b 1 -b 2 --bar 3'));
+        $result = $opt->parse(explode(' ','-b 1 -b 2 --bar 3'));
 
         ok( $result->bar );
         count_ok(3,$result->bar->value);
@@ -81,7 +81,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         // test non numeric
         try {
-            $result = $opt->parse(explode(' ','program -b test'));
+            $result = $opt->parse(explode(' ','-b test'));
             ok( $result->bar );
         } catch ( GetOptionKit\NonNumericException $e ) {
             ok( $e );
@@ -99,7 +99,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $spec = $opt->get('bar');
         ok( $spec->isTypeInteger() );
 
-        $result = $opt->parse(explode(' ','program -b 123123'));
+        $result = $opt->parse(explode(' ','-b 123123'));
         ok( $result->bar );
         ok( $result->bar->value === 123123 );
     }
@@ -115,14 +115,12 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $spec = $opt->get('bar');
         ok( $spec->isTypeString() );
 
-        $result = $opt->parse(explode(' ','program -b text arg1 arg2 arg3'));
+        $result = $opt->parse(explode(' ','-b text arg1 arg2 arg3'));
         ok( $result->bar );
 
         $args = $result->getArguments();
         ok( $args );
         count_ok( 3,$args);
-
-        ok( $result->program );
     }
 
 
@@ -136,7 +134,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $opt->specs->all() );
         ok( $opt->specs );
         ok( $opt->getSpecs() );
-        ok( $result = $opt->parse(explode(' ','program -a -b --long')) );
+        ok( $result = $opt->parse(explode(' ','-a -b --long')) );
         ok( $result->a );
         ok( $result->b );
     }
@@ -183,7 +181,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'v|verbose' , 'verbose message' );
         $opt->add( 'd|debug'   , 'debug message' );
 
-        $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
+        $result = $opt->parse( array( '-f' , 'foo value' , '-v' , '-d' ) );
         ok( $result );
         ok( $result->foo );
         ok( $result->verbose );
@@ -192,7 +190,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose->value );
         ok( $result->debug->value );
 
-        $result = $opt->parse( array( 'program' , '-f=foo value' , '-v' , '-d' ) );
+        $result = $opt->parse( array( '-f=foo value' , '-v' , '-d' ) );
         ok( $result );
         ok( $result->foo );
         ok( $result->verbose );
@@ -206,7 +204,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose->value );
         ok( $result->debug->value );
 
-        $result = $opt->parse( array( 'program' , '-vd' ) );
+        $result = $opt->parse( array( '-vd' ) );
         ok( $result->verbose );
         ok( $result->debug );
     }

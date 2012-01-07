@@ -28,9 +28,6 @@ class OptionResult implements Iterator
     /* arguments */
     public $arguments = array();
 
-    /* program name */
-    public $program;
-
     function __construct()
     {
 
@@ -50,12 +47,6 @@ class OptionResult implements Iterator
     function set($key, OptionSpec $value)
     {
         $this->keys[ $key ] = $value;
-    }
-
-
-    function setProgram( $program )
-    {
-        $this->program = $program;
     }
 
     function addArgument( Argument $arg)

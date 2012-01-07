@@ -103,8 +103,6 @@ class OptionParser
     {
         $result = new OptionResult;
         $len = count($argv);
-        // $result->setProgram( $argv[0] );
-
         for( $i = 0; $i < $len; ++$i ) 
         {
             $arg = new Argument( $argv[$i] );
