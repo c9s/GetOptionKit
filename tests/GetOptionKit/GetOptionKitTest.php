@@ -120,7 +120,10 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         $args = $result->getArguments();
         ok( $args );
-        count_ok( 3,$args);
+        count_ok(3,$args);
+        is( 'arg1', $args[0] );
+        is( 'arg2', $args[1] );
+        is( 'arg3', $args[2] );
     }
 
 
