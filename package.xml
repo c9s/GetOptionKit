@@ -12,10 +12,10 @@ multiple flag, multiple values, required value checking.</description>
     <active>yes</active>
   </lead>
   <date>2012-01-07</date>
-  <time>12:50:54</time>
+  <time>13:36:19</time>
   <version>
-    <release>0.0.7</release>
-    <api>0.0.7</api>
+    <release>0.0.8</release>
+    <api>0.0.8</api>
   </version>
   <stability>
     <release>stable</release>
@@ -29,7 +29,7 @@ multiple flag, multiple values, required value checking.</description>
       <file name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
       <file name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="5ebc7dd240bbf16e56e4ba9d11b9f3ff"/>
       <file name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="cc961ff4965f9b763d5df712f6ffbe10"/>
-      <file name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="f7203a2878b82d4ee3367fe793fb32c4"/>
+      <file name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="fa54ad72e00511c767618ff7d1afc912"/>
       <file name="tests/bootstrap.php" role="test" md5sum="bf7805a7403de3707721386f57a416f6"/>
       <file name="tests/helpers.php" role="test" md5sum="442b22ed35a844926391dc62c49ec706"/>
       <file name="src/GetOptionKit/Argument.php" role="php" md5sum="92b78f4fd68da0e7fba748fe7a78464f"/>
@@ -40,9 +40,9 @@ multiple flag, multiple values, required value checking.</description>
       <file name="src/GetOptionKit/OptionParser.php" role="php" md5sum="ad86cfde69a94ede3132d065c22cd0a4"/>
       <file name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="4b7f47c58f1578e477d231e37bc4a3b9"/>
       <file name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
-      <file name="src/GetOptionKit/OptionResult.php" role="php" md5sum="1d0891411feef9ec312a041158fc60b0"/>
-      <file name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="b62e497b2043d8e9db577a980fb2d123"/>
-      <file name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="20e3fe2c2dbdaeb3d9d0e5522ce8d2f8"/>
+      <file name="src/GetOptionKit/OptionResult.php" role="php" md5sum="94cda545740938ddf21c34df8d1b1f40"/>
+      <file name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="a214f3455fbc59edfba957691393933f"/>
+      <file name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="e7b4c3ae14e26562ff278bbc313d1db1"/>
       <file name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
     </dir>
   </contents>
