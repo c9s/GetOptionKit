@@ -64,7 +64,7 @@ use Exception;
  *      // command arguments
  *      $arguments = array();
  * 
- *      $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+ *      $argv = explode(' ','-v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
  *
  *      // parse application options first
  *      $parser = new ContinuousOptionParser( $appspecs );
@@ -130,8 +130,6 @@ class ContinuousOptionParser extends OptionParser
         $this->length = count($argv);
         if( $this->isEnd() )
             return $result;
-
-        $result->setProgram( $argv[0] );
 
         // from last parse index
         for( ; $this->index < $this->length; ++$this->index ) 

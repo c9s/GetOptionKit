@@ -10,8 +10,10 @@
  */
 namespace GetOptionKit;
 use GetOptionKit\OptionSpec;
+use Iterator;
 
 class OptionSpecCollection
+    implements Iterator
 {
     public $data = array();
 
@@ -127,6 +129,32 @@ class OptionSpecCollection
             throw new Exception("$class does not implement GetOptionKit\OptionPrinterInterface.");
         }
         $printer->printOptions();
+    }
+
+    /* iterator methods */
+    public function rewind() 
+    {
+        return reset($this->data);
+    }
+
+    public function current() 
+    {
+        return current($this->data);
+    }
+
+    public function key() 
+    {
+        return key($this->data);
+    }
+
+    public function next() 
+    {
+        return next($this->data);
+    }
+
+    public function valid() 
+    {
+        return key($this->data) !== null;
     }
 
 }
