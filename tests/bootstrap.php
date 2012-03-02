@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  *
  */
-require 'vendor/pear/Universal/ClassLoader/SplClassLoader.php';
+require 'vendor/pear/Universal/ClassLoader/BasePathClassLoader.php';
 require 'tests/helpers.php';
 $classLoader = new \Universal\ClassLoader\BasePathClassLoader(array(
     dirname(__DIR__) . '/src', 
