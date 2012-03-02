@@ -9,7 +9,7 @@
  *
  */
 require 'vendor/pear/Universal/ClassLoader/BasePathClassLoader.php';
-require 'tests/helpers.php';
+require 'vendor/pear/PHPUnit/TestMore.php';
 $classLoader = new \Universal\ClassLoader\BasePathClassLoader(array(
     dirname(__DIR__) . '/src', 
     dirname(__DIR__) . '/vendor/pear',
