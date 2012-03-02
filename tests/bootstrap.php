@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  *
  */
-require 'Universal/ClassLoader/SplClassLoader.php';
+require 'vendor/pear/Universal/ClassLoader/SplClassLoader.php';
 require 'tests/helpers.php';
-$classLoader = new \Universal\ClassLoader\SplClassLoader( 
-    array( "GetOptionKit"  => dirname(__DIR__) . '/src' )
-);
+$classLoader = new \Universal\ClassLoader\BasePathClassLoader(array(
+    dirname(__DIR__) . '/src', 
+    dirname(__DIR__) . '/vendor/pear',
+));
 $classLoader->register();
