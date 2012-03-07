@@ -96,6 +96,9 @@ Print:
 
 ## Synopsis
 
+
+```php
+<?php
     use GetOptionKit\GetOptionKit;
 
     $getopt = new GetOptionKit;
@@ -116,8 +119,12 @@ Print:
     $spec = $result->verbose;
     $spec = $result->debug;
     $spec->value;  # get value
+```
 
 More low-level usage:
+
+```php
+<?php
 
     $specs = new OptionSpecCollection;
     $spec_verbose = $specs->add('v|verbose');
@@ -129,6 +136,7 @@ More low-level usage:
     $parser = new ContinuousOptionParser( $specs );
     $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcommand -e -f -g subcommand2'));
     $result2 = $parser->continueParse();
+```
 
 GetOptionKit\OptionPrinter can print options for you:
 
@@ -155,6 +163,8 @@ For application with subcommands is designed by following form:
 
 You can check the `tests/GetOptionKit/ContinuousOptionParserTest.php` unit test file:
 
+```php
+<?php
     // subcommand stack
     $subcommands = array('subcommand1','subcommand2','subcommand3');
 
@@ -186,6 +196,7 @@ You can check the `tests/GetOptionKit/ContinuousOptionParserTest.php` unit test 
             $arguments[] = $parser->advance();
         }
     }
+```
 
 ## Todo
 
