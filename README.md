@@ -223,7 +223,7 @@ To list the subcommand usage
 
 	$ prog help subcommand subcommand2 subcommand3
 
-## Hacking
+## Hacking Guide
 
 Fork this repository and clone it:
 
