@@ -21,6 +21,14 @@ GetOptionKit is object-oriented, it's flexible and extendable.
     cd GetOptionKit
     sudo pear install -f package.xml
 
+Then, please pick up a SplClassLoader to autoload class.
+
+To use GetOptionKit without SplClassLoader:
+
+    require 'src/GetOptionKit/Init.php';
+
+    // your code here
+
 ## Supported formats
 
 flags:
