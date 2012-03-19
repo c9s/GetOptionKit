@@ -9,9 +9,11 @@
  *
  */
 namespace GetOptionKit;
+use ArrayAccess;
 use Iterator;
 use GetOptionKit\Argument;
 use GetOptionKit\OptionSpec;
+
 
 /**
  * Define the getopt parsing result
@@ -23,7 +25,8 @@ use GetOptionKit\OptionSpec;
  *     ), array( ... arguments ... ) );
  *
  */
-class OptionResult implements Iterator
+class OptionResult 
+    implements Iterator, ArrayAccess
 {
     /**
      * @var array option specs, key => OptionSpec object 
@@ -43,7 +46,7 @@ class OptionResult implements Iterator
     function __get($key)
     {
         if( isset($this->keys[ $key ]) )
-            return @$this->keys[ $key ];
+            return @$this->keys[ $key ]->value;
     }
 
     function __set($key,$value)
@@ -67,8 +70,9 @@ class OptionResult implements Iterator
     }
 
 
-
-    /* iterator methods */
+    /**
+     * Iterator methods 
+     */
     function rewind() 
     {
         return reset($this->keys);
@@ -76,7 +80,7 @@ class OptionResult implements Iterator
 
     function current() 
     {
-        return current($this->keys);
+        return current($this->keys)->value;
     }
 
     function key() 
@@ -93,6 +97,28 @@ class OptionResult implements Iterator
     {
         return key($this->keys) !== null;
     }
+
+
+    public function offsetSet($name,$value)
+    {
+        $this->keys[ $name ] = $value;
+    }
+    
+    public function offsetExists($name)
+    {
+        return isset($this->keys[ $name ]);
+    }
+    
+    public function offsetGet($name)
+    {
+        return $this->keys[ $name ];
+    }
+    
+    public function offsetUnset($name)
+    {
+        unset($this->keys[$name]);
+    }
+    
 
     static function create($specs,$values = array(),$arguments = null )
     {

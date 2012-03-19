@@ -67,7 +67,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $result = $opt->parse(explode(' ','-b 1 -b 2 --bar 3'));
 
         ok( $result->bar );
-        count_ok(3,$result->bar->value);
+        count_ok(3,$result->bar);
     }
 
     function testIntegerTypeNonNumeric()
@@ -101,7 +101,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         $result = $opt->parse(explode(' ','-b 123123'));
         ok( $result->bar );
-        ok( $result->bar->value === 123123 );
+        ok( $result->bar === 123123 );
     }
 
 
@@ -189,9 +189,9 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->foo );
         ok( $result->verbose );
         ok( $result->debug );
-        is( 'foo value', $result->foo->value );
-        ok( $result->verbose->value );
-        ok( $result->debug->value );
+        is( 'foo value', $result->foo );
+        ok( $result->verbose );
+        ok( $result->debug );
 
         $result = $opt->parse( array( '-f=foo value' , '-v' , '-d' ) );
         ok( $result );
@@ -199,13 +199,9 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose );
         ok( $result->debug );
 
-        is_class( 'GetOptionKit\\OptionSpec' , $result->foo );
-        is_class( 'GetOptionKit\\OptionSpec' , $result->verbose );
-        is_class( 'GetOptionKit\\OptionSpec' , $result->debug );
-
-        is( 'foo value', $result->foo->value );
-        ok( $result->verbose->value );
-        ok( $result->debug->value );
+        is( 'foo value', $result->foo );
+        ok( $result->verbose );
+        ok( $result->debug );
 
         $result = $opt->parse( array( '-vd' ) );
         ok( $result->verbose );

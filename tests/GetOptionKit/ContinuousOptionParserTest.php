@@ -188,9 +188,9 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( $r->b , 'option b' );
         ok( $r->c , 'option c' );
 
-        is( 'a', $r->a->value );
-        is( 'b', $r->b->value );
-        is( 'c', $r->c->value[0] );
+        is( 'a', $r->a );
+        is( 'b', $r->b );
+        is( 'c', $r->c[0] );
     }
 }
 

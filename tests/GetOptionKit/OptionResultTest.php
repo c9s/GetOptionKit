@@ -22,8 +22,8 @@ class OptionResultTest extends PHPUnit_Framework_TestCase
         $result = \GetOptionKit\OptionResult::create($specs,array( 'name' => 'c9s' ),array( 'arg1' ));
         ok( $result );
         ok( $result->arguments );
-        ok( $result->name->value );
-        is( 'c9s', $result->name->value );
+        ok( $result->name );
+        is( 'c9s', $result->name );
         is( $result->arguments[0] , 'arg1' );
     }
 
