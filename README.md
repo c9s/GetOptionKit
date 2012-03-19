@@ -124,9 +124,8 @@ Print:
     $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
     $result = $opt->parse( $argv );
 
-    $spec = $result->verbose;
-    $spec = $result->debug;
-    $spec->value;  # get value
+    $result->verbose;
+    $result->debug;
 ```
 
 More low-level usage:
