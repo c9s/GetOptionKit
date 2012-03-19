@@ -89,11 +89,12 @@ class OptionSpec
         elseif( strpos($attributes,'+') !== false ) {
             $this->setAttributeMultiple();
         }
-        // option is optional.
+        // option is optional.(zero or one value)
         elseif( strpos($attributes,'?') !== false ) {
             $this->setAttributeOptional();
         } 
-        // option is multiple value and optional
+
+        // option is multiple value and optional (zero or more)
         elseif( strpos($attributes,'*') !== false ) {
             throw new Exception('not implemented yet');
         }

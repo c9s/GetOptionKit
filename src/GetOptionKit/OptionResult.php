@@ -43,6 +43,11 @@ class OptionResult
 
     }
 
+    function __isset($key)
+    {
+        return isset($this->keys[$key]);
+    }
+
     function __get($key)
     {
         if( isset($this->keys[ $key ]) )
@@ -52,6 +57,11 @@ class OptionResult
     function __set($key,$value)
     {
         $this->keys[ $key ] = $value;
+    }
+
+    function has($key)
+    {
+        return isset($this->keys[ $key ]);
     }
 
     function set($key, OptionSpec $value)
