@@ -138,6 +138,7 @@ class ContinuousOptionParser extends OptionParser
 
             /* let the application decide for: command or arguments */
             if( ! $arg->isOption() ) {
+                $this->index--;
                 return $result;
             }
 
