@@ -119,17 +119,22 @@ class ContinuousOptionParser extends OptionParser
 
     function continueParse()
     {
-        return $this->parse( $this->argv );
+        return $this->parse($this->argv);
     }
 
     function parse($argv)
     {
         // create new Result object.
         $result = new OptionResult;
-        $this->argv = $argv;
-        $this->length = count($argv);
-        if( $this->isEnd() )
+
+        if( ! $this->argv ) {
+            $this->argv = $argv;
+            $this->length = count($argv);
+        }
+
+        if( $this->isEnd() ) {
             return $result;
+        }
 
         // from last parse index
         for( ; $this->index < $this->length; ++$this->index ) 
@@ -138,7 +143,7 @@ class ContinuousOptionParser extends OptionParser
 
             /* let the application decide for: command or arguments */
             if( ! $arg->isOption() ) {
-                $this->index--;
+                # echo "stop at {$this->index}\n";
                 return $result;
             }
 

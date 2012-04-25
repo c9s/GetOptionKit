@@ -38,7 +38,6 @@ class OptionSpec
         }
     }
 
-
     /* 
      * build spec attributes from spec string 
      *

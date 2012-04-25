@@ -25,6 +25,19 @@ class OptionSpecCollection
         $this->data = array();
     }
 
+    function __clone()
+    {
+        foreach( $this->data as $k => $v ) {
+            $this->data[ $k ] = clone $v;
+        }
+        foreach( $this->longOptions as $k => $v ) {
+            $this->longOptions[ $k ] = clone $v;
+        }
+        foreach( $this->shortOptions as $k => $v ) {
+            $this->shortOptions[ $k ] = clone $v;
+        }
+    }
+
     function add()
     {
         $num = func_num_args();
