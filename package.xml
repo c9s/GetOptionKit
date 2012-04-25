@@ -11,11 +11,11 @@ multiple flag, multiple values, required value checking.</description>
     <email>cornelius.howl@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2012-03-19</date>
-  <time>18:30:56</time>
+  <date>2012-04-25</date>
+  <time>20:03:13</time>
   <version>
-    <release>1.1.1</release>
-    <api>1.1.1</api>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
   </version>
   <stability>
     <release>stable</release>
@@ -28,12 +28,12 @@ multiple flag, multiple values, required value checking.</description>
       <file name="examples/demo.php" role="doc" md5sum="1a06806fbe3d4e9fcd8a34f0c74b9320"/>
       <file name="tests/bootstrap.php" role="test" md5sum="e85c5afa68819047ccb2d6e3ddb49a9e"/>
       <file name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
-      <file name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="5f8f94f4415fdf4448c42a84c7831036"/>
+      <file name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="3ce58a815ec788fc9e97e05ad3d864cd"/>
       <file name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="3aafa2053be71a68e1aec706109cca79"/>
       <file name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="2f7fbe602cb4d4225b2992633d7fd3ac"/>
       <file name="src/GetOptionKit/Argument.php" role="php" md5sum="92b78f4fd68da0e7fba748fe7a78464f"/>
       <file name="src/GetOptionKit/ContinuousOptionKit.php" role="php" md5sum="b355ae694427b85c53f007d2d78a63a4"/>
-      <file name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="eb8a65a24e8a6834b0142373a7065aba"/>
+      <file name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="7bd7d1b09f166aa18f19dd722822a401"/>
       <file name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="5d3e2e2290c59d6938e1364b274a523c"/>
       <file name="src/GetOptionKit/Init.php" role="php" md5sum="fed61429316423c3840063aa7e7cc12d"/>
       <file name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/>
@@ -41,8 +41,8 @@ multiple flag, multiple values, required value checking.</description>
       <file name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="ad96e398da0c7c8644536aa73f360761"/>
       <file name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file name="src/GetOptionKit/OptionResult.php" role="php" md5sum="954af23a5af76c7d1405a3dae9debd81"/>
-      <file name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="81b5cb96d36d21e1f956d9e137528380"/>
-      <file name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="e7b4c3ae14e26562ff278bbc313d1db1"/>
+      <file name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="eb349b63d68c09f0b2e9b6dd64dd4b07"/>
+      <file name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="a58e7ca62252c735e154598d1a335153"/>
       <file name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
     </dir>
   </contents>
