@@ -72,7 +72,7 @@ class OptionSpecCollection
         if( $spec->long )
             $this->longOptions[ $spec->long ] = $spec;
         if( $spec->short )
-            $this->longOptions[ $spec->short ] = $spec;
+            $this->shortOptions[ $spec->short ] = $spec;
         if( ! $spec->long && ! $spec->short )
             throw new Exception('Wrong option spec');
     }

@@ -71,7 +71,7 @@ class OptionSpec
         // check long,short option name.
         if( strpos($name,'|') !== false ) {
             list($short,$long) = explode('|',$name);
-        } elseif( strlen($name) == 1 ) {
+        } elseif( strlen($name) === 1 ) {
             $short = $name;
         } elseif( strlen($name) > 1 ) {
             $long = $name;

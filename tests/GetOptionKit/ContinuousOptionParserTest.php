@@ -42,22 +42,24 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $appspecs->add('d|debug');
 
         $cmdspecs = new OptionSpecCollection;
-        $cmdspecs->add('foo:');
+        $cmdspecs->add('as:');
         $cmdspecs->add('b');
         $cmdspecs->add('c');
+        ok( $cmdspecs );
+
 
         $parser = new ContinuousOptionParser( $appspecs );
         ok( $parser );
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
         $subcommand_specs = array(
-            'subcommand1' => $cmdspecs,
-            'subcommand2' => $cmdspecs,
-            'subcommand3' => $cmdspecs,
+            'subcommand1' => clone $cmdspecs,
+            'subcommand2' => clone $cmdspecs,
+            'subcommand3' => clone $cmdspecs,
         );
         $subcommand_options = array();
 
-        $argv = explode(' ','program subcommand1 --foo 1 arg1');
+        $argv = explode(' ','program subcommand1 --as 1 arg1');
         // $argv = explode(' ','program subcommand1 -a 1 subcommand2 -a 2 subcommand3 -a 3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();
@@ -76,7 +78,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
 #          is( 'arg2', $arguments[1] );
 #          is( 'arg3', $arguments[2] );
         ok( $subcommand_options );
-        is( 1, $subcommand_options['subcommand1']->a );
+        is( 1, $subcommand_options['subcommand1']->as );
         // ok( $subcommand_options['subcommand2'] );
         // ok( $subcommand_options['subcommand3'] );
     }
@@ -149,6 +151,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $cmdspecs->add('a:'); // required
         $cmdspecs->add('b?'); // optional
         $cmdspecs->add('c+'); // multiple (required)
+
 
 
         $parser = new ContinuousOptionParser( $appspecs );
@@ -238,8 +241,6 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         is( 'arg3', $arguments[2] );
         ok( $subcommand_options );
 
-        print_r( $subcommand_options ); 
-        
         is( 1, $subcommand_options['subcommand1']->a );
         ok( 2, $subcommand_options['subcommand2']->a );
         ok( 3, $subcommand_options['subcommand3']->a );
