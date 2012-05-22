@@ -11,8 +11,8 @@ multiple flag, multiple values, required value checking.</description>
     <email>cornelius.howl@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2012-04-25</date>
-  <time>20:03:13</time>
+  <date>2012-05-22</date>
+  <time>16:53:53</time>
   <version>
     <release>1.1.2</release>
     <api>1.1.2</api>
@@ -26,11 +26,11 @@ multiple flag, multiple values, required value checking.</description>
   <contents>
     <dir name="/">
       <file name="examples/demo.php" role="doc" md5sum="1a06806fbe3d4e9fcd8a34f0c74b9320"/>
-      <file name="tests/bootstrap.php" role="test" md5sum="e85c5afa68819047ccb2d6e3ddb49a9e"/>
       <file name="tests/GetOptionKit/ArgumentTest.php" role="test" md5sum="0e1cd44f4d2d700b4b220bfd89ec7871"/>
-      <file name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="3ce58a815ec788fc9e97e05ad3d864cd"/>
+      <file name="tests/GetOptionKit/ContinuousOptionParserTest.php" role="test" md5sum="53a3eb43156b82c5b0a9daac423c2cc4"/>
       <file name="tests/GetOptionKit/GetOptionKitTest.php" role="test" md5sum="3aafa2053be71a68e1aec706109cca79"/>
       <file name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="2f7fbe602cb4d4225b2992633d7fd3ac"/>
+      <file name="tests/bootstrap.php" role="test" md5sum="ede31214a63b951d0a0b9f799efc490b"/>
       <file name="src/GetOptionKit/Argument.php" role="php" md5sum="92b78f4fd68da0e7fba748fe7a78464f"/>
       <file name="src/GetOptionKit/ContinuousOptionKit.php" role="php" md5sum="b355ae694427b85c53f007d2d78a63a4"/>
       <file name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="7bd7d1b09f166aa18f19dd722822a401"/>
@@ -67,11 +67,11 @@ multiple flag, multiple values, required value checking.</description>
   <phprelease>
     <filelist>
       <install name="examples/demo.php" as="demo.php"/>
-      <install name="tests/bootstrap.php" as="bootstrap.php"/>
       <install name="tests/GetOptionKit/ArgumentTest.php" as="GetOptionKit/ArgumentTest.php"/>
       <install name="tests/GetOptionKit/ContinuousOptionParserTest.php" as="GetOptionKit/ContinuousOptionParserTest.php"/>
       <install name="tests/GetOptionKit/GetOptionKitTest.php" as="GetOptionKit/GetOptionKitTest.php"/>
       <install name="tests/GetOptionKit/OptionResultTest.php" as="GetOptionKit/OptionResultTest.php"/>
+      <install name="tests/bootstrap.php" as="bootstrap.php"/>
       <install name="src/GetOptionKit/Argument.php" as="GetOptionKit/Argument.php"/>
       <install name="src/GetOptionKit/ContinuousOptionKit.php" as="GetOptionKit/ContinuousOptionKit.php"/>
       <install name="src/GetOptionKit/ContinuousOptionParser.php" as="GetOptionKit/ContinuousOptionParser.php"/>

@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  *
  */
-require 'vendor/pear/Universal/ClassLoader/BasePathClassLoader.php';
-require 'vendor/pear/PHPUnit/TestMore.php';
+require 'Universal/ClassLoader/BasePathClassLoader.php';
+require 'PHPUnit/TestMore.php';
 $classLoader = new \Universal\ClassLoader\BasePathClassLoader(array(
     dirname(__DIR__) . '/src', 
     dirname(__DIR__) . '/vendor/pear',
