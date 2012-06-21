@@ -129,8 +129,8 @@ Print:
     $getopt->add( 'v|verbose' , 'verbose flag' );
     $getopt->add( 'd|debug'   , 'debug flag' );
 
-    $result = $opt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
-    $result = $opt->parse( $argv );
+    $result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
+    $result = $getopt->parse( $argv );
 
     $result->verbose;
     $result->debug;
