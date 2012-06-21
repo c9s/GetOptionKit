@@ -9,6 +9,14 @@ testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
+## Features
+
+- simple format.
+- type constrant.
+- multiple value, requried value, optional value checking.
+- auto-generated help text from defined options.
+- support app/subcommand option parsing.
+- SPL library.
 
 ## Requirements
 
