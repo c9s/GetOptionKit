@@ -129,6 +129,14 @@ class OptionResult
         unset($this->keys[$name]);
     }
     
+    public function toArray()
+    {
+        $array = array();
+        foreach( $this->keys as $key => $option ) {
+            $array[ $key ] = $option->value;
+        }
+        return $array;
+    }
 
     static function create($specs,$values = array(),$arguments = null )
     {
