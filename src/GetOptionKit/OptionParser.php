@@ -88,14 +88,16 @@ class OptionParser
             $spec->pushValue( $next->arg );
     }
 
-    function checkValue($spec,$arg,$next)
+    function foundRequireValue($spec,$arg,$next)
     {
-        if( ! $next )
-            return false;
-
         /* argument doesn't contain value and next argument is option */
-        return ( ! $arg->containsOptionValue() 
-                            && $next->isOption() );
+        if( $arg->containsOptionValue() )
+            return true;
+
+        if( ! $arg->containsOptionValue() && $next && ! $next->isOption() )
+            return true;
+
+        return false;
     }
 
 
@@ -127,8 +129,7 @@ class OptionParser
 
             if( $spec->isAttributeRequire() ) 
             {
-
-                if( $this->checkValue($spec,$arg,$next) )
+                if( ! $this->foundRequireValue($spec,$arg,$next) )
                     throw new Exception( "Option {$arg->getOptionName()} require a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
