@@ -1,5 +1,5 @@
 {
-    "name": "c9s/GetOptionKit",
+    "name": "c9s/getoptionkit",
     "homepage": "http://github.com/c9s/GetOptionKit",
     "description": "Powerful command-line option toolkit",
     "require": {
