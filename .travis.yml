@@ -8,6 +8,7 @@ before_script:
   - curl -O https://raw.github.com/c9s/Onion/master/onion
   - pear channel-discover pear.corneltek.com
   - pear install -a -f corneltek/Universal
+  - pear install -a -f corneltek/PHPUnit_TestMore
   - php onion -q install
 
 script: phpunit
