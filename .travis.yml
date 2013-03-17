@@ -1,12 +1,13 @@
 language: php
 php:
-  - 5.3.2
   - 5.3
   - 5.4
 
 before_script:
   - phpenv rehash
   - curl -O https://raw.github.com/c9s/Onion/master/onion
-  - php onion bundle
+  - pear channel-discover pear.corneltek.com
+  - pear install -a -f corneltek/Universal
+  - php onion -q install
 
 script: phpunit
