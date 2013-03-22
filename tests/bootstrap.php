@@ -8,10 +8,4 @@
  * file that was distributed with this source code.
  *
  */
-require 'Universal/ClassLoader/BasePathClassLoader.php';
-require 'PHPUnit/TestMore.php';
-$classLoader = new \Universal\ClassLoader\BasePathClassLoader(array(
-    dirname(__DIR__) . '/src', 
-    dirname(__DIR__) . '/vendor/pear',
-));
-$classLoader->register();
+require 'vendor/autoload.php';
