@@ -5,6 +5,6 @@ php:
 
 before_script:
   - phpenv rehash
-  - composer install
+  - composer install --dev
 
 script: phpunit
