@@ -234,18 +234,21 @@ To list the subcommand usage
 
 	$ prog help subcommand subcommand2 subcommand3
 
-## Hacking Guide
+## Hacking
 
 Fork this repository and clone it:
 
     $ git clone git://github.com/c9s/GetOptionKit.git
-
-Get Onion to install bundle:
-
-    $ curl http://install.onionphp.org/ | bash
-    $ onion bundle
+    $ cd GetOptionKit
+    $ composer install --dev
 
 Run PHPUnit to test:
 
     $ phpunit 
+
+
+## License
+
+MIT License
+
 
