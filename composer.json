@@ -1,20 +1,25 @@
 {
-    "name": "corneltek/getoptionkit",
-    "homepage": "http://github.com/c9s/GetOptionKit",
+    "name": "corneltek\/getoptionkit",
+    "homepage": "http:\/\/github.com\/c9s\/GetOptionKit",
     "description": "Powerful command-line option toolkit",
     "require": {
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "corneltek/phpunit-testmore": "dev-master"
+        "corneltek\/phpunit-testmore": "dev-master"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "Yo-An Lin",
             "email": "cornelius.howl@gmail.com",
-            "homepage": "http://c9s.me"
+            "homepage": "http:\/\/c9s.me"
         }
     ],
-    "autoload": { "psr-0": { "GetOptionKit": "src" } }
+    "autoload": {
+        "psr-0": {
+            "GetOptionKit": "src"
+        }
+    },
+    "version": "1.2.3"
 }
