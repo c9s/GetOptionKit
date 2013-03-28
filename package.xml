@@ -11,11 +11,11 @@ multiple flag, multiple values, required value checking.</description>
     <email>cornelius.howl@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2012-07-09</date>
-  <time>00:08:58</time>
+  <date>2012-09-12</date>
+  <time>01:32:19</time>
   <version>
-    <release>1.2.0</release>
-    <api>1.2.0</api>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
   </version>
   <stability>
     <release>stable</release>
@@ -33,11 +33,11 @@ multiple flag, multiple values, required value checking.</description>
       <file name="tests/GetOptionKit/OptionResultTest.php" role="test" md5sum="2f7fbe602cb4d4225b2992633d7fd3ac"/>
       <file name="src/GetOptionKit/Argument.php" role="php" md5sum="92b78f4fd68da0e7fba748fe7a78464f"/>
       <file name="src/GetOptionKit/ContinuousOptionKit.php" role="php" md5sum="b355ae694427b85c53f007d2d78a63a4"/>
-      <file name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="7bd7d1b09f166aa18f19dd722822a401"/>
+      <file name="src/GetOptionKit/ContinuousOptionParser.php" role="php" md5sum="aa3961437c6f24101c9637ee4f2f5130"/>
       <file name="src/GetOptionKit/GetOptionKit.php" role="php" md5sum="5d3e2e2290c59d6938e1364b274a523c"/>
       <file name="src/GetOptionKit/Init.php" role="php" md5sum="fed61429316423c3840063aa7e7cc12d"/>
       <file name="src/GetOptionKit/NonNumericException.php" role="php" md5sum="e95e5aef70faeb1d0a4c8a95d3f9728d"/>
-      <file name="src/GetOptionKit/OptionParser.php" role="php" md5sum="ad86cfde69a94ede3132d065c22cd0a4"/>
+      <file name="src/GetOptionKit/OptionParser.php" role="php" md5sum="13cc984e15f6c8adba419f6f9da9355b"/>
       <file name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="ad96e398da0c7c8644536aa73f360761"/>
       <file name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file name="src/GetOptionKit/OptionResult.php" role="php" md5sum="dd9bff2304abe7a8520fe2831ba5a13e"/>

@@ -166,11 +166,10 @@ class ContinuousOptionParser extends OptionParser
             if( ! $spec )
                 throw new Exception("Invalid option: " . $arg );
 
-
             if( $spec->isAttributeRequire() ) 
             {
-                if( $this->checkValue($spec,$arg,$next) )
-                    throw new Exception( "Option {$arg->getOptionName()} requires a value." );
+                if( ! $this->foundRequireValue($spec,$arg,$next) )
+                    throw new Exception( "Option '{$arg->getOptionName()}' requires a value." );
 
                 $this->takeOptionValue($spec,$arg,$next);
                 if( $next && ! $next->isOption() )

@@ -1,5 +1,5 @@
 {
-    "name": "c9s/GetOptionKit",
+    "name": "corneltek/getoptionkit",
     "homepage": "http://github.com/c9s/GetOptionKit",
     "description": "Powerful command-line option toolkit",
     "require": {
