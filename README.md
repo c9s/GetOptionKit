@@ -21,21 +21,21 @@ GetOptionKit is object-oriented, it's flexible and extendable.
 ## Requirements
 
 * PHP 5.3
-* PEAR
 
-## Install
+## Install From Composer
 
-    git clone git://github.com/c9s/GetOptionKit.git
-    cd GetOptionKit
-    sudo pear install -f package.xml
+```json
+{
+    "require": { 
+        "corneltek/getoptionkit": "~1.2"
+    }
+}
+```
 
-Then, please pick up a SplClassLoader to autoload class.
+## Install from PEAR
 
-To use GetOptionKit without SplClassLoader:
-
-    require 'src/GetOptionKit/Init.php';
-
-    // your code here
+    pear channel-discover pear.corneltek.com
+    pear install corneltek/GetOptionKit
 
 ## Supported formats
 
@@ -114,43 +114,40 @@ Print:
 
 
 ```php
-<?php
-    use GetOptionKit\GetOptionKit;
+use GetOptionKit\GetOptionKit;
 
-    $getopt = new GetOptionKit;
-    $spec = $getopt->add( 'f|foo:' , 'option require value' );  # returns spec object.
+$getopt = new GetOptionKit;
+$spec = $getopt->add( 'f|foo:' , 'option require value' );  # returns spec object.
 
-    $getopt->add( 'b|bar+' , 'option with multiple value' );
-    $getopt->add( 'z|zoo?' , 'option with optional value' );
+$getopt->add( 'b|bar+' , 'option with multiple value' );
+$getopt->add( 'z|zoo?' , 'option with optional value' );
 
-    $getopt->add( 'f|foo:=i' , 'option require value, with integer type' );
-    $getopt->add( 'f|foo:=s' , 'option require value, with string type' );
+$getopt->add( 'f|foo:=i' , 'option requires a integer value' );
+$getopt->add( 'f|foo:=s' , 'option requires a string value' );
 
-    $getopt->add( 'v|verbose' , 'verbose flag' );
-    $getopt->add( 'd|debug'   , 'debug flag' );
+$getopt->add( 'v|verbose' , 'verbose flag' );
+$getopt->add( 'd|debug'   , 'debug flag' );
 
-    $result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
-    $result = $getopt->parse( $argv );
+$result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
+$result = $getopt->parse( $argv );
 
-    $result->verbose;
-    $result->debug;
+$result->verbose;
+$result->debug;
 ```
 
 More low-level usage:
 
 ```php
-<?php
+$specs = new OptionSpecCollection;
+$spec_verbose = $specs->add('v|verbose');
+$spec_color = $specs->add('c|color');
+$spec_debug = $specs->add('d|debug');
+$spec_verbose->description = 'verbose flag';
 
-    $specs = new OptionSpecCollection;
-    $spec_verbose = $specs->add('v|verbose');
-    $spec_color = $specs->add('c|color');
-    $spec_debug = $specs->add('d|debug');
-    $spec_verbose->description = 'verbose flag';
-
-    // ContinuousOptionParser
-    $parser = new ContinuousOptionParser( $specs );
-    $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcommand -e -f -g subcommand2'));
-    $result2 = $parser->continueParse();
+// ContinuousOptionParser
+$parser = new ContinuousOptionParser( $specs );
+$result = $parser->parse(explode(' ','program -v -d test -a -b -c subcommand -e -f -g subcommand2'));
+$result2 = $parser->continueParse();
 ```
 
 GetOptionKit\OptionPrinter can print options for you:
@@ -179,38 +176,37 @@ For application with subcommands is designed by following form:
 You can check the `tests/GetOptionKit/ContinuousOptionParserTest.php` unit test file:
 
 ```php
-<?php
-    // subcommand stack
-    $subcommands = array('subcommand1','subcommand2','subcommand3');
+// subcommand stack
+$subcommands = array('subcommand1','subcommand2','subcommand3');
 
-    // different command has its own options
-    $subcommand_specs = array(
-        'subcommand1' => $cmdspecs,
-        'subcommand2' => $cmdspecs,
-        'subcommand3' => $cmdspecs,
-    );
+// different command has its own options
+$subcommand_specs = array(
+    'subcommand1' => $cmdspecs,
+    'subcommand2' => $cmdspecs,
+    'subcommand3' => $cmdspecs,
+);
 
-    // for saved options
-    $subcommand_options = array();
+// for saved options
+$subcommand_options = array();
 
-    // command arguments
-    $arguments = array();
+// command arguments
+$arguments = array();
 
-    $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+$argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
 
-    // parse application options first
-    $parser = new ContinuousOptionParser( $appspecs );
-    $app_options = $parser->parse( $argv );
-    while( ! $parser->isEnd() ) {
-        if( $parser->getCurrentArgument() == $subcommands[0] ) {
-            $parser->advance();
-            $subcommand = array_shift( $subcommands );
-            $parser->setSpecs( $subcommand_specs[$subcommand] );
-            $subcommand_options[ $subcommand ] = $parser->continueParse();
-        } else {
-            $arguments[] = $parser->advance();
-        }
+// parse application options first
+$parser = new ContinuousOptionParser( $appspecs );
+$app_options = $parser->parse( $argv );
+while( ! $parser->isEnd() ) {
+    if( $parser->getCurrentArgument() == $subcommands[0] ) {
+        $parser->advance();
+        $subcommand = array_shift( $subcommands );
+        $parser->setSpecs( $subcommand_specs[$subcommand] );
+        $subcommand_options[ $subcommand ] = $parser->continueParse();
+    } else {
+        $arguments[] = $parser->advance();
     }
+}
 ```
 
 ## Todo
