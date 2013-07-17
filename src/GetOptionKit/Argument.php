@@ -31,6 +31,11 @@ class Argument
             && (substr($this->arg,1,1) !== '-');
     }
 
+    function isEmpty()
+    {
+        return empty($this->arg);
+    }
+
 
 
     /**
