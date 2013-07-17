@@ -49,13 +49,29 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'v|verbose' , 'verbose message' );
         $opt->add( 'd|debug'   , 'debug message' );
 
+        $firstExceptionRaised = false;
+        $secondExceptionRaised = false;
+
         // option required a value should throw an exception
         try {
             $result = $opt->parse( array( '-f' , '-v' , '-d' ) );
         }
         catch (Exception $e) {
+            $firstExceptionRaised = true;
+        }
+
+        // even if only one option presented in args array
+        try {
+            $result = $opt->parse( array( '-f' ) );
+        }
+        catch (Exception $e) {
+            $secondExceptionRaised = true;
+        }
+
+        if ($firstExceptionRaised && $secondExceptionRaised) {
             return;
         }
+
         $this->fail('An expected exception has not been raised.');
     }
 
