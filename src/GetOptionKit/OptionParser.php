@@ -94,7 +94,7 @@ class OptionParser
         if( $arg->containsOptionValue() )
             return true;
 
-        if( ! $arg->containsOptionValue() && $next && ! $next->isOption() )
+        if( ! $arg->containsOptionValue() && ! $next->isEmpty() && ! $next->isOption() )
             return true;
 
         return false;
