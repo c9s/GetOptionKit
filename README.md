@@ -73,7 +73,7 @@ with normal arguments:
     dir          long option name
 
 
-## Commnad Line Forms
+## Command Line Forms
 
     app [app-opts] [app arguments]
 
