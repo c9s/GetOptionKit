@@ -72,9 +72,12 @@ class OptionParser
         if( $arg->containsOptionValue() ) {
             $spec->setValue( $arg->getOptionValue() );
         }
-        elseif( ! $next->isOption() )  {
+        elseif( $next && ! $next->isOption() )  {
             $spec->setValue( $next->arg );
         }
+	    else {
+		    $spec->setValue(true);
+	    }
     }
 
     /* 
@@ -94,7 +97,7 @@ class OptionParser
         if( $arg->containsOptionValue() )
             return true;
 
-        if( ! $arg->containsOptionValue() && ! $next->isEmpty() && ! $next->isOption() )
+	    if( ! $arg->containsOptionValue() && $next && ! $next->isEmpty() && ! $next->isOption() )
             return true;
 
         return false;
