@@ -15,6 +15,7 @@ use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use Exception;
 use GetOptionKit\Exception\InvalidOptionException;
+use GetOptionKit\Exception\RequireValueException;
 
 class OptionParser 
 {
@@ -133,8 +134,9 @@ class OptionParser
 
             if( $spec->isAttributeRequire() ) 
             {
-                if( ! $this->foundRequireValue($spec,$arg,$next) )
-                    throw new Exception( "Option {$arg->getOptionName()} require a value." );
+                if ( ! $this->foundRequireValue($spec,$arg,$next) ) {
+                    throw new RequireValueException( "Option {$arg->getOptionName()} require a value." );
+                }
 
                 $this->takeOptionValue($spec,$arg,$next);
                 if( ! $next->isOption() )
