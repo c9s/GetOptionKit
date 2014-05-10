@@ -14,6 +14,7 @@ use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use GetOptionKit\OptionParser;
 use Exception;
+use GetOptionKit\Exception\InvalidOptionException;
 
 /**
  * A common command line argument format:
@@ -164,7 +165,7 @@ class ContinuousOptionParser extends OptionParser
 
             $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
-                throw new Exception("Invalid option: " . $arg );
+                throw new InvalidOptionException("Invalid option: " . $arg );
 
             if( $spec->isAttributeRequire() ) 
             {

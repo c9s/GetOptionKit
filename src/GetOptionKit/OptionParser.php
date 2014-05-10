@@ -14,6 +14,7 @@ use GetOptionKit\OptionSpecCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use Exception;
+use GetOptionKit\Exception\InvalidOptionException;
 
 class OptionParser 
 {
@@ -128,7 +129,7 @@ class OptionParser
             $next = new Argument( @$argv[$i + 1] );
             $spec = $this->specs->getSpec( $arg->getOptionName() );
             if( ! $spec )
-                throw new Exception("Invalid option: " . $arg );
+                throw new InvalidOptionException("Invalid option: " . $arg );
 
             if( $spec->isAttributeRequire() ) 
             {
