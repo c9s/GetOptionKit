@@ -298,10 +298,18 @@ class OptionSpec
 
     /**
      * Value Type Setters
+     *
+     * @param string $type the value type, valid values are 'number', 'string', 
+     *                      'file', 'boolean', you can also use your own value type name.
+     *
      */
     public function is($type) {
         $this->valueType = $type;
         return $this;
+    }
+
+    public function getValueType() {
+        return $this->valueType;
     }
 }
 
