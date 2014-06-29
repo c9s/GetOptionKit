@@ -17,8 +17,26 @@ class OptionSpecCollection
 {
     public $data = array();
 
+    /**
+     * @var OptionSpec[string]
+     *
+     * read-only property
+     */
     public $longOptions = array();
+
+    /**
+     * @var OptionSpec[string]
+     *
+     * read-only property
+     */
     public $shortOptions = array();
+
+    /**
+     * @var OptionSpec[]
+     *
+     * read-only property
+     */
+    public $options = array();
 
     function __construct()
     {
@@ -73,6 +91,7 @@ class OptionSpecCollection
             $this->longOptions[ $spec->long ] = $spec;
         if( $spec->short )
             $this->shortOptions[ $spec->short ] = $spec;
+        $this->options[] = $spec;
         if( ! $spec->long && ! $spec->short )
             throw new Exception('Wrong option spec');
     }
