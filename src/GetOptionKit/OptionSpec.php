@@ -20,8 +20,8 @@ class OptionSpec
     public $key;  /* key to store values */
     public $value;
     public $type;
-
     public $valueName; /* name for the value place holder, for printing */
+    public $valueType;
 
     const attr_multiple = 1;
     const attr_optional = 2;
@@ -295,6 +295,14 @@ class OptionSpec
         return $return;
     }
 
+
+    /**
+     * Value Type Setters
+     */
+    public function is($type) {
+        $this->valueType = $type;
+        return $this;
+    }
 }
 
 

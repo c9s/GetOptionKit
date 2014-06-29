@@ -9,16 +9,22 @@
  * file that was distributed with this source code.
  *
  */
-require 'Universal/ClassLoader/SplClassLoader.php';
-$classLoader = new Universal\ClassLoader\SplClassLoader(array( 'GetOptionKit' => 'src' ));
-$classLoader->register();
-
+require 'vendor/autoload.php';
 
 use GetOptionKit\GetOptionKit;
 $opt = new GetOptionKit;
-$opt->add( 'f|foo:' , 'option requires a value.' );
-$opt->add( 'b|bar+' , 'option with multiple value.' );
-$opt->add( 'z|zoo?' , 'option with optional value.' );
+$opt->add( 'f|foo:' , 'option requires a value.' )
+    ->is('string');
+
+$opt->add( 'b|bar+' , 'option with multiple value.' )
+    ->is('number');
+
+$opt->add( 'z|zoo?' , 'option with optional value.' )
+    ->is('boolean');
+
+$opt->add( 'file:' , 'option value should be a file.' )
+    ->is('file');
+
 $opt->add( 'v|verbose' , 'verbose message.' );
 $opt->add( 'd|debug'   , 'debug message.' );
 $opt->add( 'long'   , 'long option name only.' );
