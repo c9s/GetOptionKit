@@ -38,12 +38,12 @@ class OptionSpecCollection
      */
     public $options = array();
 
-    function __construct()
+    public function __construct()
     {
         $this->data = array();
     }
 
-    function __clone()
+    public function __clone()
     {
         foreach( $this->data as $k => $v ) {
             $this->data[ $k ] = clone $v;
@@ -84,7 +84,7 @@ class OptionSpecCollection
         }
     }
 
-    function addSpec( OptionSpec $spec )
+    public function addSpec( OptionSpec $spec )
     {
         $this->data[ $spec->getId() ] = $spec;
         if( $spec->long )
