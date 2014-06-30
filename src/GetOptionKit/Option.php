@@ -15,13 +15,29 @@ use GetOptionKit\NonNumericException;
 class Option 
 {
     public $short;
+
+
     public $long;
-    public $description; /* description */
+
+    /**
+     * @var string the description of this option
+     */
+    public $description;
+
+    /**
+     * @var string The option key
+     */
     public $key;  /* key to store values */
     public $value;
     public $type;
+
     public $valueName; /* name for the value place holder, for printing */
-    public $valueType;
+
+    public $isa;
+
+    public $validValues;
+
+    public $suggests;
 
     const attr_multiple = 1;
     const attr_optional = 2;
@@ -29,9 +45,9 @@ class Option
     const attr_flag     = 8;
 
     const type_string   = 1;
-    const type_integer  = 2;
+    const type_number  = 2;
 
-    function __construct($specString = null)
+    public function __construct($specString = null)
     {
         if( $specString ) {
             $this->initFromSpecString($specString);
@@ -107,7 +123,7 @@ class Option
                 $this->setTypeString();
             }
             elseif( $type === 'i' || $type === 'integer' ) {
-                $this->setTypeInteger();
+                $this->setTypeNumber();
             }
         }
     }
@@ -169,24 +185,28 @@ class Option
     }
 
 
-    function setTypeString()
+    public function setTypeString()
     {
         $this->type = self::type_string;
+        $this->isa = 'string';
     }
 
-    function setTypeInteger()
+    public function setTypeNumber()
     {
-        $this->type = self::type_integer;
+        $this->type = self::type_number;
+        $this->isa = 'number';
     }
 
-    function isTypeString()
+    public function isTypeString()
     {
-        return $this->type & self::type_string;
+        return $this->isa == 'string';
+        // return $this->type & self::type_string;
     }
 
-    function isTypeInteger()
+    public function isTypeNumber()
     {
-        return $this->type & self::type_integer;
+        return $this->isa == 'number';
+        // return $this->type & self::type_number;
     }
 
     /*
@@ -197,7 +217,7 @@ class Option
     {
         if( $this->type !== null ) {
             // check type constraints
-            if( $this->isTypeInteger() ) {
+            if( $this->isTypeNumber() ) {
                 if( ! is_numeric($value) )
                     throw new NonNumericException;
                 $value = (int) $value;
@@ -303,14 +323,30 @@ class Option
      *                      'file', 'boolean', you can also use your own value type name.
      *
      */
-    public function is($type) {
-        $this->valueType = $type;
+    public function isa($type) {
+        $this->isa = $type;
         return $this;
     }
 
-    public function getValueType() {
-        return $this->valueType;
+    /**
+     * Assign validValues to member value.
+     */
+    public function validValues($values) {
+        $this->validValues = $values;
+        return $this;
     }
+
+    /**
+     * Assign suggests
+     *
+     * @param Closure|Array
+     */
+    public function suggests($suggests) {
+        $this->suggests = $suggests;
+        return $this;
+    }
+
+
 }
 
 

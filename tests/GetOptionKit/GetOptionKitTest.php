@@ -93,7 +93,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'b|bar:=i' , 'option with integer type' );
 
         $spec = $opt->get('bar');
-        ok( $spec->isTypeInteger() );
+        ok( $spec->isTypeNumber() );
 
         // test non numeric
         try {
@@ -113,7 +113,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'b|bar:=i' , 'option with integer type' );
 
         $spec = $opt->get('bar');
-        ok( $spec->isTypeInteger() );
+        ok( $spec->isTypeNumber() );
 
         $result = $opt->parse(explode(' ','-b 123123'));
         ok( $result->bar );
