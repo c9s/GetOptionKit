@@ -209,11 +209,19 @@ class Option
         // return $this->type & self::type_number;
     }
 
+    public function getTypeClass() {
+        $class = 'GetOptionKit\\ValueType\\' . ucfirst($this->isa) . 'Type';
+        if ( class_exists($class, true) ) {
+            return new $class;
+        }
+        return false;
+    }
+
     /*
      * check value constraint type
      * current for integer and string.
      */
-    function checkType($value)
+    public function checkType($value)
     {
         if( $this->type !== null ) {
             // check type constraints
@@ -229,7 +237,7 @@ class Option
     /*
      * set option value
      */
-    function setValue($value)
+    public function setValue($value)
     {
         $value = $this->checkType($value);
         $this->value = $value;
