@@ -14,16 +14,16 @@ require 'vendor/autoload.php';
 use GetOptionKit\GetOptionKit;
 $opt = new GetOptionKit;
 $opt->add( 'f|foo:' , 'option requires a value.' )
-    ->is('string');
+    ->isa('String');
 
 $opt->add( 'b|bar+' , 'option with multiple value.' )
-    ->is('number');
+    ->isa('Number');
 
 $opt->add( 'z|zoo?' , 'option with optional value.' )
-    ->is('boolean');
+    ->isa('Boolean');
 
 $opt->add( 'file:' , 'option value should be a file.' )
-    ->is('file');
+    ->isa('File');
 
 $opt->add( 'v|verbose' , 'verbose message.' );
 $opt->add( 'd|debug'   , 'debug message.' );

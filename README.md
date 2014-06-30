@@ -135,6 +135,28 @@ $result->verbose;
 $result->debug;
 ```
 
+Option value type:
+
+```php
+$opt->add( 'f|foo:' , 'with string type value' )
+    ->isa('string');
+
+$opt->add( 'b|bar+' , 'with number type value' )
+    ->isa('number');
+
+$opt->add( 'z|zoo?' , 'with boolean type value' )
+    ->isa('boolean');
+
+$opt->add( 'file:' , 'with file type value' )
+    ->isa('file');
+
+$opt->add( 'date:' , 'with date type value' )
+    ->isa('date');
+```
+
+> Please note that currently only `string`, `number`, `boolean` types can be validated.
+
+
 More low-level usage:
 
 ```php
