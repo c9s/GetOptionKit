@@ -14,6 +14,13 @@ abstract class BaseType
      * @param mixed $value
      */
     abstract public function test($value);
+
+    /**
+     * Parse a string value into it's type value
+     *
+     * @param mixed $value
+     */
+    abstract public function parse($value);
 }
 
 
