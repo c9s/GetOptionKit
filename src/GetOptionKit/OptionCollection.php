@@ -9,30 +9,30 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpec;
+use GetOptionKit\Option;
 use Iterator;
 
-class OptionSpecCollection
+class OptionCollection
     implements Iterator
 {
     public $data = array();
 
     /**
-     * @var OptionSpec[string]
+     * @var Option[string]
      *
      * read-only property
      */
     public $longOptions = array();
 
     /**
-     * @var OptionSpec[string]
+     * @var Option[string]
      *
      * read-only property
      */
     public $shortOptions = array();
 
     /**
-     * @var OptionSpec[]
+     * @var Option[]
      *
      * read-only property
      */
@@ -62,7 +62,7 @@ class OptionSpecCollection
         $args = func_get_args();
         $first = $args[0];
 
-        if( is_object($first) && is_a( $first , '\GetOptionKit\OptionSpec' ) ) {
+        if( is_object($first) && is_a( $first , '\GetOptionKit\Option' ) ) {
             $this->addSpec( $first );
         }
         elseif( is_string( $first ) ) {
@@ -71,7 +71,7 @@ class OptionSpecCollection
             $key         = @$args[2];
 
             // parse spec string
-            $spec = new OptionSpec($specString);
+            $spec = new Option($specString);
             if( $description )
                 $spec->description = $description;
             if( $key )
@@ -84,7 +84,7 @@ class OptionSpecCollection
         }
     }
 
-    public function addSpec( OptionSpec $spec )
+    public function addSpec( Option $spec )
     {
         $this->data[ $spec->getId() ] = $spec;
         if( $spec->long )

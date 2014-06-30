@@ -12,7 +12,7 @@
 namespace GetOptionKit;
 use GetOptionKit\NonNumericException;
 
-class OptionSpec 
+class Option 
 {
     public $short;
     public $long;

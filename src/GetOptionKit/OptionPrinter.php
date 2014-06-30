@@ -9,13 +9,13 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpecCollection;
+use GetOptionKit\OptionCollection;
 
 class OptionPrinter implements OptionPrinterInterface
 {
     public $specs;
 
-    function __construct( OptionSpecCollection $specs)
+    function __construct( OptionCollection $specs)
     {
         $this->specs = $specs;
     }

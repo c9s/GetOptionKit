@@ -33,7 +33,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         $spec = $opt->get( 'debug' );
         ok( $spec );
-        is_class( 'GetOptionKit\\OptionSpec', $spec );
+        is_class( 'GetOptionKit\\Option', $spec );
         is( 'debug', $spec->long );
         is( 'd', $spec->short );
         ok( $spec->isAttributeFlag() );

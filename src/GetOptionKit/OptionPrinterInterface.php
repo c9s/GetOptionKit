@@ -10,11 +10,11 @@
  */
 namespace GetOptionKit;
 
-use GetOptionKit\OptionSpecCollection;
+use GetOptionKit\OptionCollection;
 
 interface OptionPrinterInterface 
 {
-    function __construct( OptionSpecCollection $specs);
+    function __construct( OptionCollection $specs);
     function printOptions();
 }
 

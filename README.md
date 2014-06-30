@@ -160,7 +160,7 @@ $opt->add( 'date:' , 'with date type value' )
 More low-level usage:
 
 ```php
-$specs = new OptionSpecCollection;
+$specs = new OptionCollection;
 $spec_verbose = $specs->add('v|verbose');
 $spec_color = $specs->add('c|color');
 $spec_debug = $specs->add('d|debug');

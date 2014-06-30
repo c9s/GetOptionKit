@@ -9,8 +9,8 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpec;
-use GetOptionKit\OptionSpecCollection;
+use GetOptionKit\Option;
+use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\OptionParser;
 use GetOptionKit\ContinuousOptionParser;
@@ -21,7 +21,7 @@ class ContinuousOptionKit extends GetOptionKit
 {
     function __construct()
     {
-        $this->specs = new OptionSpecCollection;
+        $this->specs = new OptionCollection;
         $this->parser = new ContinuousOptionParser( $this->specs );
     }
 

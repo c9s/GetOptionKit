@@ -41,8 +41,8 @@ multiple flag, multiple values, required value checking.</description>
       <file name="src/GetOptionKit/OptionPrinter.php" role="php" md5sum="ad96e398da0c7c8644536aa73f360761"/>
       <file name="src/GetOptionKit/OptionPrinterInterface.php" role="php" md5sum="1fcdafb2991903f85a686e8b96b3a092"/>
       <file name="src/GetOptionKit/OptionResult.php" role="php" md5sum="dd9bff2304abe7a8520fe2831ba5a13e"/>
-      <file name="src/GetOptionKit/OptionSpec.php" role="php" md5sum="eb349b63d68c09f0b2e9b6dd64dd4b07"/>
-      <file name="src/GetOptionKit/OptionSpecCollection.php" role="php" md5sum="a58e7ca62252c735e154598d1a335153"/>
+      <file name="src/GetOptionKit/Option.php" role="php" md5sum="eb349b63d68c09f0b2e9b6dd64dd4b07"/>
+      <file name="src/GetOptionKit/OptionCollection.php" role="php" md5sum="a58e7ca62252c735e154598d1a335153"/>
       <file name="src/GetOptionKit/SplClassLoader.php" role="php" md5sum="23788bdc57eac511ca0fc46e671230d1"/>
     </dir>
   </contents>
@@ -82,8 +82,8 @@ multiple flag, multiple values, required value checking.</description>
       <install name="src/GetOptionKit/OptionPrinter.php" as="GetOptionKit/OptionPrinter.php"/>
       <install name="src/GetOptionKit/OptionPrinterInterface.php" as="GetOptionKit/OptionPrinterInterface.php"/>
       <install name="src/GetOptionKit/OptionResult.php" as="GetOptionKit/OptionResult.php"/>
-      <install name="src/GetOptionKit/OptionSpec.php" as="GetOptionKit/OptionSpec.php"/>
-      <install name="src/GetOptionKit/OptionSpecCollection.php" as="GetOptionKit/OptionSpecCollection.php"/>
+      <install name="src/GetOptionKit/Option.php" as="GetOptionKit/Option.php"/>
+      <install name="src/GetOptionKit/OptionCollection.php" as="GetOptionKit/OptionCollection.php"/>
       <install name="src/GetOptionKit/SplClassLoader.php" as="GetOptionKit/SplClassLoader.php"/>
     </filelist>
   </phprelease>

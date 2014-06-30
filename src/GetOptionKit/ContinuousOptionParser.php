@@ -9,7 +9,7 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpec;
+use GetOptionKit\Option;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use GetOptionKit\OptionParser;

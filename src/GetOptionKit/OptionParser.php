@@ -9,8 +9,8 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpec;
-use GetOptionKit\OptionSpecCollection;
+use GetOptionKit\Option;
+use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use Exception;
@@ -26,15 +26,15 @@ class OptionParser
     function __construct($specs)
     {
         if( $specs ) {
-            if( ! is_a($specs,'\GetOptionKit\OptionSpecCollection') )
+            if( ! is_a($specs,'\GetOptionKit\OptionCollection') )
                 throw new Exception('not option spec collection class.');
             $this->specs = $specs;
         } else {
-            $this->specs = new \GetOptionKit\OptionSpecCollection;
+            $this->specs = new \GetOptionKit\OptionCollection;
         }
     }
 
-    function setSpecs(OptionSpecCollection $specs)
+    function setSpecs(OptionCollection $specs)
     {
         $this->specs = $specs;
     }

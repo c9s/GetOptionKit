@@ -12,7 +12,7 @@ namespace GetOptionKit;
 use ArrayAccess;
 use Iterator;
 use GetOptionKit\Argument;
-use GetOptionKit\OptionSpec;
+use GetOptionKit\Option;
 
 
 /**
@@ -29,7 +29,7 @@ class OptionResult
     implements Iterator, ArrayAccess
 {
     /**
-     * @var array option specs, key => OptionSpec object 
+     * @var array option specs, key => Option object 
      * */
     public $keys = array();
 
@@ -64,7 +64,7 @@ class OptionResult
         return isset($this->keys[ $key ]);
     }
 
-    function set($key, OptionSpec $value)
+    function set($key, Option $value)
     {
         $this->keys[ $key ] = $value;
     }

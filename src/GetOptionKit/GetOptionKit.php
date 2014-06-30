@@ -9,8 +9,8 @@
  *
  */
 namespace GetOptionKit;
-use GetOptionKit\OptionSpec;
-use GetOptionKit\OptionSpecCollection;
+use GetOptionKit\Option;
+use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionResult;
 use GetOptionKit\OptionParser;
 use Exception;
@@ -22,7 +22,7 @@ class GetOptionKit
 
     function __construct()
     {
-        $this->specs = new OptionSpecCollection;
+        $this->specs = new OptionCollection;
         $this->parser = new OptionParser( $this->specs );
     }
 
