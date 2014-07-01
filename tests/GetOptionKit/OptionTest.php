@@ -26,7 +26,6 @@ class OptionTest extends PHPUnit_Framework_TestCase
         ok($spec);
         $opt = new Option($spec);
         ok($opt);
-
     }
 
     public function testValidValues() {
@@ -52,6 +51,5 @@ class OptionTest extends PHPUnit_Framework_TestCase
         $opt->setValue('aa');
         is('xx', $opt->value);
     }
-
 }
 

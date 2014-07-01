@@ -205,6 +205,12 @@ class Option
         return false;
     }
 
+    public function testValue($value) {
+        if ( $type = $this->getTypeClass() ) {
+            return $type->test($value);
+        }
+        return true; // always true if type class is not found.
+    }
 
     protected function _preprocessValue($value) {
         $val = $value;
