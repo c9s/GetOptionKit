@@ -223,7 +223,7 @@ class Option
 
         // check validValues
         if ($validValues = $this->getValidValues()) {
-            if ( ! in_array($validValues, $value) ) {
+            if ( ! in_array($value, $validValues) ) {
                 throw new InvalidOptionValue("valid values are: " . join(', ', $validValues) );
             }
         }
@@ -362,6 +362,7 @@ class Option
             if (is_callable($this->validValues)) {
                 return call_user_func($this->validValues);
             }
+            return $this->validValues;
         }
     }
 

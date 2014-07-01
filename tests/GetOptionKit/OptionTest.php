@@ -21,14 +21,25 @@ class OptionTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider optionSpecDataProvider
      */
-    public function testOption($spec)
+    public function testOptionSpec($spec)
     {
         ok($spec);
         $opt = new Option($spec);
         ok($opt);
 
+    }
 
+    public function testValidValues() {
+        $opt = new Option('scope');
+        $opt->validValues([ 'public', 'private' ])
+            ;
+        ok( $opt->getValidValues() );
+        ok( is_array($opt->getValidValues()) );
 
+        $opt->setValue('public');
+        $opt->setValue('private');
+        ok($opt->value);
+        is('private',$opt->value);
     }
 }
 
