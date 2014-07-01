@@ -127,6 +127,17 @@ class OptionCollection
         return @$this->data[ $id ];
     }
 
+
+    public function find($name) {
+        foreach( $this->options as $option ) {
+            if ($option->short == $name || $option->long == $name) {
+                return $option;
+            }
+        }
+    }
+
+
+
     public function getSpec($name)
     {
         if( isset($this->longOptions[ $name ] ))
