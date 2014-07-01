@@ -41,5 +41,17 @@ class OptionTest extends PHPUnit_Framework_TestCase
         ok($opt->value);
         is('private',$opt->value);
     }
+
+
+    public function testFilter() {
+        $opt = new Option('scope');
+        $opt->filter(function($val) { 
+            return preg_replace('#a#', 'x', $val);
+        })
+        ;
+        $opt->setValue('aa');
+        is('xx', $opt->value);
+    }
+
 }
 
