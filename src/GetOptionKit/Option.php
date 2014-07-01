@@ -242,27 +242,50 @@ class Option
     /*
      * push option value, when the option accept multiple values 
      */
-    function pushValue($value)
+    public function pushValue($value)
     {
         $value = $this->_preprocessValue($value);
         $this->value[] = $value;
     }
 
-    function desc($desc)
+    public function desc($desc)
     {
         $this->desc = $desc;
     }
 
-    function setValueName($name)
+    /**
+     * valueName is for option value hinting:
+     *
+     *   --name=<name>
+     */
+    public function valueName($name)
     {
-        $this->valueName = $name;
+        $this->valueName = $hint;
     }
+
+    public function renderValueHint() {
+        $n = 'value';
+        if ($this->valueName) {
+            $n = $this->valueName;
+        }
+        if ($this->isa) {
+            $n = $this->isa;
+        }
+        if ( $this->isRequired() ) {
+            return sprintf('=<%s>', $n);
+        }
+        if ( $this->isOptional() ) {
+            return sprintf('[=<%s>]', $n);
+        }
+        return '';
+    }
+
 
 
     /*
      * set option spec key for saving option result
      */
-    function setKey($key)
+    public function setKey($key)
     {
         $this->key = $key;
     }
@@ -280,23 +303,7 @@ class Option
             $c1 = sprintf('-%s',$this->short);
         elseif( $this->long )
             $c1 = sprintf('--%s',$this->long );
-
-        $valueName = 'value';
-        if( $this->valueName )
-            $valueName = $this->valueName;
-
-        if( $this->isRequired() ) {
-            $c1 .= " <$valueName>";
-        }
-        elseif( $this->isMultiple() ) {
-            $c1 .= " <$valueName>+"; // better expression
-        }
-        elseif( $this->isOptional() ) {
-            $c1 .= " [<$valueName>]";
-        }
-        elseif( $this->isFlag() ) {
-
-        }
+        $c1 .= $this->renderValueHint();
         return $c1;
     }
 
