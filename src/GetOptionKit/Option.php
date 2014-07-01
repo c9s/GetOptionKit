@@ -51,6 +51,12 @@ class Option
     const type_string   = 1;
     const type_number  = 2;
 
+
+    public $multiple = false;
+    public $optional = false;
+    public $required = false;
+    public $flag     = false;
+
     public function __construct($specString = null)
     {
         if( $specString ) {
@@ -102,15 +108,15 @@ class Option
 
         // option is required.
         if( strpos($attributes,':') !== false ) {
-            $this->setAttributeRequire();
+            $this->required();
         }
         // option with multiple value
         elseif( strpos($attributes,'+') !== false ) {
-            $this->setAttributeMultiple();
+            $this->multiple();
         }
         // option is optional.(zero or one value)
         elseif( strpos($attributes,'?') !== false ) {
-            $this->setAttributeOptional();
+            $this->optional();
         } 
 
         // option is multiple value and optional (zero or more)
@@ -119,7 +125,7 @@ class Option
         }
         // is a flag option
         else {
-            $this->setAttributeFlag();
+            $this->flag();
         }
         if( $type ) {
             $this->isa($type);
@@ -130,7 +136,7 @@ class Option
     /*
      * get the option key for result key mapping.
      */
-    function getId()
+    public function getId()
     {
         if( $this->key )
             return $this->key;
@@ -140,46 +146,48 @@ class Option
             return $this->short;
     }
 
-    function setAttributeRequire()
+    public function required()
     {
-        $this->attributes = self::attr_require;
+        $this->required = true;
     }
 
-    function setAttributeMultiple()
+    public function multiple()
     {
-        $this->attributes = self::attr_multiple;
+        $this->multiple = true;
         $this->value = array();  # for value pushing
     }
 
-    function setAttributeOptional()
+    public function optional()
     {
-        $this->attributes = self::attr_optional;
+        $this->optional = true;
     }
 
-    function setAttributeFlag()
+    public function flag()
     {
-        $this->attributes = self::attr_flag;
+        $this->flag = true;
     }
 
 
-    function isAttributeFlag()
+    public function isFlag()
     {
-        return $this->attributes & self::attr_flag;
+        return $this->flag;
+        // return $this->attributes & self::attr_flag;
     }
 
-    function isAttributeMultiple()
+    public function isMultiple()
     {
-        return $this->attributes & self::attr_multiple;
+        return $this->multiple;
+        // return $this->attributes & self::attr_multiple;
     }
 
-    function isAttributeRequire()
+    public function isRequired()
     {
-        return $this->attributes & self::attr_require;
+        return $this->required;
     }
 
-    function isAttributeOptional()
+    public function isOptional()
     {
-        return $this->attributes & self::attr_optional;
+        return $this->optional;
     }
 
 
@@ -297,16 +305,16 @@ class Option
         if( $this->valueName )
             $valueName = $this->valueName;
 
-        if( $this->isAttributeRequire() ) {
+        if( $this->isRequired() ) {
             $c1 .= " <$valueName>";
         }
-        elseif( $this->isAttributeMultiple() ) {
+        elseif( $this->isMultiple() ) {
             $c1 .= " <$valueName>+"; // better expression
         }
-        elseif( $this->isAttributeOptional() ) {
+        elseif( $this->isOptional() ) {
             $c1 .= " [<$valueName>]";
         }
-        elseif( $this->isAttributeFlag() ) {
+        elseif( $this->isFlag() ) {
 
         }
         return $c1;

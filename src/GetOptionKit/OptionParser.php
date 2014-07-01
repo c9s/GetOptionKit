@@ -132,7 +132,7 @@ class OptionParser
             if( ! $spec )
                 throw new InvalidOptionException("Invalid option: " . $arg );
 
-            if( $spec->isAttributeRequire() ) 
+            if( $spec->isRequired() ) 
             {
                 if ( ! $this->foundRequireValue($spec,$arg,$next) ) {
                     throw new RequireValueException( "Option {$arg->getOptionName()} require a value." );
@@ -143,21 +143,21 @@ class OptionParser
                     $i++;
                 $result->set($spec->getId(), $spec);
             }
-            elseif( $spec->isAttributeMultiple() ) 
+            elseif( $spec->isMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if( $next->isOption() )
                     $i++;
                 $result->set( $spec->getId() , $spec);
             }
-            elseif( $spec->isAttributeOptional() ) 
+            elseif( $spec->isOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
                 if( $spec->value && ! $next->isOption() )
                     $i++;
                 $result->set( $spec->getId() , $spec);
             }
-            elseif( $spec->isAttributeFlag() ) 
+            elseif( $spec->isFlag() ) 
             {
                 $spec->value = true;
                 $result->set( $spec->getId() , $spec);

@@ -23,20 +23,20 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'd|debug'   , 'debug message' );
 
         $spec = $opt->get('foo');
-        ok( $spec->isAttributeRequire() );
+        ok( $spec->isRequired() );
 
         $spec = $opt->get('bar');
-        ok( $spec->isAttributeMultiple() );
+        ok( $spec->isMultiple() );
 
         $spec = $opt->get('zoo');
-        ok( $spec->isAttributeOptional() );
+        ok( $spec->isOptional() );
 
         $spec = $opt->get( 'debug' );
         ok( $spec );
         is_class( 'GetOptionKit\\Option', $spec );
         is( 'debug', $spec->long );
         is( 'd', $spec->short );
-        ok( $spec->isAttributeFlag() );
+        ok( $spec->isFlag() );
     }
 
     function testRequire()
