@@ -99,7 +99,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         try {
             $result = $opt->parse(explode(' ','-b test'));
             ok( $result->bar );
-        } catch ( GetOptionKit\NonNumericException $e ) {
+        } catch ( InvalidArgumentException $e ) {
             ok( $e );
             return;
         }

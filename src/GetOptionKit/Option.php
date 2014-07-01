@@ -11,6 +11,7 @@
 
 namespace GetOptionKit;
 use GetOptionKit\NonNumericException;
+use InvalidArgumentException;
 
 class Option 
 {
@@ -37,7 +38,7 @@ class Option
 
     public $validValues;
 
-    public $suggests;
+    public $suggestions;
 
     const attr_multiple = 1;
     const attr_optional = 2;
@@ -241,8 +242,15 @@ class Option
      */
     public function setValue($value)
     {
-        $value = $this->checkType($value);
-        $this->value = $value;
+        if ( $type = $this->getTypeClass() ) {
+            if ($type->test($value)) {
+                $this->value = $type->parse($value);
+            } else {
+                throw new InvalidArgumentException("Invalid value for type {$this->isa}");
+            }
+        } else {
+            $this->value = $value;
+        }
     }
 
 
@@ -347,15 +355,30 @@ class Option
     }
 
     /**
-     * Assign suggests
+     * Assign suggestions
      *
      * @param Closure|Array
      */
-    public function suggests($suggests) {
-        $this->suggests = $suggests;
+    public function suggestions($suggestions) {
+        $this->suggestions = $suggestions;
         return $this;
     }
 
+
+    public function getValidValues() { 
+        if (is_callable($this->validValues)) {
+            return call_user_func($this->validValues);
+        }
+        return $this->validValues;
+    }
+
+
+    public function getSuggestions() { 
+        if (is_callable($this->suggestions)) {
+            return call_user_func($this->suggestions);
+        }
+        return $this->suggestions;
+    }
 
 }
 
