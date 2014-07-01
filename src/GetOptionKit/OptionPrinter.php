@@ -35,9 +35,9 @@ class OptionPrinter implements OptionPrinterInterface
         {
             $c1 = $spec->getReadableSpec();
             if( strlen($c1) > $width ) {
-                $line = sprintf("% {$width}s", $c1) . "\n" . $spec->description;  # wrap text
+                $line = sprintf("% {$width}s", $c1) . "\n" . $spec->desc;  # wrap text
             } else {
-                $line = sprintf("% {$width}s   %s",$c1, $spec->description );
+                $line = sprintf("% {$width}s   %s",$c1, $spec->desc );
             }
             $lines[] = $line;
         }

@@ -56,7 +56,12 @@ class OptionCollection
         }
     }
 
-    function add()
+    /**
+     * add( [spec string], [desc string] )
+     *
+     * add( [option object] )
+     */
+    public function add()
     {
         $num = func_num_args();
         $args = func_get_args();
@@ -67,13 +72,13 @@ class OptionCollection
         }
         elseif( is_string( $first ) ) {
             $specString  = $args[0];
-            $description = @$args[1];
+            $desc = @$args[1];
             $key         = @$args[2];
 
             // parse spec string
             $spec = new Option($specString);
-            if( $description )
-                $spec->description = $description;
+            if( $desc )
+                $spec->desc($desc);
             if( $key )
                 $spec->key = $key;
             $this->add( $spec );
@@ -96,23 +101,23 @@ class OptionCollection
             throw new Exception('Wrong option spec');
     }
 
-    function getLongOption( $name )
+    public function getLongOption( $name )
     {
         return @$this->longOptions[ $name ];
     }
 
-    function getShortOption( $name )
+    public function getShortOption( $name )
     {
         return @$this->shortOptions[ $name ];
     }
 
     /* get spec by spec id */
-    function get($id)
+    public function get($id)
     {
         return @$this->data[ $id ];
     }
 
-    function getSpec($name)
+    public function getSpec($name)
     {
         if( isset($this->longOptions[ $name ] ))
             return $this->longOptions[ $name ];
@@ -120,17 +125,17 @@ class OptionCollection
             return $this->shortOptions[ $name ];
     }
 
-    function size()
+    public function size()
     {
         return count($this->data);
     }
 
-    function all()
+    public function all()
     {
         return $this->data;
     }
 
-    function toArray()
+    public function toArray()
     {
         $array = array();
         foreach($this->data as $k => $spec) {
@@ -139,13 +144,13 @@ class OptionCollection
                 $item['long'] = $spec->long;
             if( $spec->short )
                 $item['short'] = $spec->short;
-            $item['description'] = $spec->description;
+            $item['desc'] = $spec->desc;
             $array[] = $item;
         }
         return $array;
     }
 
-    function outputOptions( $class = 'GetOptionKit\OptionPrinter' , $width = 24 )
+    public function outputOptions( $class = 'GetOptionKit\OptionPrinter' , $width = 24 )
     {
         $printer = new $class( $this );
         if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {
@@ -154,7 +159,7 @@ class OptionCollection
         return $printer->outputOptions();
     }
 
-    function printOptions( $class = 'GetOptionKit\OptionPrinter' )
+    public function printOptions( $class = 'GetOptionKit\OptionPrinter' )
     {
         $printer = new $class( $this );
         if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {

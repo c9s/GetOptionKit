@@ -178,7 +178,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         count_ok( 7 , $array = $opt->specs->toArray() );
         ok( isset($array[0]['long'] ));
         ok( isset($array[0]['short'] ));
-        ok( isset($array[0]['description'] ));
+        ok( isset($array[0]['desc'] ));
 
         ob_start();
         $opt->specs->printOptions();

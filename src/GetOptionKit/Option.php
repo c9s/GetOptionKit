@@ -26,7 +26,7 @@ class Option
     /**
      * @var string the description of this option
      */
-    public $description;
+    public $desc;
 
     /**
      * @var string The option key
@@ -268,9 +268,9 @@ class Option
         $this->value[] = $value;
     }
 
-    function setDescription($desc)
+    function desc($desc)
     {
-        $this->description = $desc;
+        $this->desc = $desc;
     }
 
     function setValueName($name)
@@ -329,7 +329,7 @@ class Option
     {
         $c1 = $this->getReadableSpec();
         $return = '';
-        $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->description) . "\n";
+        $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->desc) . "\n";
         if( is_array($this->value) ) {
             $return .= '  ' . print_r(  $this->value, true ) . "\n";
         } else {
