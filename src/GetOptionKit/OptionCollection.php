@@ -38,6 +38,8 @@ class OptionCollection
      */
     public $options = array();
 
+
+
     public function __construct()
     {
         $this->data = array();
@@ -53,6 +55,9 @@ class OptionCollection
         }
         foreach( $this->shortOptions as $k => $v ) {
             $this->shortOptions[ $k ] = clone $v;
+        }
+        foreach( $this->options as $k => $v ) {
+            $this->options[ $k ] = clone $v;
         }
     }
 
