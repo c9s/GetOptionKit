@@ -200,13 +200,15 @@ class Option
     public function isTypeString()
     {
         return $this->isa == 'string';
-        // return $this->type & self::type_string;
     }
 
     public function isTypeNumber()
     {
         return $this->isa == 'number';
-        // return $this->type & self::type_number;
+    }
+
+    public function isType($type) {
+        return $this->isa === $type;
     }
 
     public function getTypeClass() {
