@@ -65,10 +65,11 @@ with normal arguments:
     d|dir:       option require a value (MUST require)
     d|dir+       option with multiple values.
     d|dir?       option with optional value
-    dir:=s       option with type constraint of string
     dir:=string  option with type constraint of string
-    dir:=i       option with type constraint of integer
-    dir:=integer option with type constraint of integer
+    dir:=number  option with type constraint of number
+    dir:=file    option with type constraint of file
+    dir:=date    option with type constraint of date
+    dir:=boolean option with type constraint of boolean
     d            single character only option
     dir          long option name
 
