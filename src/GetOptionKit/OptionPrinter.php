@@ -33,7 +33,7 @@ class OptionPrinter implements OptionPrinterInterface
         $lines = array();
         foreach( $this->specs->all() as $spec ) 
         {
-            $c1 = $spec->getReadableSpec();
+            $c1 = $spec->renderReadableSpec();
             if( strlen($c1) > $width ) {
                 $line = sprintf("% {$width}s", $c1) . "\n" . $spec->desc;  # wrap text
             } else {

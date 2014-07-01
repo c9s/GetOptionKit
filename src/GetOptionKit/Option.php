@@ -294,7 +294,7 @@ class Option
      * get readable spec for printing
      *
      */
-    function getReadableSpec()
+    public function renderReadableSpec()
     {
         $c1 = '';
         if( $this->short && $this->long )
@@ -307,14 +307,9 @@ class Option
         return $c1;
     }
 
-    function validate()
+    public function __toString()
     {
-        // validate current value
-    }
-
-    function __toString()
-    {
-        $c1 = $this->getReadableSpec();
+        $c1 = $this->renderReadableSpec();
         $return = '';
         $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->desc) . "\n";
         if( is_array($this->value) ) {
