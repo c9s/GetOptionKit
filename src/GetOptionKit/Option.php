@@ -43,19 +43,19 @@ class Option
 
     public $suggestions;
 
-    const attr_multiple = 1;
-    const attr_optional = 2;
-    const attr_require  = 4;
-    const attr_flag     = 8;
-
-    const type_string   = 1;
-    const type_number  = 2;
-
+    /**
+     * @var Closure The filter closure of the option value.
+     */
+    public $filter;
 
     public $multiple = false;
+
     public $optional = false;
+
     public $required = false;
+
     public $flag     = false;
+
 
     public function __construct($specString = null)
     {
@@ -171,13 +171,11 @@ class Option
     public function isFlag()
     {
         return $this->flag;
-        // return $this->attributes & self::attr_flag;
     }
 
     public function isMultiple()
     {
         return $this->multiple;
-        // return $this->attributes & self::attr_multiple;
     }
 
     public function isRequired()
@@ -193,13 +191,11 @@ class Option
 
     public function setTypeString()
     {
-        $this->type = self::type_string;
         $this->isa = 'string';
     }
 
     public function setTypeNumber()
     {
-        $this->type = self::type_number;
         $this->isa = 'number';
     }
 
@@ -247,15 +243,28 @@ class Option
      */
     public function setValue($value)
     {
+        $val = $value;
         if ( $type = $this->getTypeClass() ) {
             if ($type->test($value)) {
-                $this->value = $type->parse($value);
+                $val = $type->parse($value);
             } else {
                 throw new InvalidOptionValue("Invalid value for type {$this->isa}");
             }
-        } else {
-            $this->value = $value;
         }
+
+        // check pre-filter for option value
+        if ( $this->filter ) {
+            $val = call_user_func($this->filter, $val);
+        }
+
+        // check validValues
+        if ($validValues = $this->getValidValues()) {
+            if ( ! in_array($validValues, $value) ) {
+                throw new InvalidOptionValue("valid values are: " . join(', ', $validValues) );
+            }
+        }
+
+        $this->value = $val;
     }
 
 
@@ -370,19 +379,45 @@ class Option
     }
 
 
+    /**
+     * Return valud values array
+     *
+     * @return string[] or nil
+     */
     public function getValidValues() { 
-        if (is_callable($this->validValues)) {
-            return call_user_func($this->validValues);
+        if ($this->validValues) {
+            if (is_callable($this->validValues)) {
+                return call_user_func($this->validValues);
+            }
         }
-        return $this->validValues;
     }
 
 
+
+    /**
+     * Return suggestions
+     *
+     * @return string[] or nil
+     */
     public function getSuggestions() { 
-        if (is_callable($this->suggestions)) {
-            return call_user_func($this->suggestions);
+        if ( $this->suggestions ) {
+            if (is_callable($this->suggestions)) {
+                return call_user_func($this->suggestions);
+            }
+            return $this->suggestions;
         }
-        return $this->suggestions;
+    }
+
+
+    /**
+     * Set up a filter function for the option value.
+     */
+    public function filter($cb) {
+        if ( ! is_callable($cb) ) {
+            throw new Exception("Non-callable value for filter");
+        }
+        $this->filter = $cb;
+        return $this;
     }
 
 }

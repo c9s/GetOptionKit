@@ -73,7 +73,7 @@ class OptionCollection
         $first = $args[0];
 
         if( is_object($first) && $first instanceof Option ) {
-            $this->addSpec( $first );
+            $this->addObject( $first );
         }
         elseif( is_string( $first ) ) {
             $specString  = $args[0];
@@ -94,7 +94,12 @@ class OptionCollection
         }
     }
 
-    public function addSpec( Option $spec )
+    /**
+     * Add option object
+     *
+     * @param Object $spec the option object.
+     */
+    public function addObject( Option $spec )
     {
         $this->data[ $spec->getId() ] = $spec;
         if( $spec->long )
