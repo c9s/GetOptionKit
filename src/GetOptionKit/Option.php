@@ -11,7 +11,10 @@
 
 namespace GetOptionKit;
 use GetOptionKit\NonNumericException;
+use Exception;
 use InvalidArgumentException;
+
+class InvalidOptionValue extends Exception {  }
 
 class Option 
 {
@@ -246,7 +249,7 @@ class Option
             if ($type->test($value)) {
                 $this->value = $type->parse($value);
             } else {
-                throw new InvalidArgumentException("Invalid value for type {$this->isa}");
+                throw new InvalidOptionValue("Invalid value for type {$this->isa}");
             }
         } else {
             $this->value = $value;
