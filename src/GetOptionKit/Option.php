@@ -188,22 +188,6 @@ class Option
         return $this->optional;
     }
 
-
-    public function setTypeString()
-    {
-        $this->isa = 'string';
-    }
-
-    public function setTypeNumber()
-    {
-        $this->isa = 'number';
-    }
-
-    public function isTypeString()
-    {
-        return $this->isa == 'string';
-    }
-
     public function isTypeNumber()
     {
         return $this->isa == 'number';
@@ -219,23 +203,6 @@ class Option
             return new $class;
         }
         return false;
-    }
-
-    /*
-     * check value constraint type
-     * current for integer and string.
-     */
-    public function checkType($value)
-    {
-        if( $this->type !== null ) {
-            // check type constraints
-            if( $this->isTypeNumber() ) {
-                if( ! is_numeric($value) )
-                    throw new NonNumericException;
-                $value = (int) $value;
-            }
-        }
-        return $value;
     }
 
     /*
@@ -273,7 +240,8 @@ class Option
      */
     function pushValue($value)
     {
-        $value = $this->checkType($value);
+        // XXX:
+        // $value = $this->checkType($value);
         $this->value[] = $value;
     }
 

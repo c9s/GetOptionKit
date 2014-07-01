@@ -129,7 +129,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $opt->add( 'b|bar:=string' , 'option with type' );
 
         $spec = $opt->get('bar');
-        ok( $spec->isTypeString() );
 
         $result = $opt->parse(explode(' ','-b text arg1 arg2 arg3'));
         ok( $result->bar );
