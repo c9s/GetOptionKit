@@ -205,11 +205,8 @@ class Option
         return false;
     }
 
-    /*
-     * set option value
-     */
-    public function setValue($value)
-    {
+
+    protected function _preprocessValue($value) {
         $val = $value;
         if ( $type = $this->getTypeClass() ) {
             if ($type->test($value)) {
@@ -230,8 +227,15 @@ class Option
                 throw new InvalidOptionValue("valid values are: " . join(', ', $validValues) );
             }
         }
+        return $val;
+    }
 
-        $this->value = $val;
+    /*
+     * set option value
+     */
+    public function setValue($value)
+    {
+        $this->value = $this->_preprocessValue($value);
     }
 
 
@@ -240,8 +244,7 @@ class Option
      */
     function pushValue($value)
     {
-        // XXX:
-        // $value = $this->checkType($value);
+        $value = $this->_preprocessValue($value);
         $this->value[] = $value;
     }
 
