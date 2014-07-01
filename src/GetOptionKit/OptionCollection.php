@@ -72,7 +72,7 @@ class OptionCollection
         $args = func_get_args();
         $first = $args[0];
 
-        if( is_object($first) && is_a( $first , '\GetOptionKit\Option' ) ) {
+        if( is_object($first) && $first instanceof Option ) {
             $this->addSpec( $first );
         }
         elseif( is_string( $first ) ) {
