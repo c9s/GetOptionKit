@@ -90,7 +90,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
-        $opt->add( 'b|bar:=i' , 'option with integer type' );
+        $opt->add( 'b|bar:=number' , 'option with integer type' );
 
         $spec = $opt->get('bar');
         ok( $spec->isTypeNumber() );
@@ -110,7 +110,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
-        $opt->add( 'b|bar:=i' , 'option with integer type' );
+        $opt->add( 'b|bar:=number' , 'option with integer type' );
 
         $spec = $opt->get('bar');
         ok( $spec->isTypeNumber() );
@@ -126,7 +126,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
-        $opt->add( 'b|bar:=s' , 'option with type' );
+        $opt->add( 'b|bar:=string' , 'option with type' );
 
         $spec = $opt->get('bar');
         ok( $spec->isTypeString() );

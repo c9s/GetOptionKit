@@ -73,7 +73,7 @@ class Option
                 )?
         )
         ([:+?])?
-        (?:=([si]|string|integer))?
+        (?:=(string|number|date|file))?
         /x';
 
         if( preg_match( $pattern, $specString , $regs ) === false ) {
@@ -121,14 +121,8 @@ class Option
         else {
             $this->setAttributeFlag();
         }
-
         if( $type ) {
-            if( $type === 's' || $type === 'string' ) {
-                $this->setTypeString();
-            }
-            elseif( $type === 'i' || $type === 'integer' ) {
-                $this->setTypeNumber();
-            }
+            $this->isa($type);
         }
     }
 
