@@ -266,7 +266,7 @@ class Option
      */
     public function valueName($name)
     {
-        $this->valueName = $hint;
+        $this->valueName = $name;
     }
 
     public function renderValueHint() {
