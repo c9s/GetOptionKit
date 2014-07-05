@@ -113,27 +113,40 @@ Print:
 
 ## Synopsis
 
-
 ```php
-use GetOptionKit\GetOptionKit;
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionParser;
 
-$getopt = new GetOptionKit;
-$spec = $getopt->add( 'f|foo:' , 'option require value' );  # returns spec object.
+$specs = new OptionCollection;
+$specs->add('f|foo:', 'option requires a value.' )
+    ->isa('String');
 
-$getopt->add( 'b|bar+' , 'option with multiple value' );
-$getopt->add( 'z|zoo?' , 'option with optional value' );
+$specs->add('b|bar+', 'option with multiple value.' )
+    ->isa('Number');
 
-$getopt->add( 'f|foo:=i' , 'option requires a integer value' );
-$getopt->add( 'f|foo:=s' , 'option requires a string value' );
+$specs->add('z|zoo?', 'option with optional value.' )
+    ->isa('Boolean');
 
-$getopt->add( 'v|verbose' , 'verbose flag' );
-$getopt->add( 'd|debug'   , 'debug flag' );
+$specs->add('file:', 'option value should be a file.' )
+    ->isa('File');
 
-$result = $getopt->parse( array( 'program' , '-f' , 'foo value' , '-v' , '-d' ) );
-$result = $getopt->parse( $argv );
+$specs->add('v|verbose', 'verbose message.' );
+$specs->add('d|debug', 'debug message.' );
+$specs->add('long', 'long option name only.' );
+$specs->add('s', 'short option name only.' );
+$specs->printOptions();
 
-$result->verbose;
-$result->debug;
+$parser = new OptionParser($specs);
+
+echo "Enabled options: \n";
+try {
+    $result = $parser->parse( $argv );
+    foreach( $result as $key => $spec ) {
+        echo $spec . "\n";
+    }
+} catch( Exception $e ) {
+    echo $e->getMessage();
+}
 ```
 
 Option value type:

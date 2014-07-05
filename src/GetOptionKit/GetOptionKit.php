@@ -20,22 +20,22 @@ class GetOptionKit
     public $parser;
     public $specs;
 
-    function __construct()
+    public function __construct($specs = null)
     {
-        $this->specs = new OptionCollection;
+        $this->specs = $specs ?: new OptionCollection;
         $this->parser = new OptionParser( $this->specs );
     }
 
     /* 
      * return current parser 
      * */
-    function getParser()
+    public function getParser()
     {
         return $this->parser;
     }
 
     /* get all option specification */
-    function getSpecs()
+    public function getSpecs()
     {
         return $this->specs;
     }
@@ -47,25 +47,24 @@ class GetOptionKit
      * @param $key
      *
      * */
-    function add( $specString, $description , $key = null ) 
+    public function add( $specString, $description , $key = null ) 
     {
         $spec = $this->specs->add($specString,$description,$key);
         return $spec;
     }
 
     /* get option specification by Id */
-    function get($id)
+    public function get($id)
     {
         return $this->specs->get($id);
     }
 
-
-    function parse( $argv ) 
+    public function parse( $argv ) 
     {
         return $this->parser->parse( $argv );
     }
 
-    function printOptions( $class = 'GetOptionKit\OptionPrinter' )
+    public function printOptions( $class = 'GetOptionKit\OptionPrinter' )
     {
         $this->specs->printOptions( $class );
     }

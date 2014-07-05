@@ -11,30 +11,33 @@
  */
 require 'vendor/autoload.php';
 
-use GetOptionKit\GetOptionKit;
-$opt = new GetOptionKit;
-$opt->add( 'f|foo:' , 'option requires a value.' )
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionParser;
+
+$specs = new OptionCollection;
+$specs->add('f|foo:', 'option requires a value.' )
     ->isa('String');
 
-$opt->add( 'b|bar+' , 'option with multiple value.' )
+$specs->add('b|bar+', 'option with multiple value.' )
     ->isa('Number');
 
-$opt->add( 'z|zoo?' , 'option with optional value.' )
+$specs->add('z|zoo?', 'option with optional value.' )
     ->isa('Boolean');
 
-$opt->add( 'file:' , 'option value should be a file.' )
+$specs->add('file:', 'option value should be a file.' )
     ->isa('File');
 
-$opt->add( 'v|verbose' , 'verbose message.' );
-$opt->add( 'd|debug'   , 'debug message.' );
-$opt->add( 'long'   , 'long option name only.' );
-$opt->add( 's'   , 'short option name only.' );
-$opt->specs->printOptions();
+$specs->add('v|verbose', 'verbose message.' );
+$specs->add('d|debug', 'debug message.' );
+$specs->add('long', 'long option name only.' );
+$specs->add('s', 'short option name only.' );
+$specs->printOptions();
 
+$parser = new OptionParser($specs);
 
 echo "Enabled options: \n";
 try {
-    $result = $opt->parse( $argv );
+    $result = $parser->parse( $argv );
     foreach( $result as $key => $spec ) {
         echo $spec . "\n";
     }
