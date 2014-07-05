@@ -9,11 +9,12 @@
  *
  */
 namespace GetOptionKit;
+use ArrayIterator;
 use ArrayAccess;
 use Iterator;
+use IteratorAggregate;
 use GetOptionKit\Argument;
 use GetOptionKit\Option;
-
 
 /**
  * Define the getopt parsing result
@@ -26,7 +27,7 @@ use GetOptionKit\Option;
  *
  */
 class OptionResult 
-    implements Iterator, ArrayAccess
+    implements IteratorAggregate, ArrayAccess
 {
     /**
      * @var array option specs, key => Option object 
@@ -38,76 +39,45 @@ class OptionResult
     /* arguments */
     public $arguments = array();
 
-    function __construct()
-    {
-
+    public function getIterator() {
+        return new ArrayIterator($keys);
     }
 
-    function __isset($key)
+    public function __isset($key)
     {
         return isset($this->keys[$key]);
     }
 
-    function __get($key)
+    public function __get($key)
     {
         if( isset($this->keys[ $key ]) )
             return @$this->keys[ $key ]->value;
     }
 
-    function __set($key,$value)
+    public function __set($key,$value)
     {
         $this->keys[ $key ] = $value;
     }
 
-    function has($key)
+    public function has($key)
     {
         return isset($this->keys[ $key ]);
     }
 
-    function set($key, Option $value)
+    public function set($key, Option $value)
     {
         $this->keys[ $key ] = $value;
     }
 
-    function addArgument( Argument $arg)
+    public function addArgument( Argument $arg)
     {
         $this->arguments[] = $arg;
     }
 
-    function getArguments()
+    public function getArguments()
     {
         return array_map( function($e) { return $e->__toString(); }, $this->arguments );
     }
-
-
-    /**
-     * Iterator methods 
-     */
-    function rewind() 
-    {
-        return reset($this->keys);
-    }
-
-    function current() 
-    {
-        return current($this->keys)->value;
-    }
-
-    function key() 
-    {
-        return key($this->keys);
-    }
-
-    function next() 
-    {
-        return next($this->keys);
-    }
-
-    function valid() 
-    {
-        return key($this->keys) !== null;
-    }
-
 
     public function offsetSet($name,$value)
     {
