@@ -27,7 +27,7 @@ GetOptionKit is object-oriented, it's flexible and extendable.
 ```json
 {
     "require": { 
-        "corneltek/getoptionkit": "~1.2"
+        "corneltek/getoptionkit": "~2"
     }
 }
 ```
