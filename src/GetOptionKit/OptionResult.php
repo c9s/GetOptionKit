@@ -40,7 +40,7 @@ class OptionResult
     public $arguments = array();
 
     public function getIterator() {
-        return new ArrayIterator($keys);
+        return new ArrayIterator($this->keys);
     }
 
     public function __isset($key)

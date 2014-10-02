@@ -27,18 +27,21 @@ class OptionPrinter implements OptionPrinterInterface
      * @param integer $width column width
      * @return string output
      */
-    function outputOptions($width = 24)
+    public function outputOptions($width = 24)
     {
         # echo "* Available options:\n";
         $lines = array();
         foreach( $this->specs->all() as $spec ) 
         {
             $c1 = $spec->renderReadableSpec();
+            $line = "\t" . $c1 . "\n\t\t" . wordwrap($spec->desc, 75, "\n\t\t") . "\n";  # wrap text
+            /*
             if( strlen($c1) > $width ) {
                 $line = sprintf("% {$width}s", $c1) . "\n" . $spec->desc;  # wrap text
             } else {
                 $line = sprintf("% {$width}s   %s",$c1, $spec->desc );
             }
+             */
             $lines[] = $line;
         }
         return $lines;
@@ -48,7 +51,7 @@ class OptionPrinter implements OptionPrinterInterface
      * print options descriptions to stdout
      *
      */
-    function printOptions()
+    public function printOptions()
     {
         $lines = $this->outputOptions();
         echo join( "\n" , $lines );
