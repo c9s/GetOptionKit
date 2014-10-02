@@ -179,12 +179,13 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( isset($array[0]['short'] ));
         ok( isset($array[0]['desc'] ));
 
+        /*
         ob_start();
         $opt->specs->printOptions();
         $content = ob_get_contents();
         ob_clean();
         like( '/option with/m', $content );
-
+         */
         # echo "\n".$content;
     }
 
