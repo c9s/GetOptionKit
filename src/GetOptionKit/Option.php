@@ -267,14 +267,14 @@ class Option
     public function valueName($name)
     {
         $this->valueName = $name;
+        return $this;
     }
 
     public function renderValueHint() {
         $n = 'value';
         if ($this->valueName) {
             $n = $this->valueName;
-        }
-        if ($this->isa) {
+        } elseif ($this->isa) {
             $n = $this->isa;
         }
         if ( $this->isRequired() ) {
