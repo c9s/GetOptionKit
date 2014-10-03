@@ -124,10 +124,16 @@ class OptionCollection
         return @$this->shortOptions[ $name ];
     }
 
-    /* get spec by spec id */
+    /* Get spec by spec id */
     public function get($id)
     {
-        return @$this->data[ $id ];
+        if (isset($this->data[$id])) {
+            return $this->data[$id];
+        } elseif (isset($this->longOptions[$id])) {
+            return $this->longOptions[$id];
+        } elseif (isset($this->shortOptions[$id])) {
+            return $this->shortOptions[$id];
+        }
     }
 
 
@@ -137,16 +143,6 @@ class OptionCollection
                 return $option;
             }
         }
-    }
-
-
-
-    public function getSpec($name)
-    {
-        if( isset($this->longOptions[ $name ] ))
-            return $this->longOptions[ $name ];
-        if( isset($this->shortOptions[ $name ] ))
-            return $this->shortOptions[ $name ];
     }
 
     public function size()
@@ -164,10 +160,12 @@ class OptionCollection
         $array = array();
         foreach($this->data as $k => $spec) {
             $item = array();
-            if( $spec->long )
+            if ($spec->long) {
                 $item['long'] = $spec->long;
-            if( $spec->short )
+            }
+            if ($spec->short ) {
                 $item['short'] = $spec->short;
+            }
             $item['desc'] = $spec->desc;
             $array[] = $item;
         }

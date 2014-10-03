@@ -164,9 +164,10 @@ class ContinuousOptionParser extends OptionParser
             if( $this->index + 1 < count($argv)  ) 
                 $next = new Argument( $argv[$this->index + 1] );
 
-            $spec = $this->specs->getSpec( $arg->getOptionName() );
-            if( ! $spec )
+            $spec = $this->specs->get( $arg->getOptionName() );
+            if (! $spec) {
                 throw new InvalidOptionException("Invalid option: " . $arg );
+            }
 
             if( $spec->isRequired() ) 
             {
