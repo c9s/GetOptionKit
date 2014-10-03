@@ -15,6 +15,10 @@ use GetOptionKit\OptionPrinter\OptionPrinterInterface;
 
 class ConsoleOptionPrinter implements OptionPrinterInterface
 {
+
+    public $screenWidth = 78;
+
+
     /**
      * Render readable spec
      */
@@ -33,7 +37,6 @@ class ConsoleOptionPrinter implements OptionPrinterInterface
     }
 
 
-
     /**
      * render option descriptions
      *
@@ -45,10 +48,11 @@ class ConsoleOptionPrinter implements OptionPrinterInterface
         $lines = array();
         foreach( $options->all() as $option ) {
             $c1 = $this->renderOption($option);
-            $line = "\t" . $c1 . "\n\t\t" . wordwrap($option->desc, 75, "\n\t\t") . "\n";  # wrap text
-            $lines[] = $line;
+            $lines[] = "\t" . $c1;
+            $lines[] = wordwrap("\t\t" . $option->desc, $this->screenWidth, "\n\t\t");  # wrap text
+            $lines[] = "";
         }
-        return $lines;
+        return join("\n",$lines);
     }
 }
 

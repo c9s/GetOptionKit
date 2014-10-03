@@ -31,7 +31,10 @@ $specs->add('v|verbose', 'verbose message.' );
 $specs->add('d|debug', 'debug message.' );
 $specs->add('long', 'long option name only.' );
 $specs->add('s', 'short option name only.' );
-$specs->printOptions();
+
+$printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
+echo $printer->render($specs);
+
 
 $parser = new OptionParser($specs);
 
