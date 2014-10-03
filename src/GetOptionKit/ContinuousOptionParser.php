@@ -13,6 +13,7 @@ use GetOptionKit\Option;
 use GetOptionKit\OptionResult;
 use GetOptionKit\Argument;
 use GetOptionKit\OptionParser;
+use GetOptionKit\OptionCollection;
 use Exception;
 use GetOptionKit\Exception\InvalidOptionException;
 use GetOptionKit\Exception\RequireValueException;
@@ -91,7 +92,7 @@ class ContinuousOptionParser extends OptionParser
     public $argv;
 
     /* for the constructor , the option specs is application options */
-    public function __construct($specs = array())
+    public function __construct(OptionCollection $specs)
     {
         parent::__construct($specs);
         $this->index = 1;

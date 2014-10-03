@@ -41,14 +41,14 @@ class OptionParser
      * @param $key
      *
      * */
-    function addSpec( $specString, $description , $key = null ) 
+    public function addSpec( $specString, $description , $key = null ) 
     {
         $spec = $this->specs->add($specString,$description,$key);
         return $spec;
     }
 
     /* get option specification by Id */
-    function getSpec($id)
+    public function getSpec($id)
     {
         return $this->specs->get($id);
     }
@@ -57,13 +57,13 @@ class OptionParser
 
 
     /* detect option */
-    function isOption($arg)
+    public function isOption($arg)
     {
         return substr($arg,0,1) === '-';
     }
 
     /* take option value from current argument or from the next argument */
-    function takeOptionValue($spec,$arg,$next)
+    public function takeOptionValue($spec,$arg,$next)
     {
         if( $arg->containsOptionValue() ) {
             $spec->setValue( $arg->getOptionValue() );
