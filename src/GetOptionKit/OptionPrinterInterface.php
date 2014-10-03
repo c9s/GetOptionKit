@@ -14,8 +14,8 @@ use GetOptionKit\OptionCollection;
 
 interface OptionPrinterInterface 
 {
-    function __construct( OptionCollection $specs);
-    function printOptions();
+    public function __construct(OptionCollection $specs);
+    public function printOptions();
 }
 
 

@@ -10,7 +10,7 @@
  */
 
 namespace GetOptionKit;
-use GetOptionKit\NonNumericException;
+use GetOptionKit\Exception\NonNumericException;
 use Exception;
 use InvalidArgumentException;
 

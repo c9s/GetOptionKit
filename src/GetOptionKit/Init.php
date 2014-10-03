@@ -1,6 +1,8 @@
 <?php
 require 'Argument.php';
-require 'NonNumericException.php';
+require 'Exception/NonNumericException.php';
+require 'Exception/InvalidOptionException.php';
+require 'Exception/RequireValueException.php';
 require 'OptionResult.php';
 require 'Option.php';
 require 'OptionCollection.php';

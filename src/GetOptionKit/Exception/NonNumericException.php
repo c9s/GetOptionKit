@@ -8,12 +8,9 @@
  * file that was distributed with this source code.
  *
  */
-namespace GetOptionKit;
+namespace GetOptionKit\Exception;
 use Exception;
 
-class NonNumericException extends Exception
-{
-
-}
+class NonNumericException extends Exception { }
 
 

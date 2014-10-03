@@ -86,7 +86,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         count_ok(3,$result->bar);
     }
 
-    function testIntegerTypeNonNumeric()
+    public function testIntegerTypeNonNumeric()
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
@@ -99,7 +99,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         try {
             $result = $opt->parse(explode(' ','-b test'));
             ok( $result->bar );
-        } catch ( Exception $e ) {
+        } catch (Exception $e ) {
             ok( $e );
             return;
         }
