@@ -171,24 +171,6 @@ class OptionCollection
         return $array;
     }
 
-    public function outputOptions( $class = 'GetOptionKit\OptionPrinter' , $width = 24 )
-    {
-        $printer = new $class( $this );
-        if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {
-            throw new Exception("$class does not implement GetOptionKit\OptionPrinterInterface.");
-        }
-        return $printer->outputOptions();
-    }
-
-    public function printOptions( $class = 'GetOptionKit\OptionPrinter' )
-    {
-        $printer = new $class( $this );
-        if( !( $printer instanceof \GetOptionKit\OptionPrinterInterface )) {
-            throw new Exception("$class does not implement GetOptionKit\OptionPrinterInterface.");
-        }
-        $printer->printOptions();
-    }
-
     /* iterator methods */
     public function rewind() 
     {
