@@ -11,9 +11,11 @@
 namespace GetOptionKit;
 use GetOptionKit\Option;
 use Iterator;
+use ArrayIterator;
+use IteratorAggregate;
 
 class OptionCollection
-    implements Iterator
+    implements IteratorAggregate
 {
     public $data = array();
 
@@ -171,30 +173,9 @@ class OptionCollection
         return $array;
     }
 
-    /* iterator methods */
-    public function rewind() 
-    {
-        return reset($this->data);
-    }
 
-    public function current() 
-    {
-        return current($this->data);
-    }
 
-    public function key() 
-    {
-        return key($this->data);
+    public function getIterator() {
+        return new ArrayIterator($this->data);
     }
-
-    public function next() 
-    {
-        return next($this->data);
-    }
-
-    public function valid() 
-    {
-        return key($this->data) !== null;
-    }
-
 }

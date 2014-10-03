@@ -46,7 +46,7 @@ class ConsoleOptionPrinter implements OptionPrinterInterface
     {
         # echo "* Available options:\n";
         $lines = array();
-        foreach( $options->all() as $option ) {
+        foreach( $options as $option ) {
             $c1 = $this->renderOption($option);
             $lines[] = "\t" . $c1;
             $lines[] = wordwrap("\t\t" . $option->desc, $this->screenWidth, "\n\t\t");  # wrap text
