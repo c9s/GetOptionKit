@@ -23,18 +23,12 @@ class OptionParser
     public $longOptions;
     public $shortOptions;
 
-    function __construct($specs)
+    public function __construct(OptionCollection $specs)
     {
-        if( $specs ) {
-            if( ! is_a($specs,'\GetOptionKit\OptionCollection') )
-                throw new Exception('not option spec collection class.');
-            $this->specs = $specs;
-        } else {
-            $this->specs = new \GetOptionKit\OptionCollection;
-        }
+        $this->specs = $specs;
     }
 
-    function setSpecs(OptionCollection $specs)
+    public function setSpecs(OptionCollection $specs)
     {
         $this->specs = $specs;
     }
