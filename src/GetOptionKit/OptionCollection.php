@@ -13,9 +13,10 @@ use GetOptionKit\Option;
 use Iterator;
 use ArrayIterator;
 use IteratorAggregate;
+use Countable;
 
 class OptionCollection
-    implements IteratorAggregate
+    implements IteratorAggregate, Countable
 {
     public $data = array();
 
@@ -173,6 +174,9 @@ class OptionCollection
         return $array;
     }
 
+    public function count() {
+        return count($this->data);
+    }
 
 
     public function getIterator() {
