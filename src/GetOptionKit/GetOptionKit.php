@@ -47,7 +47,7 @@ class GetOptionKit
      * @param $key
      *
      * */
-    public function add( $specString, $description , $key = null ) 
+    public function add($specString, $description , $key = null ) 
     {
         $spec = $this->specs->add($specString,$description,$key);
         return $spec;
@@ -59,7 +59,7 @@ class GetOptionKit
         return $this->specs->get($id);
     }
 
-    public function parse( $argv ) 
+    public function parse(array $argv ) 
     {
         return $this->parser->parse( $argv );
     }

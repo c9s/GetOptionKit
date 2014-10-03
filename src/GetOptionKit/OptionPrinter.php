@@ -10,15 +10,36 @@
  */
 namespace GetOptionKit;
 use GetOptionKit\OptionCollection;
+use GetOptionKit\Option;
 
 class OptionPrinter implements OptionPrinterInterface
 {
     public $specs;
 
-    function __construct( OptionCollection $specs)
+    public function __construct(OptionCollection $specs)
     {
         $this->specs = $specs;
     }
+
+
+    /**
+     * get readable spec for printing
+     *
+     */
+    public function renderOptionSpec(Option $opt)
+    {
+        $c1 = '';
+        if ( $opt->short && $opt->long ) {
+            $c1 = sprintf('-%s, --%s',$opt->short,$opt->long);
+        } elseif( $opt->short ) {
+            $c1 = sprintf('-%s',$opt->short);
+        } elseif( $opt->long ) {
+            $c1 = sprintf('--%s',$opt->long );
+        }
+        $c1 .= $opt->renderValueHint();
+        return $c1;
+    }
+
 
 
     /**
@@ -33,7 +54,7 @@ class OptionPrinter implements OptionPrinterInterface
         $lines = array();
         foreach( $this->specs->all() as $spec ) 
         {
-            $c1 = $spec->renderReadableSpec();
+            $c1 = $this->renderOptionSpec($spec);
             $line = "\t" . $c1 . "\n\t\t" . wordwrap($spec->desc, 75, "\n\t\t") . "\n";  # wrap text
             /*
             if( strlen($c1) > $width ) {

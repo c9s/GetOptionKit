@@ -91,40 +91,40 @@ class ContinuousOptionParser extends OptionParser
     public $argv;
 
     /* for the constructor , the option specs is application options */
-    function __construct($specs = array())
+    public function __construct($specs = array())
     {
         parent::__construct($specs);
         $this->index = 1;
     }
 
-    function startFrom($index)
+    public function startFrom($index)
     {
         $this->index = $index;
     }
 
-    function isEnd()
+    public function isEnd()
     {
         # echo "!! {$this->index} >= {$this->length}\n";
         return ($this->index >= $this->length);
     }
 
-    function advance()
+    public function advance()
     {
         $arg = $this->argv[ $this->index++ ];
         return $arg;
     }
 
-    function getCurrentArgument()
+    public function getCurrentArgument()
     {
         return $this->argv[ $this->index ];
     }
 
-    function continueParse()
+    public function continueParse()
     {
         return $this->parse($this->argv);
     }
 
-    function parse($argv)
+    public function parse(array $argv)
     {
         // create new Result object.
         $result = new OptionResult;

@@ -85,28 +85,31 @@ class OptionParser
     /* 
      * push value to multipl value option
      */
-    function pushOptionValue($spec,$arg,$next)
+    public function pushOptionValue(Option $spec,$arg,$next)
     {
-        if( $arg->containsOptionValue() )
+        if ($arg->containsOptionValue()) {
             $spec->pushValue( $arg->getOptionValue() );
-        elseif( ! $next->isOption() ) 
+        } elseif( ! $next->isOption() ) {
             $spec->pushValue( $next->arg );
+        }
     }
 
-    function foundRequireValue($spec,$arg,$next)
+    public function foundRequireValue($spec,$arg,$next)
     {
         /* argument doesn't contain value and next argument is option */
-        if( $arg->containsOptionValue() )
+        if ($arg->containsOptionValue()) {
             return true;
+        }
 
-	    if( ! $arg->containsOptionValue() && $next && ! $next->isEmpty() && ! $next->isOption() )
+        if (! $arg->containsOptionValue() && $next && ! $next->isEmpty() && ! $next->isOption()) {
             return true;
+        }
 
         return false;
     }
 
 
-    function parse($argv)
+    public function parse(array $argv)
     {
         $result = new OptionResult;
         $len = count($argv);
@@ -129,10 +132,11 @@ class OptionParser
 
             $next = new Argument( @$argv[$i + 1] );
             $spec = $this->specs->getSpec( $arg->getOptionName() );
-            if( ! $spec )
+            if (! $spec) {
                 throw new InvalidOptionException("Invalid option: " . $arg );
+            }
 
-            if( $spec->isRequired() ) 
+            if ($spec->isRequired())
             {
                 if ( ! $this->foundRequireValue($spec,$arg,$next) ) {
                     throw new RequireValueException( "Option {$arg->getOptionName()} require a value." );

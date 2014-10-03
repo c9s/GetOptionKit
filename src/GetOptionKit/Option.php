@@ -296,7 +296,7 @@ class Option
         $this->key = $key;
     }
 
-    /*
+    /**
      * get readable spec for printing
      *
      */
