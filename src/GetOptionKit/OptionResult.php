@@ -50,13 +50,19 @@ class OptionResult
 
     public function __get($key)
     {
-        //verifying if we got a camelCased key: http://stackoverflow.com/a/7599674/102960
+        if (isset($this->keys[$key])) {
+            return $this->keys[$key]->value;
+        }
+
+        // verifying if we got a camelCased key: http://stackoverflow.com/a/7599674/102960
+        //    get $options->baseDir as $option->{'base-dir'}
         $parts = preg_split('/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/', $key);
-        if( sizeof($parts) > 1 )
+        if (sizeof($parts) > 1) {
             $key = join('-', array_map('strtolower', $parts));
-	    
-        if( isset($this->keys[ $key ]) )
-            return @$this->keys[ $key ]->value;
+        }
+        if (isset($this->keys[$key])) {
+            return $this->keys[$key]->value;
+        }
     }
 
     public function __set($key,$value)
