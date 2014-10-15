@@ -9,6 +9,8 @@ testing framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
+Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://github.com/c9s/CLIFramework> and AssetKit <https://github.com/c9s/AssetKit>.
+
 ## Features
 
 - simple format.
