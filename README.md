@@ -18,6 +18,9 @@ Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://git
 - multiple value, requried value, optional value checking.
 - auto-generated help text from defined options.
 - support app/subcommand option parsing.
+- validator
+- suggestions
+- valid values
 - SPL library.
 
 ## Requirements
