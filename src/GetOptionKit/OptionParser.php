@@ -41,7 +41,7 @@ class OptionParser
      * @param $key
      *
      * */
-    public function addSpec( $specString, $description , $key = null ) 
+    public function addSpec($specString, $description , $key = null ) 
     {
         $spec = $this->specs->add($specString,$description,$key);
         return $spec;
@@ -63,17 +63,13 @@ class OptionParser
     }
 
     /* take option value from current argument or from the next argument */
-    public function takeOptionValue($spec,$arg,$next)
+    public function takeOptionValue(Option $spec,$arg,$next)
     {
-        if( $arg->containsOptionValue() ) {
-            $spec->setValue( $arg->getOptionValue() );
+        if ($next && ! $next->isOption()) {
+            $spec->setValue($next->arg);
+        } else {
+            $spec->setValue(true);
         }
-        elseif( $next && ! $next->isOption() )  {
-            $spec->setValue( $next->arg );
-        }
-	    else {
-		    $spec->setValue(true);
-	    }
     }
 
     /* 
@@ -81,24 +77,17 @@ class OptionParser
      */
     public function pushOptionValue(Option $spec,$arg,$next)
     {
-        if ($arg->containsOptionValue()) {
-            $spec->pushValue( $arg->getOptionValue() );
-        } elseif( ! $next->isOption() ) {
+        if ($next && ! $next->isOption()) {
             $spec->pushValue( $next->arg );
         }
     }
 
-    public function foundRequireValue($spec,$arg,$next)
+    public function foundRequireValue(Option $spec,$arg,$next)
     {
         /* argument doesn't contain value and next argument is option */
-        if ($arg->containsOptionValue()) {
+        if ($next && ! $next->isEmpty() && ! $next->isOption()) {
             return true;
         }
-
-        if (! $arg->containsOptionValue() && $next && ! $next->isEmpty() && ! $next->isOption()) {
-            return true;
-        }
-
         return false;
     }
 
@@ -152,21 +141,22 @@ class OptionParser
 
             if ($spec->isRequired())
             {
-                if ( ! $this->foundRequireValue($spec,$arg,$next) ) {
-                    throw new RequireValueException( "Option {$arg->getOptionName()} require a value." );
+                if (! $this->foundRequireValue($spec, $arg, $next) ) {
+                    // TODO: display the valueName here.
+                    throw new RequireValueException( "Option {$arg->getOptionName()} requires a value." );
                 }
-
-                $this->takeOptionValue($spec,$arg,$next);
-                if( ! $next->isOption() )
+                $this->takeOptionValue($spec, $arg, $next);
+                if (! $next->isOption()) {
                     $i++;
+                }
                 $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isMultiple() ) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if( $next->isOption() )
+                if ($next->isOption())
                     $i++;
-                $result->set( $spec->getId() , $spec);
+                $result->set($spec->getId(), $spec);
             }
             elseif( $spec->isOptional() ) 
             {

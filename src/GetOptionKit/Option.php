@@ -48,6 +48,8 @@ class Option
      */
     public $filter;
 
+    public $validator;
+
     public $multiple = false;
 
     public $optional = false;
@@ -388,6 +390,25 @@ class Option
         }
     }
 
+    public function validate($value) {
+        if ($this->validator) {
+            $ret = call_user_func($this->validator, $value);
+            if (is_array($ret)) {
+                return $ret;
+            } elseif ($ret === false) {
+                return array(false, "Invalid value: $value");
+            }
+            throw new InvalidArgumentException("Invalid return value from the validator.");
+        }
+        return array(true);
+    }
+
+
+
+    public function validator($cb) {
+        $this->validator = $cb;
+        return $this;
+    }
 
     /**
      * Set up a filter function for the option value.
