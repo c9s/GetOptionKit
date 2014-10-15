@@ -14,24 +14,24 @@ class Argument
 {
     public $arg;
 
-    function __construct($arg)
+    public function __construct($arg)
     {
         $this->arg = $arg;
     }
 
 
-    function isLongOption()
+    public function isLongOption()
     {
         return substr($this->arg,0,2) === '--';
     }
 
-    function isShortOption()
+    public function isShortOption()
     {
         return (substr($this->arg,0,1) === '-' ) 
             && (substr($this->arg,1,1) !== '-');
     }
 
-    function isEmpty()
+    public function isEmpty()
     {
         return empty($this->arg);
     }
@@ -44,26 +44,30 @@ class Argument
      *   -a
      *   --foo
      */
-    function isOption()
+    public function isOption()
     {
         return $this->isShortOption() || $this->isLongOption();
     }
 
-    function getOptionName()
+    public function getOptionName()
     {
         if( preg_match('/^[-]+([a-zA-Z0-9-]+)/',$this->arg,$regs) ) {
             return $regs[1];
         }
     }
 
-    function containsOptionValue()
+    public function splitAsOption() {
+        return explode('=', $this->arg, 2);
+    }
+
+    public function containsOptionValue()
     {
         return preg_match('/=.+/',$this->arg);
     }
 
-    function getOptionValue()
+    public function getOptionValue()
     {
-        if( preg_match('/=(.+)/',$this->arg,$regs) ) {
+        if (preg_match('/=(.+)/',$this->arg,$regs)) {
             return $regs[1];
         }
     }

@@ -130,6 +130,8 @@ class ContinuousOptionParser extends OptionParser
         // create new Result object.
         $result = new OptionResult;
 
+        $argv = $this->preprocessingArguments($argv);
+
         if( ! $this->argv ) {
             $this->argv = $argv;
             $this->length = count($argv);

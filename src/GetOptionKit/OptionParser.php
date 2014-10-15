@@ -103,9 +103,29 @@ class OptionParser
     }
 
 
+    public function preprocessingArguments(array $argv)
+    {
+        // preprocessing arguments
+        $newArgv = array();
+        foreach($argv as $arg) {
+            $a = new Argument($arg);
+            if ($a->containsOptionValue()) {
+                list($opt,$val) = $a->splitAsOption();
+                array_push($newArgv, $opt, $val);
+            } else {
+                array_push($newArgv, $arg);
+            }
+        }
+        return $newArgv;
+    }
+
+
+
     public function parse(array $argv)
     {
         $result = new OptionResult;
+        $argv = $this->preprocessingArguments($argv);
+
         $len = count($argv);
         for( $i = 0; $i < $len; ++$i ) 
         {

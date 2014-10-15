@@ -10,28 +10,34 @@
  */
 class GetOptionKitTest extends PHPUnit_Framework_TestCase 
 {
+    public $parser;
+    public $specs;
 
-    function testSpec()
+    public function setUp()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
+        $this->specs = new GetOptionKit\OptionCollection;
+        $this->parser = new GetOptionKit\OptionParser($this->specs);
+    }
 
-        $opt->add( 'f|foo:' , 'option require value' );
-        $opt->add( 'b|bar+' , 'option with multiple value' );
-        $opt->add( 'z|zoo?' , 'option with optional value' );
-        $opt->add( 'v|verbose' , 'verbose message' );
-        $opt->add( 'd|debug'   , 'debug message' );
 
-        $spec = $opt->get('foo');
+    public function testSpec()
+    {
+        $this->specs->add( 'f|foo:' , 'option require value' );
+        $this->specs->add( 'b|bar+' , 'option with multiple value' );
+        $this->specs->add( 'z|zoo?' , 'option with optional value' );
+        $this->specs->add( 'v|verbose' , 'verbose message' );
+        $this->specs->add( 'd|debug'   , 'debug message' );
+
+        $spec = $this->specs->get('foo');
         ok( $spec->isRequired() );
 
-        $spec = $opt->get('bar');
+        $spec = $this->specs->get('bar');
         ok( $spec->isMultiple() );
 
-        $spec = $opt->get('zoo');
+        $spec = $this->specs->get('zoo');
         ok( $spec->isOptional() );
 
-        $spec = $opt->get( 'debug' );
+        $spec = $this->specs->get( 'debug' );
         ok( $spec );
         is_class( 'GetOptionKit\\Option', $spec );
         is( 'debug', $spec->long );
@@ -39,22 +45,20 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $spec->isFlag() );
     }
 
-    function testRequire()
+    public function testRequire()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
-        $opt->add( 'f|foo:' , 'option require value' );
-        $opt->add( 'b|bar+' , 'option with multiple value' );
-        $opt->add( 'z|zoo?' , 'option with optional value' );
-        $opt->add( 'v|verbose' , 'verbose message' );
-        $opt->add( 'd|debug'   , 'debug message' );
+        $this->specs->add( 'f|foo:' , 'option require value' );
+        $this->specs->add( 'b|bar+' , 'option with multiple value' );
+        $this->specs->add( 'z|zoo?' , 'option with optional value' );
+        $this->specs->add( 'v|verbose' , 'verbose message' );
+        $this->specs->add( 'd|debug'   , 'debug message' );
 
         $firstExceptionRaised = false;
         $secondExceptionRaised = false;
 
         // option required a value should throw an exception
         try {
-            $result = $opt->parse( array( '-f' , '-v' , '-d' ) );
+            $result = $this->parser->parse( array( '-f' , '-v' , '-d' ) );
         }
         catch (Exception $e) {
             $firstExceptionRaised = true;
@@ -62,7 +66,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         // even if only one option presented in args array
         try {
-            $result = $opt->parse( array( '-f' ) );
+            $result = $this->parser->parse( array( '-f' ) );
         }
         catch (Exception $e) {
             $secondExceptionRaised = true;
@@ -71,7 +75,6 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         if ($firstExceptionRaised && $secondExceptionRaised) {
             return;
         }
-
         $this->fail('An expected exception has not been raised.');
     }
 
@@ -106,7 +109,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $this->fail('An expected exception has not been raised.');
     }
 
-    function testIntegerTypeNumeric()
+    public function testIntegerTypeNumeric()
     {
         $opt = new \GetOptionKit\GetOptionKit;
         ok( $opt );
@@ -118,19 +121,22 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $result = $opt->parse(explode(' ','-b 123123'));
         ok( $result->bar );
         ok( $result->bar === 123123 );
+
+        $result = $opt->parse(explode(' ','-b=123123'));
+        ok( $result->bar );
+        ok( $result->bar === 123123 );
     }
 
-
-
-    function testStringType()
+    public function testStringType()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
-        $opt->add( 'b|bar:=string' , 'option with type' );
+        $this->specs->add( 'b|bar:=string' , 'option with type' );
 
-        $spec = $opt->get('bar');
+        $spec = $this->specs->get('bar');
 
-        $result = $opt->parse(explode(' ','-b text arg1 arg2 arg3'));
+        $result = $this->parser->parse(explode(' ','-b text arg1 arg2 arg3'));
+        ok( $result->bar );
+
+        $result = $this->parser->parse(explode(' ','-b=text arg1 arg2 arg3'));
         ok( $result->bar );
 
         $args = $result->getArguments();
@@ -142,65 +148,47 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
     }
 
 
-    function testSpec2()
+    public function testSpec2()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
-        $opt->add( 'long'   , 'long option name only.' );
-        $opt->add( 'a'   , 'short option name only.' );
-        $opt->add( 'b'   , 'short option name only.' );
-        ok( $opt->specs->all() );
-        ok( $opt->specs );
-        ok( $opt->getSpecs() );
-        ok( $result = $opt->parse(explode(' ','-a -b --long')) );
+        $this->specs->add( 'long'   , 'long option name only.' );
+        $this->specs->add( 'a'   , 'short option name only.' );
+        $this->specs->add( 'b'   , 'short option name only.' );
+
+        ok( $this->specs->all() );
+        ok( $this->specs );
+        ok( $result = $this->parser->parse(explode(' ','-a -b --long')) );
         ok( $result->a );
         ok( $result->b );
     }
 
-    function testSpecCollection()
+    public function testSpecCollection()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
+        $this->specs->add( 'f|foo:' , 'option requires a value.' );
+        $this->specs->add( 'b|bar+' , 'option with multiple value.' );
+        $this->specs->add( 'z|zoo?' , 'option with optional value.' );
+        $this->specs->add( 'v|verbose' , 'verbose message.' );
+        $this->specs->add( 'd|debug'   , 'debug message.' );
+        $this->specs->add( 'long'   , 'long option name only.' );
+        $this->specs->add( 's'   , 'short option name only.' );
 
-        $opt->add( 'f|foo:' , 'option requires a value.' );
-        $opt->add( 'b|bar+' , 'option with multiple value.' );
-        $opt->add( 'z|zoo?' , 'option with optional value.' );
-        $opt->add( 'v|verbose' , 'verbose message.' );
-        $opt->add( 'd|debug'   , 'debug message.' );
-        $opt->add( 'long'   , 'long option name only.' );
-        $opt->add( 's'   , 'short option name only.' );
+        ok( $this->specs->all() );
+        ok( $this->specs );
 
-        ok( $opt->specs->all() );
-        ok( $opt->specs );
-        ok( $opt->getSpecs() );
-
-        count_ok( 7 , $array = $opt->specs->toArray() );
-        ok( isset($array[0]['long'] ));
-        ok( isset($array[0]['short'] ));
-        ok( isset($array[0]['desc'] ));
-
-        /*
-        ob_start();
-        $opt->specs->printOptions();
-        $content = ob_get_contents();
-        ob_clean();
-        like( '/option with/m', $content );
-         */
-        # echo "\n".$content;
+        count_ok( 7 , $array = $this->specs->toArray() );
+        $this->assertNotEmpty( isset($array[0]['long'] ));
+        $this->assertNotEmpty( isset($array[0]['short'] ));
+        $this->assertNotEmpty( isset($array[0]['desc'] ));
     }
 
-    function test()
+    public function test()
     {
-        $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
+        $this->specs->add( 'f|foo:' , 'option require value' );
+        $this->specs->add( 'b|bar+' , 'option with multiple value' );
+        $this->specs->add( 'z|zoo?' , 'option with optional value' );
+        $this->specs->add( 'v|verbose' , 'verbose message' );
+        $this->specs->add( 'd|debug'   , 'debug message' );
 
-        $opt->add( 'f|foo:' , 'option require value' );
-        $opt->add( 'b|bar+' , 'option with multiple value' );
-        $opt->add( 'z|zoo?' , 'option with optional value' );
-        $opt->add( 'v|verbose' , 'verbose message' );
-        $opt->add( 'd|debug'   , 'debug message' );
-
-        $result = $opt->parse( array( '-f' , 'foo value' , '-v' , '-d' ) );
+        $result = $this->parser->parse( array( '-f' , 'foo value' , '-v' , '-d' ) );
         ok( $result );
         ok( $result->foo );
         ok( $result->verbose );
@@ -209,7 +197,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose );
         ok( $result->debug );
 
-        $result = $opt->parse( array( '-f=foo value' , '-v' , '-d' ) );
+        $result = $this->parser->parse( array( '-f=foo value' , '-v' , '-d' ) );
         ok( $result );
         ok( $result->foo );
         ok( $result->verbose );
@@ -219,7 +207,7 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         ok( $result->verbose );
         ok( $result->debug );
 
-        $result = $opt->parse( array( '-vd' ) );
+        $result = $this->parser->parse( array( '-vd' ) );
         ok( $result->verbose );
         ok( $result->debug );
     }
