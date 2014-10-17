@@ -98,7 +98,7 @@ class OptionParser
         $newArgv = array();
         foreach($argv as $arg) {
             $a = new Argument($arg);
-            if ($a->containsOptionValue()) {
+            if ($a->isOption() && $a->containsOptionValue()) {
                 list($opt,$val) = $a->splitAsOption();
                 array_push($newArgv, $opt, $val);
             } else {
