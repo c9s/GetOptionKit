@@ -33,7 +33,7 @@ class Argument
 
     public function isEmpty()
     {
-        return empty($this->arg);
+        return empty($this->arg) || strlen($this->arg) == 0;
     }
 
 
@@ -77,12 +77,12 @@ class Argument
      *
      * like: -abc
      */
-    function withExtraFlagOptions()
+    public function withExtraFlagOptions()
     {
         return preg_match('/^-[a-zA-Z0-9]{2,}/',$this->arg);
     }
 
-    function extractExtraFlagOptions()
+    public function extractExtraFlagOptions()
     {
         $args = array();
         for($i=2;$i< strlen($this->arg); ++$i) {
@@ -92,7 +92,7 @@ class Argument
         return $args;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->arg;
     }
