@@ -96,7 +96,16 @@ class OptionParser
     {
         // preprocessing arguments
         $newArgv = array();
+        $afterDash = false;
         foreach($argv as $arg) {
+            if ($arg == '--') {
+                $afterDash = true;
+            }
+            if ($afterDash) {
+                $newArgv[] = $arg;
+                continue;
+            }
+
             $a = new Argument($arg);
             if ($a->isOption() && $a->containsOptionValue()) {
                 list($opt,$val) = $a->splitAsOption();
