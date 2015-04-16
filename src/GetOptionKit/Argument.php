@@ -33,7 +33,7 @@ class Argument
 
     public function isEmpty()
     {
-        return empty($this->arg) || strlen($this->arg) == 0;
+        return empty($this->arg) && ('0' !== $this->arg);
     }
 
 
