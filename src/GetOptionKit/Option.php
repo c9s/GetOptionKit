@@ -290,10 +290,19 @@ class Option
         } elseif ($this->isa) {
             $n = $this->isa;
         }
-        if ( $this->isRequired() ) {
+
+        if ($val = $this->defaultValue) {
+            if (is_bool($val)) {
+                $n .= ':' . $val ? 'true' : 'false';
+            } else {
+                $n .= ':' . $this->defaultValue;
+            }
+        }
+
+        if ($this->isRequired()) {
             return sprintf('=<%s>', $n);
         }
-        if ( $this->isOptional() ) {
+        if ($this->isOptional()) {
             return sprintf('[=<%s>]', $n);
         }
         return '';
