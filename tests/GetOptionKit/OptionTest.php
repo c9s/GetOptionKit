@@ -28,6 +28,12 @@ class OptionTest extends PHPUnit_Framework_TestCase
         ok($opt);
     }
 
+    public function testDefaultValue() {
+        $opt = new Option('z');
+        $opt->defaultValue(10);
+        $this->assertEquals(10, $opt->getValue());
+    }
+
     public function testValidValues() {
         $opt = new Option('scope');
         $opt->validValues([ 'public', 'private' ])

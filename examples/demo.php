@@ -22,7 +22,13 @@ $specs->add('b|bar+', 'option with multiple value.' )
     ->isa('Number');
 
 $specs->add('z|zoo?', 'option with optional value.' )
-    ->isa('Boolean');
+    ->isa('Boolean')
+    ;
+
+$specs->add('o|output?', 'option with optional value.' )
+    ->isa('File')
+    ->defaultValue('output.txt')
+    ;
 
 $specs->add('file:', 'option value should be a file.' )
     ->isa('File');
@@ -41,7 +47,7 @@ $parser = new OptionParser($specs);
 echo "Enabled options: \n";
 try {
     $result = $parser->parse( $argv );
-    foreach( $result as $key => $spec ) {
+    foreach ($result as $key => $spec) {
         echo $spec . "\n";
     }
 } catch( Exception $e ) {

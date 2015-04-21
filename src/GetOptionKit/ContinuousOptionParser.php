@@ -183,23 +183,24 @@ class ContinuousOptionParser extends OptionParser
                     $this->index++;
                 $result->set($spec->getId(), $spec);
             }
-            elseif( $spec->isMultiple() ) 
+            elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             }
-            elseif( $spec->isOptional() ) 
+            elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $spec->value && $next && ! $next->isOption() )
+                if (($spec->value || $spec->defaultValue) && $next && ! $next->isOption()) {
                     $this->index++;
-                $result->set( $spec->getId() , $spec);
+                }
+                $result->set($spec->getId() , $spec);
             }
             elseif( $spec->isFlag() ) 
             {
-                $spec->value = true;
+                $spec->setValue(true);
                 $result->set( $spec->getId() , $spec);
             }
             else 

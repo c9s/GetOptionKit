@@ -43,6 +43,8 @@ class Option
 
     public $suggestions;
 
+    public $defaultValue;
+
     /**
      * @var Closure The filter closure of the option value.
      */
@@ -151,17 +153,26 @@ class Option
     public function required()
     {
         $this->required = true;
+        return $this;
+    }
+
+    public function defaultValue($value)
+    {
+        $this->defaultValue = $value;
+        return $this;
     }
 
     public function multiple()
     {
         $this->multiple = true;
         $this->value = array();  # for value pushing
+        return $this;
     }
 
     public function optional()
     {
         $this->optional = true;
+        return $this;
     }
 
     public function flag()
@@ -289,6 +300,12 @@ class Option
     }
 
 
+    public function getValue() {
+        if (null !== $this->value) {
+            return $this->value;
+        }
+        return $this->defaultValue;
+    }
 
     /*
      * set option spec key for saving option result
@@ -320,10 +337,11 @@ class Option
         $c1 = $this->renderReadableSpec();
         $return = '';
         $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->desc) . "\n";
-        if( is_array($this->value) ) {
-            $return .= '  ' . print_r(  $this->value, true ) . "\n";
+        $val = $this->getValue();
+        if (is_array($val)) {
+            $return .= '  ' . print_r(  $val, true ) . "\n";
         } else {
-            $return .= sprintf("  value => %s" , $this->value) . "\n";
+            $return .= sprintf("  value => %s" , $val) . "\n";
         }
         return $return;
     }

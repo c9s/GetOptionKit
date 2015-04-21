@@ -67,6 +67,8 @@ class OptionParser
     {
         if ($next && ! $next->isOption()) {
             $spec->setValue($next->arg);
+        } else if ($spec->defaultValue) {
+            $spec->setValue($spec->defaultVlaue);
         } else {
             $spec->setValue(true);
         }
@@ -124,18 +126,26 @@ class OptionParser
         $result = new OptionResult;
         $argv = $this->preprocessingArguments($argv);
 
+
+        foreach ($this->specs as $spec) {
+            if ($spec->defaultValue !== null) {
+                $result->set($spec->getId() , $spec);
+            }
+        }
+
+
         $len = count($argv);
-        for( $i = 0; $i < $len; ++$i ) 
+        for ($i = 0; $i < $len; ++$i)
         {
             $arg = new Argument( $argv[$i] );
-            if( ! $arg->isOption() ) {
+            if (! $arg->isOption()) {
                 $result->addArgument( $arg );
                 continue;
             }
 
             // if the option is with extra flags,
             //   split it out, and insert into the argv array
-            if( $arg->withExtraFlagOptions() ) {
+            if ($arg->withExtraFlagOptions()) {
                 $extra = $arg->extractExtraFlagOptions();
                 array_splice( $argv, $i+1, 0, $extra );
                 $argv[$i] = $arg->arg; // update argument to current argv list.
@@ -170,8 +180,9 @@ class OptionParser
             elseif( $spec->isOptional() ) 
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $spec->value && ! $next->isOption() )
+                if (($spec->value || $spec->defaultValue) && ! $next->isOption() ) {
                     $i++;
+                }
                 $result->set( $spec->getId() , $spec);
             }
             elseif( $spec->isFlag() ) 
