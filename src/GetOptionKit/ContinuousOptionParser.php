@@ -144,18 +144,18 @@ class ContinuousOptionParser extends OptionParser
             }
         }
 
-        if( $this->isEnd() ) {
+        if ($this->isEnd()) {
             return $result;
         }
 
 
         // from last parse index
-        for( ; $this->index < $this->length; ++$this->index ) 
+        for ( ; $this->index < $this->length; ++$this->index ) 
         {
             $arg = new Argument( $argv[$this->index] );
 
             /* let the application decide for: command or arguments */
-            if( ! $arg->isOption() ) {
+            if (! $arg->isOption()) {
                 # echo "stop at {$this->index}\n";
                 return $result;
             }
@@ -164,7 +164,7 @@ class ContinuousOptionParser extends OptionParser
             //   split it out, and insert into the argv array
             //
             //   like -abc
-            if( $arg->withExtraFlagOptions() ) {
+            if ($arg->withExtraFlagOptions() ) {
                 $extra = $arg->extractExtraFlagOptions();
                 array_splice( $argv, $this->index + 1, 0, $extra );
                 $argv[$this->index] = $arg->arg; // update argument to current argv list.
@@ -172,16 +172,16 @@ class ContinuousOptionParser extends OptionParser
             }
 
             $next = null;
-            if( $this->index + 1 < count($argv)  ) 
+            if ($this->index + 1 < count($argv) )  {
                 $next = new Argument( $argv[$this->index + 1] );
+            }
 
             $spec = $this->specs->get( $arg->getOptionName() );
             if (! $spec) {
                 throw new InvalidOptionException("Invalid option: " . $arg );
             }
 
-            if( $spec->isRequired() ) 
-            {
+            if ($spec->isRequired()) {
                 if ( ! $this->foundRequireValue($spec,$arg,$next) ) {
                     throw new RequireValueException( "Option '{$arg->getOptionName()}' requires a value." );
                 }
@@ -190,28 +190,23 @@ class ContinuousOptionParser extends OptionParser
                 if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set($spec->getId(), $spec);
-            }
-            elseif ($spec->isMultiple()) 
+            } elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if( $next && ! $next->isOption() )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
-            }
-            elseif ($spec->isOptional())
+            } elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
                 if (($spec->value || $spec->defaultValue) && $next && ! $next->isOption()) {
                     $this->index++;
                 }
                 $result->set($spec->getId() , $spec);
-            }
-            elseif( $spec->isFlag() ) 
-            {
+            } elseif ($spec->isFlag()) {
                 $spec->setValue(true);
                 $result->set( $spec->getId() , $spec);
-            }
-            else 
+            } else 
             {
                 throw new Exception('Unknown attribute.');
             }

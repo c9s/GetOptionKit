@@ -158,8 +158,7 @@ class OptionParser
                 throw new InvalidOptionException("Invalid option: " . $arg );
             }
 
-            if ($spec->isRequired())
-            {
+            if ($spec->isRequired()) {
                 if (! $this->foundRequireValue($spec, $arg, $next) ) {
                     // TODO: display the valueName here.
                     throw new RequireValueException( "Option {$arg->getOptionName()} requires a value." );
@@ -169,29 +168,23 @@ class OptionParser
                     $i++;
                 }
                 $result->set($spec->getId(), $spec);
-            }
-            elseif( $spec->isMultiple() ) 
+            } elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if ($next->isOption())
                     $i++;
                 $result->set($spec->getId(), $spec);
-            }
-            elseif( $spec->isOptional() ) 
+            } elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
                 if (($spec->value || $spec->defaultValue) && ! $next->isOption() ) {
                     $i++;
                 }
                 $result->set( $spec->getId() , $spec);
-            }
-            elseif( $spec->isFlag() ) 
-            {
+            } elseif ($spec->isFlag()) {
                 $spec->value = true;
-                $result->set( $spec->getId() , $spec);
-            }
-            else 
-            {
+                $result->set($spec->getId() , $spec);
+            } else {
                 throw new Exception('Unknown attribute.');
             }
         }
