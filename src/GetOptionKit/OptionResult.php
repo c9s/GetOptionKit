@@ -51,7 +51,7 @@ class OptionResult
     public function __get($key)
     {
         if (isset($this->keys[$key])) {
-            return $this->keys[$key]->value;
+            return $this->keys[$key]->getValue();
         }
 
         // verifying if we got a camelCased key: http://stackoverflow.com/a/7599674/102960
@@ -61,11 +61,11 @@ class OptionResult
             $key = join('-', array_map('strtolower', $parts));
         }
         if (isset($this->keys[$key])) {
-            return $this->keys[$key]->value;
+            return $this->keys[$key]->getValue();
         }
     }
 
-    public function __set($key,$value)
+    public function __set($key, $value)
     {
         $this->keys[ $key ] = $value;
     }
@@ -80,7 +80,7 @@ class OptionResult
         $this->keys[ $key ] = $value;
     }
 
-    public function addArgument( Argument $arg)
+    public function addArgument(Argument $arg)
     {
         $this->arguments[] = $arg;
     }
@@ -119,17 +119,17 @@ class OptionResult
         return $array;
     }
 
-    static function create($specs,$values = array(),$arguments = null )
+    static function create($specs, array $values = array(), array $arguments = null)
     {
         $new = new self;
         foreach( $specs as $spec ) {
             $id = $spec->getId();
-            if( isset($values[ $id ]) ) {
+            if (isset($values[$id])) {
                 $new->$id = $spec;
                 $spec->setValue( $values[$id] );
             }
-            if( $arguments ) {
-                foreach( $arguments as $arg ) {
+            if ($arguments) {
+                foreach ($arguments as $arg){
                     $new->addArgument( new Argument( $arg ) );
                 }
             }
