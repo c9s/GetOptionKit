@@ -132,14 +132,22 @@ class ContinuousOptionParser extends OptionParser
 
         $argv = $this->preprocessingArguments($argv);
 
-        if( ! $this->argv ) {
+        if ( ! $this->argv ) {
             $this->argv = $argv;
             $this->length = count($argv);
+        }
+
+        // register option result from options with default value 
+        foreach ($this->specs as $spec) {
+            if ($spec->defaultValue !== null) {
+                $result->set($spec->getId() , $spec);
+            }
         }
 
         if( $this->isEnd() ) {
             return $result;
         }
+
 
         // from last parse index
         for( ; $this->index < $this->length; ++$this->index ) 
