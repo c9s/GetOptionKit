@@ -42,6 +42,13 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
         is( '-a', $arg->arg);
     }
 
+    function testZeroValue()
+    {
+        $arg = new Argument( '0' );
+        not_ok( $arg->isShortOption() );
+        not_ok( $arg->isLongOption() );
+        not_ok( $arg->isEmpty() );
+    }
 }
 
 
