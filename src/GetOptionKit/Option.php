@@ -61,6 +61,12 @@ class Option
     public $flag     = false;
 
 
+    /**
+     * @var callable trigger callback after value is set.
+     */
+    protected $trigger;
+
+
     public function __construct($specString = null)
     {
         if( $specString ) {
@@ -68,11 +74,12 @@ class Option
         }
     }
 
-    /* 
-     * build spec attributes from spec string 
+    /**
+     * Build spec attributes from spec string 
      *
-     **/
-    function initFromSpecString($specString)
+     * @param string $specString
+     */
+    public function initFromSpecString($specString)
     {
         $pattern = '/
         (
@@ -178,7 +185,17 @@ class Option
     public function flag()
     {
         $this->flag = true;
+        return $this;
     }
+
+
+    public function trigger(callable $trigger)
+    {
+        $this->trigger = $trigger;
+        return $this;
+    }
+
+
 
 
     public function isFlag()
@@ -249,12 +266,22 @@ class Option
         return $val;
     }
 
+    public function callTrigger()
+    {
+        if ($this->trigger) {
+            if ($ret = call_user_func($this->trigger, $this->value)) {
+                $this->value = $ret;
+            }
+        }
+    }
+
     /*
      * set option value
      */
     public function setValue($value)
     {
         $this->value = $this->_preprocessValue($value);
+        $this->callTrigger();
     }
 
 
@@ -265,6 +292,7 @@ class Option
     {
         $value = $this->_preprocessValue($value);
         $this->value[] = $value;
+        $this->callTrigger();
     }
 
     public function desc($desc)

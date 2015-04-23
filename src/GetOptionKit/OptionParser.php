@@ -182,7 +182,7 @@ class OptionParser
                 }
                 $result->set( $spec->getId() , $spec);
             } elseif ($spec->isFlag()) {
-                $spec->value = true;
+                $spec->setValue(true);
                 $result->set($spec->getId() , $spec);
             } else {
                 throw new Exception('Unknown attribute.');

@@ -113,8 +113,8 @@ class OptionResult
     public function toArray()
     {
         $array = array();
-        foreach( $this->keys as $key => $option ) {
-            $array[ $key ] = $option->value;
+        foreach ($this->keys as $key => $option ) {
+            $array[ $key ] = $option->getValue();
         }
         return $array;
     }
