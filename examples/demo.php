@@ -31,6 +31,10 @@ $specs->add('o|output?', 'option with optional value.' )
     ;
 
 $specs->add('file:', 'option value should be a file.' )
+    ->trigger(function($value) {
+        echo "Set value to :";
+        var_dump($value);
+    })
     ->isa('File');
 
 $specs->add('v|verbose', 'verbose message.' );
