@@ -160,7 +160,11 @@ class OptionParser
             }
 
 
-            $next = isset($argv[$i + 1]) ? new Argument($argv[$i + 1]) : new Argument("");
+            $next = null;
+            if ($i + 1 < count($argv) )  {
+                $next = new Argument($argv[$i + 1]);
+            }
+
             $spec = $this->specs->get($arg->getOptionName());
             if (! $spec) {
                 throw new InvalidOptionException("Invalid option: " . $arg );
