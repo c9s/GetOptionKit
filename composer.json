@@ -18,9 +18,9 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "GetOptionKit": "src"
+        "psr-4": {
+            "GetOptionKit\\": "src/GetOptionKit/"
         }
     },
-    "version": "2.0.12"
+    "version": "2.1.0"
 }

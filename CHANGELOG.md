@@ -4,6 +4,7 @@ CHANGELOG
 
 - Added incremental option value support.
 - Fixed #21 for negative value.
+- Used autoloading with PSR-4
 
 ## 2.0.12 - Tue Apr 21 18:51:12 2015
 
