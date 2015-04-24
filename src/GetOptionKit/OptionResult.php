@@ -122,7 +122,7 @@ class OptionResult
     static function create($specs, array $values = array(), array $arguments = null)
     {
         $new = new self;
-        foreach( $specs as $spec ) {
+        foreach ($specs as $spec) {
             $id = $spec->getId();
             if (isset($values[$id])) {
                 $new->$id = $spec;

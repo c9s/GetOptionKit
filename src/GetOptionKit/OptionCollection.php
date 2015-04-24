@@ -75,10 +75,9 @@ class OptionCollection
         $args = func_get_args();
         $first = $args[0];
 
-        if( is_object($first) && $first instanceof Option ) {
+        if (is_object($first) && $first instanceof Option) {
             $this->addObject( $first );
-        }
-        elseif( is_string( $first ) ) {
+        } else if ( is_string( $first ) ) {
             $specString  = $args[0];
             $desc = @$args[1];
             $key         = @$args[2];
@@ -91,8 +90,7 @@ class OptionCollection
                 $spec->key = $key;
             $this->add( $spec );
             return $spec;
-        }
-        else {
+        } else {
             throw new Exception( 'Unknown Spec Type' );
         }
     }

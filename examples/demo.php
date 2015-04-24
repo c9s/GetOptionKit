@@ -13,6 +13,7 @@ require 'vendor/autoload.php';
 
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
+use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
 
 $specs = new OptionCollection;
 $specs->add('f|foo:', 'option requires a value.' )
@@ -30,6 +31,11 @@ $specs->add('o|output?', 'option with optional value.' )
     ->defaultValue('output.txt')
     ;
 
+// works for -vvv  => verbose = 3
+$specs->add('v|verbose', 'verbose')
+    ->isa('Number')
+    ->incremental();
+
 $specs->add('file:', 'option value should be a file.' )
     ->trigger(function($value) {
         echo "Set value to :";
@@ -37,14 +43,12 @@ $specs->add('file:', 'option value should be a file.' )
     })
     ->isa('File');
 
-$specs->add('v|verbose', 'verbose message.' );
 $specs->add('d|debug', 'debug message.' );
 $specs->add('long', 'long option name only.' );
 $specs->add('s', 'short option name only.' );
 
-$printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
+$printer = new ConsoleOptionPrinter;
 echo $printer->render($specs);
-
 
 $parser = new OptionParser($specs);
 

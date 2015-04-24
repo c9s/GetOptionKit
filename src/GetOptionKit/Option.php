@@ -48,6 +48,8 @@ class Option
 
     public $defaultValue;
 
+    public $incremental = false;
+
     /**
      * @var Closure The filter closure of the option value.
      */
@@ -125,14 +127,13 @@ class Option
             $this->required();
         }
         // option with multiple value
-        elseif( strpos($attributes,'+') !== false ) {
+        elseif ( strpos($attributes,'+') !== false ) {
             $this->multiple();
         }
         // option is optional.(zero or one value)
-        elseif( strpos($attributes,'?') !== false ) {
+        elseif ( strpos($attributes,'?') !== false ) {
             $this->optional();
-        } 
-
+        }
         // option is multiple value and optional (zero or more)
         elseif( strpos($attributes,'*') !== false ) {
             throw new Exception('not implemented yet');
@@ -158,6 +159,15 @@ class Option
             return $this->long;
         if( $this->short )
             return $this->short;
+    }
+
+    /**
+     * To make -v, -vv, -vvv works 
+     */
+    public function incremental()
+    {
+        $this->incremental = true;
+        return $this;
     }
 
     public function required()
@@ -199,6 +209,10 @@ class Option
     }
 
 
+    public function isIncremental()
+    {
+        return $this->incremental;
+    }
 
 
     public function isFlag()
@@ -294,8 +308,23 @@ class Option
     }
 
 
-    /*
+    /**
+     * This method is for incremental option
+     */
+    public function increaseValue()
+    {
+        if (!$this->value ) {
+            $this->value = 1;
+        } else {
+            $this->value++;
+        }
+        $this->callTrigger();
+    }
+
+    /**
      * push option value, when the option accept multiple values 
+     *
+     * @param mixed
      */
     public function pushValue($value)
     {

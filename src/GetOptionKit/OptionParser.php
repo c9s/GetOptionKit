@@ -196,6 +196,11 @@ class OptionParser
                 }
                 $result->set( $spec->getId() , $spec);
             }
+            elseif ($spec->isIncremental())
+            {
+                $spec->increaseValue();
+                $result->set($spec->getId() , $spec);
+            }
             elseif ($spec->isFlag())
             {
                 $spec->setValue(true);
