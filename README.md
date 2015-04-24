@@ -3,8 +3,10 @@ GetOptionKit
 
 [![Build Status](https://travis-ci.org/c9s/GetOptionKit.svg?branch=master)](https://travis-ci.org/c9s/GetOptionKit)
 [![Latest Stable Version](https://poser.pugx.org/corneltek/getoptionkit/v/stable)](https://packagist.org/packages/corneltek/getoptionkit) 
-[![Total Downloads](https://poser.pugx.org/corneltek/getoptionkit/downloads)](https://packagist.org/packages/corneltek/getoptionkit) 
 [![Latest Unstable Version](https://poser.pugx.org/corneltek/getoptionkit/v/unstable)](https://packagist.org/packages/corneltek/getoptionkit) 
+[![Total Downloads](https://poser.pugx.org/corneltek/getoptionkit/downloads)](https://packagist.org/packages/corneltek/getoptionkit) 
+[![Monthly Downloads](https://poser.pugx.org/corneltek/getoptionkit/d/monthly)](https://packagist.org/packages/corneltek/getoptionkit)
+[![Daily Downloads](https://poser.pugx.org/corneltek/getoptionkit/d/daily)](https://packagist.org/packages/corneltek/getoptionkit)
 [![License](https://poser.pugx.org/corneltek/getoptionkit/license)](https://packagist.org/packages/corneltek/getoptionkit)
 
 A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
