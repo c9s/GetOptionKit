@@ -1,5 +1,9 @@
 CHANGELOG
 ==================
+## 2.1.0 - Fri Apr 24 16:43:00 2015
+
+- Added incremental option value support.
+- Fixed #21 for negative value.
 
 ## 2.0.12 - Tue Apr 21 18:51:12 2015
 
