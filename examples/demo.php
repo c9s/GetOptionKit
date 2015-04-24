@@ -46,6 +46,7 @@ $specs->add('file:', 'option value should be a file.' )
 $specs->add('d|debug', 'debug message.' );
 $specs->add('long', 'long option name only.' );
 $specs->add('s', 'short option name only.' );
+$specs->add('m', 'short option m');
 
 $printer = new ConsoleOptionPrinter;
 echo $printer->render($specs);
