@@ -21,19 +21,19 @@ Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://git
 
 ## Features
 
-- simple format.
-- type constrant.
-- multiple value, requried value, optional value checking.
-- auto-generated help text from defined options.
-- support app/subcommand option parsing.
-- validator
-- suggestions
-- valid values
+- Simple format.
+- Type constrant.
+- Multiple value, requried value, optional value checking.
+- Auto-generated help text from defined options.
+- Support app/subcommand option parsing.
+- Option Value Validator
+- Option Suggestions
 - SPL library.
+- HHVM support.
 
 ## Requirements
 
-* PHP 5.3
+* PHP 5.4+
 
 ## Install From Composer
 
