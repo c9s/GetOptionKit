@@ -12,6 +12,7 @@
 namespace GetOptionKit;
 use GetOptionKit\Exception\NonNumericException;
 use Exception;
+use LogicException;
 use InvalidArgumentException;
 
 class InvalidOptionValue extends Exception {  }
@@ -32,7 +33,9 @@ class Option
      * @var string The option key
      */
     public $key;  /* key to store values */
+
     public $value;
+
     public $type;
 
     public $valueName; /* name for the value place holder, for printing */
@@ -244,11 +247,17 @@ class Option
 
     protected function _preprocessValue($value) {
         $val = $value;
-        if ( $type = $this->getTypeClass() ) {
-            if ($type->test($value)) {
-                $val = $type->parse($value);
+
+        if ($isa = $this->isa) {
+            if ($type = $this->getTypeClass()) {
+                if ($type->test($value)) {
+                    $val = $type->parse($value);
+                } else {
+                    throw new InvalidOptionValue("Invalid value for type {$this->isa}");
+                }
             } else {
-                throw new InvalidOptionValue("Invalid value for type {$this->isa}");
+                throw new LogicException("Type class of $isa not found.");
+
             }
         }
 

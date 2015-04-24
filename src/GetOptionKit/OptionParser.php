@@ -63,12 +63,16 @@ class OptionParser
     }
 
     /* take option value from current argument or from the next argument */
-    public function takeOptionValue(Option $spec,$arg,$next)
+    public function takeOptionValue(Option $spec, $arg, $next)
     {
-        if ($next && ! $next->isOption()) {
+        if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
         } else if ($spec->defaultValue) {
             $spec->setValue($spec->defaultVlaue);
+        } else if ($spec->isFlag()) {
+            $spec->setValue(true);
+        } else if (!$next->isEmpty()) {
+            $spec->setValue($next->arg);
         } else {
             $spec->setValue(true);
         }
@@ -79,7 +83,7 @@ class OptionParser
      */
     public function pushOptionValue(Option $spec,$arg,$next)
     {
-        if ($next && ! $next->isOption()) {
+        if ($next && ! $next->anyOfOptions($this->specs)) {
             $spec->pushValue( $next->arg );
         }
     }
@@ -87,7 +91,7 @@ class OptionParser
     public function foundRequireValue(Option $spec,$arg,$next)
     {
         /* argument doesn't contain value and next argument is option */
-        if ($next && ! $next->isEmpty() && ! $next->isOption()) {
+        if ($next && ! $next->isEmpty() && !$next->anyOfOptions($this->specs)) {
             return true;
         }
         return false;
@@ -109,7 +113,7 @@ class OptionParser
             }
 
             $a = new Argument($arg);
-            if ($a->isOption() && $a->containsOptionValue()) {
+            if ($a->anyOfOptions($this->specs) && $a->containsOptionValue()) {
                 list($opt,$val) = $a->splitAsOption();
                 array_push($newArgv, $opt, $val);
             } else {
@@ -138,13 +142,16 @@ class OptionParser
         for ($i = 0; $i < $len; ++$i)
         {
             $arg = new Argument( $argv[$i] );
+
+            // if looks like not an option, push it to argument list.
+            // TODO: we might want to support argument with preceding dash (?)
             if (! $arg->isOption()) {
                 $result->addArgument( $arg );
                 continue;
             }
 
             // if the option is with extra flags,
-            //   split it out, and insert into the argv array
+            //   split the string, and insert into the argv array
             if ($arg->withExtraFlagOptions()) {
                 $extra = $arg->extractExtraFlagOptions();
                 array_splice( $argv, $i+1, 0, $extra );
@@ -152,39 +159,46 @@ class OptionParser
                 $len = count($argv);   // update argv list length
             }
 
-            $next = new Argument( @$argv[$i + 1] );
-            $spec = $this->specs->get( $arg->getOptionName() );
+
+            $next = isset($argv[$i + 1]) ? new Argument($argv[$i + 1]) : new Argument("");
+            $spec = $this->specs->get($arg->getOptionName());
             if (! $spec) {
                 throw new InvalidOptionException("Invalid option: " . $arg );
             }
 
             if ($spec->isRequired()) {
                 if (! $this->foundRequireValue($spec, $arg, $next) ) {
-                    // TODO: display the valueName here.
-                    throw new RequireValueException( "Option {$arg->getOptionName()} requires a value." );
+                    throw new RequireValueException( "Option {$arg->getOptionName()} requires a value. given '{$next}'");
                 }
                 $this->takeOptionValue($spec, $arg, $next);
-                if (! $next->isOption()) {
+                if (! $next->anyOfOptions($this->specs)) {
                     $i++;
                 }
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isMultiple()) 
+
+            } 
+            elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
                 if ($next->isOption())
                     $i++;
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isOptional())
+            }
+            elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
                 if (($spec->value || $spec->defaultValue) && ! $next->isOption() ) {
                     $i++;
                 }
                 $result->set( $spec->getId() , $spec);
-            } elseif ($spec->isFlag()) {
+            }
+            elseif ($spec->isFlag())
+            {
                 $spec->setValue(true);
                 $result->set($spec->getId() , $spec);
-            } else {
+            }
+            else
+            {
                 throw new Exception('Unknown attribute.');
             }
         }

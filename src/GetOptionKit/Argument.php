@@ -9,6 +9,7 @@
  *
  */
 namespace GetOptionKit;
+use GetOptionKit\OptionCollection;
 
 class Argument 
 {
@@ -33,13 +34,24 @@ class Argument
 
     public function isEmpty()
     {
-        return empty($this->arg) && ('0' !== $this->arg);
+        return $this->arg === null || empty($this->arg) && ('0' !== $this->arg);
     }
 
 
+    /**
+     * Check if an option is one of the option in the collection
+     */
+    public function anyOfOptions(OptionCollection $options)
+    {
+        $name = $this->getOptionName();
+        $keys = $options->keys();
+        return in_array($name, $keys);
+    }
+
 
     /**
-     * check current argument is an option
+     * Check current argument is an option by the preceding dash.
+     * note this method does not work for string with negative value.
      *
      *   -a
      *   --foo
@@ -49,9 +61,24 @@ class Argument
         return $this->isShortOption() || $this->isLongOption();
     }
 
+
+    public function getOption() {
+        if (preg_match('/^([-]+[a-zA-Z0-9-]+)/', $this->arg, $regs)) {
+            return $regs[1];
+        }
+    }
+
+
+    /**
+     * Parse option and return the name after dash. e.g., 
+     * '--foo' returns 'foo'
+     * '-f' returns 'f'
+     *
+     * @return string
+     */
     public function getOptionName()
     {
-        if( preg_match('/^[-]+([a-zA-Z0-9-]+)/',$this->arg,$regs) ) {
+        if (preg_match('/^[-]+([a-zA-Z0-9-]+)/',$this->arg,$regs)) {
             return $regs[1];
         }
     }
@@ -73,7 +100,7 @@ class Argument
     }
 
     /** 
-     * check combined short flags
+     * Check combined short flags for "-abc" or "-vvv"
      *
      * like: -abc
      */

@@ -187,19 +187,20 @@ class ContinuousOptionParser extends OptionParser
                 }
 
                 $this->takeOptionValue($spec,$arg,$next);
-                if( $next && ! $next->isOption() )
+                if ($next && ! $next->anyOfOptions($this->specs)) {
                     $this->index++;
+                }
                 $result->set($spec->getId(), $spec);
             } elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if( $next && ! $next->isOption() )
+                if( $next && ! $next->anyOfOptions($this->specs) )
                     $this->index++;
                 $result->set( $spec->getId() , $spec);
             } elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if (($spec->value || $spec->defaultValue) && $next && ! $next->isOption()) {
+                if (($spec->value || $spec->defaultValue) && $next && ! $next->anyOfOptions($this->specs)) {
                     $this->index++;
                 }
                 $result->set($spec->getId() , $spec);

@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  *
  */
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionParser;
+
 class GetOptionKitTest extends PHPUnit_Framework_TestCase 
 {
     public $parser;
@@ -15,10 +18,24 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->specs = new GetOptionKit\OptionCollection;
-        $this->parser = new GetOptionKit\OptionParser($this->specs);
+        $this->specs = new OptionCollection;
+        $this->parser = new OptionParser($this->specs);
     }
 
+    public function testOptionWithNegativeValue() {
+        $this->specs->add( 'n|nice:' , 'I take negative value' );
+        $result = $this->parser->parse(array('-n', '-1'));
+        $this->assertEquals(-1, $result->nice);
+    }
+
+    public function testOptionWithShortNameAndLongName() {
+        $this->specs->add( 'f|foo' , 'flag' );
+        $result = $this->parser->parse(array('-f'));
+        $this->assertTrue($result->foo);
+
+        $result = $this->parser->parse(array('--foo'));
+        $this->assertTrue($result->foo);
+    }
 
     public function testSpec()
     {
@@ -29,20 +46,20 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $this->specs->add( 'd|debug'   , 'debug message' );
 
         $spec = $this->specs->get('foo');
-        ok( $spec->isRequired() );
+        $this->assertTrue($spec->isRequired());
 
         $spec = $this->specs->get('bar');
-        ok( $spec->isMultiple() );
+        $this->assertTrue( $spec->isMultiple() );
 
         $spec = $this->specs->get('zoo');
-        ok( $spec->isOptional() );
+        $this->assertTrue( $spec->isOptional() );
 
         $spec = $this->specs->get( 'debug' );
-        ok( $spec );
+        $this->assertNotNull( $spec );
         is_class( 'GetOptionKit\\Option', $spec );
         is( 'debug', $spec->long );
         is( 'd', $spec->short );
-        ok( $spec->isFlag() );
+        $this->assertTrue( $spec->isFlag() );
     }
 
     public function testRequire()
@@ -66,9 +83,8 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
 
         // even if only one option presented in args array
         try {
-            $result = $this->parser->parse( array( '-f' ) );
-        }
-        catch (Exception $e) {
+            $result = $this->parser->parse(array('-f'));
+        } catch (Exception $e) {
             $secondExceptionRaised = true;
         }
 
@@ -109,22 +125,32 @@ class GetOptionKitTest extends PHPUnit_Framework_TestCase
         $this->fail('An expected exception has not been raised.');
     }
 
-    public function testIntegerTypeNumeric()
+
+    public function testIntegerTypeNumericWithoutEqualSign()
     {
         $opt = new \GetOptionKit\GetOptionKit;
-        ok( $opt );
         $opt->add( 'b|bar:=number' , 'option with integer type' );
 
         $spec = $opt->get('bar');
-        ok( $spec->isTypeNumber() );
+        $this->assertTrue($spec->isTypeNumber());
 
         $result = $opt->parse(explode(' ','-b 123123'));
-        ok( $result->bar );
-        ok( $result->bar === 123123 );
+        $this->assertNotNull($result);
+        $this->assertEquals(123123, $result->bar);
+    }
+
+    public function testIntegerTypeNumericWithEqualSign()
+    {
+        $opt = new \GetOptionKit\GetOptionKit;
+        $opt->add( 'b|bar:=number' , 'option with integer type' );
+
+        $spec = $opt->get('bar');
+        $this->assertTrue($spec->isTypeNumber());
 
         $result = $opt->parse(explode(' ','-b=123123'));
-        ok( $result->bar );
-        ok( $result->bar === 123123 );
+        $this->assertNotNull($result);
+        $this->assertNotNull($result->bar);
+        $this->assertEquals(123123, $result->bar);
     }
 
     public function testStringType()

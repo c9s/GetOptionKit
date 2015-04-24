@@ -172,6 +172,11 @@ class OptionCollection
         return $array;
     }
 
+    public function keys()
+    {
+        return array_merge(array_keys($this->longOptions), array_keys($this->shortOptions));
+    }
+
     public function count() {
         return count($this->data);
     }
