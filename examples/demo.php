@@ -47,6 +47,7 @@ $specs->add('d|debug', 'debug message.' );
 $specs->add('long', 'long option name only.' );
 $specs->add('s', 'short option name only.' );
 $specs->add('m', 'short option m');
+$specs->add('4', 'short option with digit');
 
 $printer = new ConsoleOptionPrinter;
 echo $printer->render($specs);
