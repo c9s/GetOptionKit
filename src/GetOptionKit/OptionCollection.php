@@ -79,8 +79,8 @@ class OptionCollection
             $this->addObject( $first );
         } else if ( is_string( $first ) ) {
             $specString  = $args[0];
-            $desc = @$args[1];
-            $key         = @$args[2];
+            $desc = isset($args[1]) ? $args[1] : null;
+            $key         = isset($args[2]) ? $args[2] : null;
 
             // parse spec string
             $spec = new Option($specString);
@@ -114,12 +114,12 @@ class OptionCollection
 
     public function getLongOption( $name )
     {
-        return @$this->longOptions[ $name ];
+        return isset($this->longOptions[ $name ]) ? $this->longOptions[ $name ] : null;
     }
 
     public function getShortOption( $name )
     {
-        return @$this->shortOptions[ $name ];
+        return isset($this->shortOptions[ $name ]) ? $this->shortOptions[ $name ] : null;
     }
 
     /* Get spec by spec id */

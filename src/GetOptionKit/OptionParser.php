@@ -124,7 +124,13 @@ class OptionParser
     }
 
 
-
+    /**
+     * @param array $argv
+     * @return OptionResult|Option[]
+     * @throws Exception\RequireValueException
+     * @throws Exception\InvalidOptionException
+     * @throws \Exception
+     */
     public function parse(array $argv)
     {
         $result = new OptionResult;
