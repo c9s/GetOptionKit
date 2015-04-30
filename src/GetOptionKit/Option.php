@@ -104,8 +104,8 @@ class Option
 
         $orig       = $regs[0];
         $name       = $regs[1];
-        $attributes = @$regs[2];
-        $type       = @$regs[3];
+        $attributes = isset($regs[2]) ? $regs[2] : null;
+        $type       = isset($regs[3]) ? $regs[3] : null;
 
         $short = null;
         $long = null;
