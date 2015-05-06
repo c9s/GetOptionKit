@@ -181,7 +181,7 @@ class OptionParser
                     throw new RequireValueException( "Option {$arg->getOptionName()} requires a value. given '{$next}'");
                 }
                 $this->takeOptionValue($spec, $arg, $next);
-                if (! $next->anyOfOptions($this->specs)) {
+                if ($next && ! $next->anyOfOptions($this->specs)) {
                     $i++;
                 }
                 $result->set($spec->getId(), $spec);
@@ -190,8 +190,9 @@ class OptionParser
             elseif ($spec->isMultiple()) 
             {
                 $this->pushOptionValue($spec,$arg,$next);
-                if ($next->isOption())
+                if ($next && $next->isOption()) {
                     $i++;
+                }
                 $result->set($spec->getId(), $spec);
             }
             elseif ($spec->isOptional())
