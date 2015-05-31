@@ -71,7 +71,7 @@ class OptionParser
             $spec->setValue($spec->defaultVlaue);
         } else if ($spec->isFlag()) {
             $spec->setValue(true);
-        } else if (!$next->isEmpty()) {
+        } else if ($next && !$next->isEmpty()) {
             $spec->setValue($next->arg);
         } else {
             $spec->setValue(true);
@@ -198,7 +198,7 @@ class OptionParser
             elseif ($spec->isOptional())
             {
                 $this->takeOptionValue($spec,$arg,$next);
-                if (($spec->value || $spec->defaultValue) && ! $next->isOption() ) {
+                if (($spec->value || $spec->defaultValue) && $next && !$next->isOption() ) {
                     $i++;
                 }
                 $result->set( $spec->getId() , $spec);
