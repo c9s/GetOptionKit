@@ -68,7 +68,7 @@ class OptionParser
         if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
         } else if ($spec->defaultValue) {
-            $spec->setValue($spec->defaultVlaue);
+            $spec->setValue($spec->defaultValue);
         } else if ($spec->isFlag()) {
             $spec->setValue(true);
         } else if ($next && !$next->isEmpty()) {
