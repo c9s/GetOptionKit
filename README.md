@@ -182,6 +182,18 @@ $opt->add( 'file:' , 'with file type value' )
 
 $opt->add( 'date:' , 'with date type value' )
     ->isa('date');
+
+$opt->add( 'url:' , 'with url type value' )
+    ->isa('url');
+
+$opt->add( 'ip:' , 'with ip(v4/v6) type value' )
+    ->isa('ip');
+
+$opt->add( 'ipv4:' , 'with ipv4 type value' )
+    ->isa('ipv7');
+
+$opt->add( 'ipv6:' , 'with ipv6 type value' )
+    ->isa('ipv6');
 ```
 
 > Please note that currently only `string`, `number`, `boolean` types can be validated.
