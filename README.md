@@ -190,7 +190,7 @@ $opt->add( 'ip:' , 'with ip(v4/v6) type value' )
     ->isa('ip');
 
 $opt->add( 'ipv4:' , 'with ipv4 type value' )
-    ->isa('ipv7');
+    ->isa('ipv4');
 
 $opt->add( 'ipv6:' , 'with ipv6 type value' )
     ->isa('ipv6');
