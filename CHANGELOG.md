@@ -3,7 +3,7 @@ CHANGELOG
 
 ## 2.2.0 - Thu Jun  4 13:51:47 2015
 
-- Added more types for type constraint option. url, ip, ipv4, ipv6 by @1Franck++
+- Added more types for type constraint option. url, ip, ipv4, ipv6, email by @1Franck++
 - Several bug fixes by @1Franck++
 
 
