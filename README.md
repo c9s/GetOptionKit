@@ -186,6 +186,9 @@ $opt->add( 'date:' , 'with date type value' )
 $opt->add( 'url:' , 'with url type value' )
     ->isa('url');
 
+$opt->add( 'email:' , 'with email type value' )
+    ->isa('email');
+
 $opt->add( 'ip:' , 'with ip(v4/v6) type value' )
     ->isa('ip');
 

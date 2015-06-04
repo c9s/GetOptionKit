@@ -7,6 +7,7 @@ use GetOptionKit\ValueType\UrlType;
 use GetOptionKit\ValueType\IpType;
 use GetOptionKit\ValueType\Ipv4Type;
 use GetOptionKit\ValueType\Ipv6Type;
+use GetOptionKit\ValueType\EmailType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -21,6 +22,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new IpType );
         ok( new Ipv4Type );
         ok( new Ipv6Type );
+        ok( new EmailType );
     }
 
 
@@ -64,6 +66,13 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( $ipv6->test('2607:f0d0:1002:51::4') );
         ok( $ipv6->test('2607:f0d0:1002:0051:0000:0000:0000:0004') );
         $this->assertFalse($ipv6->test('192.168.25.58'));
+    }
+
+    public function testEmailType()
+    {
+        $email = new EmailType;
+        ok( $email->test('test@gmail.com') );
+        $this->assertFalse($email->test('test@test'));
     }
 }
 
