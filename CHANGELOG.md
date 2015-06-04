@@ -1,5 +1,12 @@
 CHANGELOG
 ==================
+
+## 2.2.0 - Thu Jun  4 13:51:47 2015
+
+- Added more types for type constraint option. url, ip, ipv4, ipv6 by @1Franck++
+- Several bug fixes by @1Franck++
+
+
 ## 2.1.0 - Fri Apr 24 16:43:00 2015
 
 - Added incremental option value support.
