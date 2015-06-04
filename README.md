@@ -45,17 +45,13 @@ Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://git
 }
 ```
 
-## Install from PEAR
-
-    pear channel-discover pear.corneltek.com
-    pear install corneltek/GetOptionKit
-
 ## Supported formats
 
 flags:
 
     program.php -a -b -c
     program.php -abc
+    program.php -vvv   # incremental flag v=3
     program.php -a -bc
 
 with multiple values:
@@ -85,7 +81,6 @@ with normal arguments:
     dir:=boolean option with type constraint of boolean
     d            single character only option
     dir          long option name
-
 
 ## Command Line Forms
 
@@ -137,6 +132,12 @@ $specs->add('f|foo:', 'option requires a value.' )
 
 $specs->add('b|bar+', 'option with multiple value.' )
     ->isa('Number');
+
+$specs->add('ip+', 'Ip constraint' )
+    ->isa('Ip');
+
+$specs->add('email+', 'Email address constraint' )
+    ->isa('Email');
 
 $specs->add('z|zoo?', 'option with optional value.' )
     ->isa('Boolean');
