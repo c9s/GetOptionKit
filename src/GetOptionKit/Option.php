@@ -262,12 +262,12 @@ class Option
     protected function _preprocessValue($value) {
         $val = $value;
 
-        if ($isa = $this->isa) {
+        if ($isa = ucfirst($this->isa)) {
             if ($type = $this->getTypeClass()) {
                 if ($type->test($value)) {
                     $val = $type->parse($value);
                 } else {
-                    throw new InvalidOptionValue("Invalid value for type {$this->isa}");
+                    throw new InvalidOptionValue("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
                 }
             } else {
                 throw new LogicException("Type class of $isa not found.");
@@ -392,9 +392,10 @@ class Option
 
     /**
      * get readable spec for printing
-     *
+     * 
+     * @param string $renderHint render also value hint
      */
-    public function renderReadableSpec()
+    public function renderReadableSpec($renderHint = true)
     {
         $c1 = '';
         if( $this->short && $this->long )
@@ -403,7 +404,7 @@ class Option
             $c1 = sprintf('-%s',$this->short);
         elseif( $this->long )
             $c1 = sprintf('--%s',$this->long );
-        $c1 .= $this->renderValueHint();
+        if($renderHint) $c1 .= $this->renderValueHint();
         return $c1;
     }
 
