@@ -3,9 +3,16 @@ namespace GetOptionKit\ValueType;
 
 abstract class BaseType
 {
-    public function __construct()
+    /**
+     * Type option
+     * 
+     * @var mixed
+     */
+    public $option;
+
+    public function __construct($option = null)
     {
-        // code...
+        if($option) $this->option = $option;
     }
 
     /**
@@ -22,8 +29,3 @@ abstract class BaseType
      */
     abstract public function parse($value);
 }
-
-
-
-
-
