@@ -43,6 +43,9 @@ $specs->add('file:', 'option value should be a file.' )
     })
     ->isa('File');
 
+$specs->add('r|regex', 'option with optional value')
+    ->isa('Regex', '/^([a-z]+)$/');
+
 $specs->add('d|debug', 'debug message.' );
 $specs->add('long', 'long option name only.' );
 $specs->add('s', 'short option name only.' );
