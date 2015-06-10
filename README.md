@@ -198,6 +198,9 @@ $opt->add( 'ipv4:' , 'with ipv4 type value' )
 
 $opt->add( 'ipv6:' , 'with ipv6 type value' )
     ->isa('ipv6');
+
+$specs->add('r|regex:', 'with custom regex type value')
+      ->isa('Regex', '/^([a-z]+)$/');
 ```
 
 > Please note that currently only `string`, `number`, `boolean` types can be validated.
