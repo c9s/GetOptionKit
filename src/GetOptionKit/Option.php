@@ -95,7 +95,7 @@ class Option
                 )?
         )
         ([:+?])?
-        (?:=(string|number|date|file))?
+        (?:=(boolean|string|number|date|file|url|email|ip|ipv6|ipv4))?
         /x';
 
         if( preg_match( $pattern, $specString , $regs ) === false ) {
