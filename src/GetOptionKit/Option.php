@@ -42,6 +42,8 @@ class Option
 
     public $isa;
 
+    public $isaOption;
+
     public $validValues;
 
     public $suggestions;
@@ -247,7 +249,7 @@ class Option
     public function getTypeClass() {
         $class = 'GetOptionKit\\ValueType\\' . ucfirst($this->isa) . 'Type';
         if ( class_exists($class, true) ) {
-            return new $class;
+            return new $class($this->isaOption);
         }
         return false;
     }
@@ -428,9 +430,12 @@ class Option
      * @param string $type the value type, valid values are 'number', 'string', 
      *                      'file', 'boolean', you can also use your own value type name.
      *
+     * @param mixed  $option option(s) for value type class (optionnal)
+     *
      */
-    public function isa($type) {
+    public function isa($type, $option = null) {
         $this->isa = $type;
+        $this->isaOption = $option;
         return $this;
     }
 
