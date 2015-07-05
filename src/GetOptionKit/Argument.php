@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the {{ }} package.
+ * This file is part of the GetOptionKit package.
  *
  * (c) Yo-An Lin <cornelius.howl@gmail.com>
  *

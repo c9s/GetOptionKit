@@ -8,6 +8,7 @@ use GetOptionKit\ValueType\IpType;
 use GetOptionKit\ValueType\Ipv4Type;
 use GetOptionKit\ValueType\Ipv6Type;
 use GetOptionKit\ValueType\EmailType;
+use GetOptionKit\ValueType\RegexType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -23,6 +24,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new Ipv4Type );
         ok( new Ipv6Type );
         ok( new EmailType );
+        ok( new RegexType );
     }
 
 
@@ -73,6 +75,18 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         $email = new EmailType;
         ok( $email->test('test@gmail.com') );
         $this->assertFalse($email->test('test@test'));
+    }
+
+    public function testRegexType()
+    {
+        $regex = new RegexType;
+        $regex->option = '#^Test$#';
+        ok( $regex->test('Test') );
+        $this->assertFalse($regex->test('test'));
+
+        $regex->option = '/^([a-z]+)$/';
+        ok( $regex->test('barfoo') );
+        $this->assertFalse($regex->test('foobar234'));
     }
 }
 

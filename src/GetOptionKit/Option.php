@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the {{ }} package.
+ * This file is part of the GetOptionKit package.
  *
  * (c) Yo-An Lin <cornelius.howl@gmail.com>
  *
@@ -41,6 +41,8 @@ class Option
     public $valueName; /* name for the value place holder, for printing */
 
     public $isa;
+
+    public $isaOption;
 
     public $validValues;
 
@@ -95,7 +97,7 @@ class Option
                 )?
         )
         ([:+?])?
-        (?:=(string|number|date|file))?
+        (?:=(boolean|string|number|date|file|url|email|ip|ipv6|ipv4))?
         /x';
 
         if( preg_match( $pattern, $specString , $regs ) === false ) {
@@ -247,7 +249,7 @@ class Option
     public function getTypeClass() {
         $class = 'GetOptionKit\\ValueType\\' . ucfirst($this->isa) . 'Type';
         if ( class_exists($class, true) ) {
-            return new $class;
+            return new $class($this->isaOption);
         }
         return false;
     }
@@ -429,9 +431,12 @@ class Option
      * @param string $type the value type, valid values are 'number', 'string', 
      *                      'file', 'boolean', you can also use your own value type name.
      *
+     * @param mixed  $option option(s) for value type class (optionnal)
+     *
      */
-    public function isa($type) {
+    public function isa($type, $option = null) {
         $this->isa = $type;
+        $this->isaOption = $option;
         return $this;
     }
 
