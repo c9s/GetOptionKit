@@ -9,6 +9,7 @@ use GetOptionKit\ValueType\Ipv4Type;
 use GetOptionKit\ValueType\Ipv6Type;
 use GetOptionKit\ValueType\EmailType;
 use GetOptionKit\ValueType\RegexType;
+use GetOptionKit\ValueType\PathType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -25,16 +26,26 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new Ipv6Type );
         ok( new EmailType );
         ok( new RegexType );
+        ok( new PathType );
     }
-
 
     public function testBooleanType()
     {
         $bool = new BooleanType;
-        ok( $bool->test('true') );
-        ok( $bool->test('false') );
-        ok( $bool->test('0') );
-        ok( $bool->test('1') );
+        $this->assertTrue( $bool->test('true') );
+        $this->assertTrue( $bool->test('false') );
+        $this->assertTrue( $bool->test('0') );
+        $this->assertTrue( $bool->test('1') );
+        $this->assertFalse( $bool->test('foo') );
+        $this->assertFalse( $bool->test('123') );
+    }
+
+    public function testPathType()
+    {
+        $url = new PathType;
+        $this->assertTrue( $url->test('tests') );
+        $this->assertTrue($url->test('composer.json') );
+        $this->assertFalse($url->test('foo/bar'));
     }
 
     public function testUrlType()
