@@ -251,14 +251,14 @@ You can check the `tests/GetOptionKit/ContinuousOptionParserTest.php` unit test 
 $subcommands = array('subcommand1','subcommand2','subcommand3');
 
 // different command has its own options
-$subcommand_specs = array(
+$subcommandSpecs = array(
     'subcommand1' => $cmdspecs,
     'subcommand2' => $cmdspecs,
     'subcommand3' => $cmdspecs,
 );
 
 // for saved options
-$subcommand_options = array();
+$subcommandOptions = array();
 
 // command arguments
 $arguments = array();
@@ -268,12 +268,12 @@ $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcom
 // parse application options first
 $parser = new ContinuousOptionParser( $appspecs );
 $app_options = $parser->parse( $argv );
-while( ! $parser->isEnd() ) {
-    if( $parser->getCurrentArgument() == $subcommands[0] ) {
+while (! $parser->isEnd()) {
+    if (@$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0]) {
         $parser->advance();
         $subcommand = array_shift( $subcommands );
-        $parser->setSpecs( $subcommand_specs[$subcommand] );
-        $subcommand_options[ $subcommand ] = $parser->continueParse();
+        $parser->setSpecs( $subcommandSpecs[$subcommand] );
+        $subcommandOptions[ $subcommand ] = $parser->continueParse();
     } else {
         $arguments[] = $parser->advance();
     }
