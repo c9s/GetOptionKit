@@ -16,25 +16,17 @@ use GetOptionKit\OptionCollection;
 class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase 
 {
 
-    function testParser() 
+    public function testOptionCollection() 
     {
         $specs = new OptionCollection;
-        $spec_verbose = $specs->add('v|verbose');
-        $spec_color = $specs->add('c|color');
-        $spec_debug = $specs->add('d|debug');
-
-        ok( $spec_verbose );
-        ok( $spec_color );
-        ok( $spec_debug );
-        ok( $specs );
-        // $parser = new ContinuousOptionParser();
+        $specVerbose = $specs->add('v|verbose');
+        $specColor = $specs->add('c|color');
+        $specDebug = $specs->add('d|debug');
     }
 
 
-
-
     /* test parser without options */
-    function testParser2()
+    public function testParseSubCommandOptions()
     {
         $appspecs = new OptionCollection;
         $appspecs->add('v|verbose');
@@ -45,11 +37,8 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $cmdspecs->add('as:');
         $cmdspecs->add('b');
         $cmdspecs->add('c');
-        ok( $cmdspecs );
-
 
         $parser = new ContinuousOptionParser( $appspecs );
-        ok( $parser );
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
         $subcommand_specs = array(
@@ -59,12 +48,12 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         );
         $subcommand_options = array();
 
-        $argv = explode(' ','program subcommand1 --as 99 arg1');
+        $argv = explode(' ','program -v -c subcommand1 --as 99 arg1 arg2 arg3');
         // $argv = explode(' ','program subcommand1 -a 1 subcommand2 -a 2 subcommand3 -a 3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();
-        while( ! $parser->isEnd() ) {
-            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
+        while (! $parser->isEnd()) {
+            if (@$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
                 $parser->advance();
                 $subcommand = array_shift( $subcommands );
                 $parser->setSpecs( $subcommand_specs[$subcommand] );
@@ -74,16 +63,15 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
             }
         }
         
-        is( 'arg1', $arguments[0] );
-#          is( 'arg2', $arguments[1] );
-#          is( 'arg3', $arguments[2] );
-        ok( $subcommand_options );
-        is( 99, $subcommand_options['subcommand1']->as );
-        // ok( $subcommand_options['subcommand2'] );
-        // ok( $subcommand_options['subcommand3'] );
+        $this->assertEquals( 'arg1', $arguments[0] );
+        $this->assertEquals( 'arg2', $arguments[1] );
+        $this->assertEquals( 'arg3', $arguments[2] );
+        $this->assertEquals( 99, $subcommand_options['subcommand1']->as );
     }
 
-    function testParser3()
+
+
+    public function testParser3()
     {
         $appspecs = new OptionCollection;
         $appspecs->add('v|verbose');
@@ -91,10 +79,9 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $appspecs->add('d|debug');
 
         $cmdspecs = new OptionCollection;
-        $cmdspecs->add('a');
-        $cmdspecs->add('b');
-        $cmdspecs->add('c');
-
+        $cmdspecs->add('name:=string');
+        $cmdspecs->add('phone:=string');
+        $cmdspecs->add('address:=string');
 
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
@@ -106,12 +93,11 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $subcommand_options = array();
         $arguments = array();
 
-        $argv = explode(' ','program -v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
+        $argv = explode(' ','program -v -d -c subcommand1 --name=c9s --phone=123123123 --address=somewhere arg1 arg2 arg3');
         $parser = new ContinuousOptionParser( $appspecs );
-        ok( $parser );
         $app_options = $parser->parse( $argv );
-        while( ! $parser->isEnd() ) {
-            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
+        while (! $parser->isEnd()) {
+            if (@$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0]) {
                 $parser->advance();
                 $subcommand = array_shift( $subcommands );
                 $parser->setSpecs( $subcommand_specs[$subcommand] );
@@ -121,21 +107,15 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        count_ok( 3, $arguments );
-        is( 'arg1', $arguments[0] );
-        is( 'arg2', $arguments[1] );
-        is( 'arg3', $arguments[2] );
-        ok( $subcommand_options );
-        ok( $subcommand_options['subcommand1'] );
-        ok( $subcommand_options['subcommand1']->a );
-        ok( $subcommand_options['subcommand1']->b );
-        ok( $subcommand_options['subcommand1']->c );
+        $this->assertCount(3, $arguments);
+        $this->assertEquals('arg1', $arguments[0]);
+        $this->assertEquals('arg2', $arguments[1]);
+        $this->assertEquals('arg3', $arguments[2]);
 
-        ok( $subcommand_options['subcommand2'] );
-        ok( ! $subcommand_options['subcommand2']->a );
-        ok( ! $subcommand_options['subcommand2']->b );
-        ok( $subcommand_options['subcommand2']->c );
-        ok( $subcommand_options['subcommand3'] );
+        $this->assertNotNull($subcommand_options['subcommand1']);
+        $this->assertEquals('c9s', $subcommand_options['subcommand1']->name );
+        $this->assertEquals('123123123', $subcommand_options['subcommand1']->phone );
+        $this->assertEquals('somewhere', $subcommand_options['subcommand1']->address );
     }
 
 
