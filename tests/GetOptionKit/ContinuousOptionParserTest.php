@@ -79,9 +79,9 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $appspecs->add('d|debug');
 
         $cmdspecs = new OptionCollection;
-        $cmdspecs->add('name:=string');
-        $cmdspecs->add('phone:=string');
-        $cmdspecs->add('address:=string');
+        $cmdspecs->add('n|name:=string');
+        $cmdspecs->add('p|phone:=string');
+        $cmdspecs->add('a|address:=string');
 
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
