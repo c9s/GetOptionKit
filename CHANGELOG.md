@@ -1,6 +1,10 @@
 CHANGELOG
 ==================
 
+## v2.2.4 - Fri Oct  2 15:53:33 2015
+
+- ContinuousOptionParser improvements.
+
 ## v2.2.2 - Tue Jul 14 00:15:26 2015
 
 - Added PathType.
