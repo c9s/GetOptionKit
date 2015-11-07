@@ -435,6 +435,10 @@ class Option
      *
      */
     public function isa($type, $option = null) {
+        // "bool" was kept for backward compatibility
+        if ($type === "bool") {
+            $type = "boolean";
+        }
         $this->isa = $type;
         $this->isaOption = $option;
         return $this;
