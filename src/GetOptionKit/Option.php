@@ -359,11 +359,13 @@ class Option
             $n = $this->isa;
         }
 
-        if ($val = $this->defaultValue) {
+        $val = $this->defaultValue; // Unknown mixed type.
+        // This allows for `0` and `false` values to be displayed also.
+        if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
             if (is_bool($val)) {
-                $n .= ':' . $val ? 'true' : 'false';
+                $n .= ':' . ($val ? 'true' : 'false');
             } else {
-                $n .= ':' . $this->defaultValue;
+                $n .= ':' . $val;
             }
         }
 
