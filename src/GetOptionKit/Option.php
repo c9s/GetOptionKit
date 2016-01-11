@@ -361,7 +361,7 @@ class Option
 
         if ($val = $this->defaultValue) {
             if (is_bool($val)) {
-                $n .= ':' . $val ? 'true' : 'false';
+                $n .= ':' . ($val ? 'true' : 'false');
             } else {
                 $n .= ':' . $this->defaultValue;
             }
