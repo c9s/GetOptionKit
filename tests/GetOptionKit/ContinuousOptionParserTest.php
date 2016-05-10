@@ -225,5 +225,17 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( 2, $subcommand_options['subcommand2']->a );
         ok( 3, $subcommand_options['subcommand3']->a );
     }
+
+
+    public function testIncrementalValue()
+    {
+        $options = new OptionCollection;
+        $options->add("v|verbose")->incremental();
+        $parser = new ContinuousOptionParser($options);
+        $result = $parser->parse(['app', '-vvv']);
+        $this->assertEquals(3, $result->keys["verbose"]->value);
+    }
+
+
 }
 
