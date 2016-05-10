@@ -72,7 +72,7 @@ use GetOptionKit\Exception\RequireValueException;
  *      // parse application options first
  *      $parser = new ContinuousOptionParser( $appspecs );
  *      $app_options = $parser->parse( $argv );
- *      while( ! $parser->isEnd() ) {
+ *      while (! $parser->isEnd()) {
  *          if( $parser->getCurrentArgument() == $subcommands[0] ) {
  *              $parser->advance();
  *              $subcommand = array_shift( $subcommands );
@@ -163,9 +163,9 @@ class ContinuousOptionParser extends OptionParser
             //   like -abc
             if ($arg->withExtraFlagOptions() ) {
                 $extra = $arg->extractExtraFlagOptions();
-                array_splice( $argv, $this->index + 1, 0, $extra );
+                array_splice($argv, $this->index + 1, 0, $extra);
                 $argv[$this->index] = $arg->arg; // update argument to current argv list.
-                $len = count($argv);   // update argv list length
+                $this->length = count($argv);   // update argv list length
             }
 
             $next = null;
