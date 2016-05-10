@@ -22,5 +22,6 @@
             "GetOptionKit\\": "src/GetOptionKit/"
         }
     },
-    "version": "2.2.5"
+    "extra": { "branch-alias": { "dev-master": "2.2.x-dev" } },
+    "version": "2.2.6"
 }
