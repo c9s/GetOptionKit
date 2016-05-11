@@ -227,6 +227,26 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testMultipleShortOption()
+    {
+        $options = new OptionCollection;
+        $options->add("a");
+        $options->add("b");
+        $options->add("c");
+
+        $parser = new ContinuousOptionParser($options);
+
+        $result = $parser->parse(['app', '-ab', 'foo', 'bar']);
+        while (!$parser->isEnd())
+        {
+            $arguments[] = $parser->getCurrentArgument();
+            $parser->advance();
+        }
+
+        $this->assertTrue($result->keys["a"]->value);
+        $this->assertTrue($result->keys["b"]->value);
+    }
+
     public function testIncrementalValue()
     {
         $options = new OptionCollection;

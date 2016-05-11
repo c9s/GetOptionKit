@@ -111,13 +111,15 @@ class ContinuousOptionParser extends OptionParser
 
     public function advance()
     {
-        $arg = $this->argv[ $this->index++ ];
-        return $arg;
+        if ($this->index < $this->length) {
+            $arg = $this->argv[$this->index++];
+            return $arg;
+        }
     }
 
     public function getCurrentArgument()
     {
-        return $this->argv[ $this->index ];
+        return $this->argv[$this->index];
     }
 
     public function continueParse()
@@ -129,10 +131,8 @@ class ContinuousOptionParser extends OptionParser
     {
         // create new Result object.
         $result = new OptionResult;
-        $argv = $this->preprocessingArguments($argv);
-
-        $this->argv = $argv;
-        $this->length = count($argv);
+        $this->argv = $this->preprocessingArguments($argv);
+        $this->length = count($this->argv);
 
         // register option result from options with default value 
         foreach ($this->specs as $spec) {
@@ -149,7 +149,7 @@ class ContinuousOptionParser extends OptionParser
         // from last parse index
         for ( ; $this->index < $this->length; ++$this->index ) 
         {
-            $arg = new Argument( $argv[$this->index] );
+            $arg = new Argument($this->argv[$this->index]);
 
             /* let the application decide for: command or arguments */
             if (! $arg->isOption()) {
@@ -163,14 +163,14 @@ class ContinuousOptionParser extends OptionParser
             //   like -abc
             if ($arg->withExtraFlagOptions() ) {
                 $extra = $arg->extractExtraFlagOptions();
-                array_splice($argv, $this->index + 1, 0, $extra);
-                $argv[$this->index] = $arg->arg; // update argument to current argv list.
-                $this->length = count($argv);   // update argv list length
+                array_splice($this->argv, $this->index + 1, 0, $extra);
+                $this->argv[$this->index] = $arg->arg; // update argument to current argv list.
+                $this->length = count($this->argv);   // update argv list length
             }
 
             $next = null;
-            if ($this->index + 1 < count($argv) )  {
-                $next = new Argument( $argv[$this->index + 1] );
+            if ($this->index + 1 < count($this->argv) )  {
+                $next = new Argument( $this->argv[$this->index + 1] );
             }
 
             $spec = $this->specs->get( $arg->getOptionName() );
