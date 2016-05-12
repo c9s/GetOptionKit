@@ -41,12 +41,13 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
 
     public function testOptionWithNegativeValue()
     {
-        $this->specs->add( 'n|nice:' , 'I take negative value' );
+        $this->specs->add('n|nice:' , 'I take negative value');
         $result = $this->parser->parse(array('a', '-n', '-1'));
         $this->assertEquals(-1, $result->nice);
     }
 
-    public function testOptionWithShortNameAndLongName() {
+    public function testOptionWithShortNameAndLongName()
+    {
         $this->specs->add( 'f|foo' , 'flag' );
         $result = $this->parser->parse(array('a', '-f'));
         $this->assertTrue($result->foo);
@@ -57,27 +58,31 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
 
     public function testSpec()
     {
-        $this->specs->add( 'f|foo:' , 'option require value' );
-        $this->specs->add( 'b|bar+' , 'option with multiple value' );
-        $this->specs->add( 'z|zoo?' , 'option with optional value' );
-        $this->specs->add( 'v|verbose' , 'verbose message' );
-        $this->specs->add( 'd|debug'   , 'debug message' );
+        $options = new OptionCollection;
+        $options->add( 'f|foo:' , 'option require value' );
+        $options->add( 'b|bar+' , 'option with multiple value' );
+        $options->add( 'z|zoo?' , 'option with optional value' );
+        $options->add( 'v|verbose' , 'verbose message' );
+        $options->add( 'd|debug'   , 'debug message' );
 
-        $spec = $this->specs->get('foo');
-        $this->assertTrue($spec->isRequired());
+        $opt = $options->get('foo');
+        $this->assertTrue($opt->isRequired());
 
-        $spec = $this->specs->get('bar');
-        $this->assertTrue( $spec->isMultiple() );
+        $opt = $options->get('bar');
+        $this->assertTrue( $opt->isMultiple() );
 
-        $spec = $this->specs->get('zoo');
-        $this->assertTrue( $spec->isOptional() );
+        $opt = $options->get('zoo');
+        $this->assertTrue( $opt->isOptional() );
 
-        $spec = $this->specs->get( 'debug' );
-        $this->assertNotNull( $spec );
-        $this->assertInstanceOf('GetOptionKit\\Option', $spec);
-        is('debug', $spec->long);
-        is('d', $spec->short);
-        $this->assertTrue( $spec->isFlag() );
+        $opt = $options->get( 'debug' );
+        $this->assertNotNull( $opt );
+        $this->assertInstanceOf('GetOptionKit\\Option', $opt);
+        $this->assertEquals('debug', $opt->long);
+        $this->assertEquals('d', $opt->short);
+        $this->assertTrue($opt->isFlag());
+
+        $this->assertNotNull($options->find('f'));
+        $this->assertNotNull($options->find('foo'));
     }
 
     public function testRequire()
