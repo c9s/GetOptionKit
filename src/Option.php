@@ -147,13 +147,7 @@ class Option
      */
     public function getId()
     {
-        if ($this->key) {
-            return $this->key;
-        } else if ($this->long) {
-            return $this->long;
-        }
-
-        return $this->short;
+        return $this->key ?: $this->long ?: $this->short;
     }
 
     /**
