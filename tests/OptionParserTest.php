@@ -40,6 +40,8 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $parser = new OptionParser($options);
         $result = $parser->parse(array('a', '-n', '-1', '--', '......'));
 
+
+        $this->assertTrue(isset($result->nice));
         $this->assertTrue(isset($result['nice']));
         $this->assertEquals(-1, $result['nice']->value);
 
@@ -47,6 +49,8 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $res->value = 10;
         $result['nice'] = $res;
         $this->assertEquals(10, $result['nice']->value);
+
+        unset($result['nice']);
     }
 
     public function testOptionWithNegativeValue()
