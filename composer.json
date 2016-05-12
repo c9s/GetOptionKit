@@ -13,9 +13,9 @@
     "authors": [ { "name": "Yo-An Lin", "email": "cornelius.howl@gmail.com" } ],
     "autoload": {
         "psr-4": {
-            "GetOptionKit\\": "src/GetOptionKit/"
+            "GetOptionKit\\": "src/"
         }
     },
-    "extra": { "branch-alias": { "dev-master": "2.2.x-dev" } },
-    "version": "2.2.7"
+    "extra": { "branch-alias": { "dev-master": "2.3.x-dev" } },
+    "version": "2.3.0"
 }
