@@ -100,9 +100,9 @@ class Option
         # value types
         (?:=(boolean|string|number|date|file|dir|url|email|ip|ipv6|ipv4))?
         /x';
-
-        if (preg_match($pattern, $specString, $regs) === false) {
-            throw new Exception('Unknown spec string');
+        $ret = preg_match($pattern, $specString, $regs);
+        if ($ret === false || $ret === 0) {
+            throw new Exception('Incorrect spec string');
         }
 
         $orig = $regs[0];

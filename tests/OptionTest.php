@@ -23,10 +23,18 @@ class OptionTest extends PHPUnit_Framework_TestCase
      */
     public function testOptionSpec($spec)
     {
-        ok($spec);
         $opt = new Option($spec);
         ok($opt);
     }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testInvalidOptionSpec()
+    {
+        new Option('....');
+    }
+
 
     public function testDefaultValue()
     {
