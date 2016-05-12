@@ -247,6 +247,9 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
             [ 'f|foo:=string', 'string option', 'foo', 'xxx',
                 [['a','--foo','xxx'], ['a','-f', 'xxx']] 
             ],
+            [ 'f|foo:=string', 'string option', 'foo', 'xxx',
+                [['a','b', 'c', '--foo','xxx'], ['a', 'a', 'b', 'c', '-f', 'xxx']] 
+            ],
         ];
     }
 
