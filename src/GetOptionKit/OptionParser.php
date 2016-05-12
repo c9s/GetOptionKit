@@ -143,6 +143,13 @@ class OptionParser
         }
 
         $len = count($argv);
+
+        // some people might still pass only the option names here.
+        $first = new Argument($argv[0]);
+        if ($first->isOption()) {
+            throw new Exception("parse(argv) expects the first argument to be the program name.");
+        }
+
         for ($i = 1; $i < $len; ++$i)
         {
             $arg = new Argument($argv[$i]);
