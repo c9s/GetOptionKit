@@ -13,9 +13,6 @@ class RegexType extends BaseType
 
     public function test($value)
     {
-        if (empty($this->option)) {
-            return false;
-        }
         return preg_match($this->option, $value) !== 0;
     }
 
