@@ -347,28 +347,33 @@ class Option
     }
 
     public function renderValueHint() {
-        $n = 'value';
+        $n = null;
         if ($this->valueName) {
             $n = $this->valueName;
-        } elseif ($this->isa) {
-            $n = $this->isa;
-        }
-
-        $val = $this->defaultValue; // Unknown mixed type.
-        // This allows for `0` and `false` values to be displayed also.
-        if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
-            if (is_bool($val)) {
-                $n .= ':' . ($val ? 'true' : 'false');
-            } else {
-                $n .= ':' . $val;
+        } else if ($values = $this->getValidValues()) {
+            $n = '(' . join(',', $values) . ')';
+        } else if ($values = $this->getSuggestions()) {
+            $n = '[' . join(',', $values) . ']';
+        } else if ($val = $this->defaultValue) {
+            // This allows for `0` and `false` values to be displayed also.
+            if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
+                if (is_bool($val)) {
+                    $n = ($val ? 'true' : 'false');
+                } else {
+                    $n = $val;
+                }
             }
         }
 
-        if ($this->isRequired()) {
-            return sprintf('=<%s>', $n);
+        if (!$n && $this->isa !== null) {
+            $n = '<' . $this->isa . '>';
         }
-        if ($this->isOptional()) {
-            return sprintf('[=<%s>]', $n);
+        if ($this->isRequired()) {
+            return sprintf('=%s', $n);
+        } else if ($this->isOptional() || $this->defaultValue) {
+            return sprintf('[=%s]', $n);
+        } else if ($n) {
+            return '=' . $n;
         }
         return '';
     }
@@ -397,13 +402,16 @@ class Option
     public function renderReadableSpec($renderHint = true)
     {
         $c1 = '';
-        if( $this->short && $this->long )
+        if ($this->short && $this->long) {
             $c1 = sprintf('-%s, --%s',$this->short,$this->long);
-        elseif( $this->short )
+        } else if( $this->short ) {
             $c1 = sprintf('-%s',$this->short);
-        elseif( $this->long )
+        } else if( $this->long ) {
             $c1 = sprintf('--%s',$this->long );
-        if($renderHint) $c1 .= $this->renderValueHint();
+        }
+        if ($renderHint) {
+            return $c1 . $this->renderValueHint();
+        }
         return $c1;
     }
 
@@ -472,6 +480,7 @@ class Option
             }
             return $this->validValues;
         }
+        return null;
     }
 
 
@@ -488,6 +497,7 @@ class Option
             }
             return $this->suggestions;
         }
+        return null;
     }
 
     public function validate($value) {
@@ -495,8 +505,10 @@ class Option
             $ret = call_user_func($this->validator, $value);
             if (is_array($ret)) {
                 return $ret;
-            } elseif ($ret === false) {
+            } else if ($ret === false) {
                 return array(false, "Invalid value: $value");
+            } else if ($ret === true) {
+                return array(true, "Successfully validated.");
             }
             throw new InvalidArgumentException("Invalid return value from the validator.");
         }
@@ -505,18 +517,19 @@ class Option
 
 
 
-    public function validator($cb) {
+    public function validator($cb)
+    {
         $this->validator = $cb;
         return $this;
     }
 
     /**
      * Set up a filter function for the option value.
+     *
+     * todo: add "callable" type hint later.
      */
-    public function filter($cb) {
-        if ( ! is_callable($cb) ) {
-            throw new Exception("Non-callable value for filter");
-        }
+    public function filter($cb)
+    {
         $this->filter = $cb;
         return $this;
     }

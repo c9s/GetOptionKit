@@ -28,23 +28,118 @@ class OptionTest extends PHPUnit_Framework_TestCase
         ok($opt);
     }
 
-    public function testDefaultValue() {
+    public function testDefaultValue()
+    {
         $opt = new Option('z');
         $opt->defaultValue(10);
         $this->assertEquals(10, $opt->getValue());
+        $this->assertEquals('-z[=10]',$opt->renderReadableSpec(true));
+    }
+
+    public function testBackwardCompatibleBoolean()
+    {
+        $opt = new Option('scope');
+        $opt->isa('bool');
+        $this->assertEquals('boolean', $opt->isa);
+        $this->assertEquals('--scope=<boolean>',$opt->renderReadableSpec(true));
+    }
+
+
+
+    public function validatorProvider()
+    {
+        return [
+            [function($a) { return in_array($a, ['public', 'private']); }],
+            [function($a) { return [in_array($a, ['public', 'private']), "message"]; }]
+        ];
+    }
+
+    /**
+     * @dataProvider validatorProvider
+     */
+    public function testValidator($cb)
+    {
+        $opt = new Option('scope');
+        $opt->validator($cb);
+        $ret = $opt->validate('public');
+        $this->assertTrue($ret[0]);
+        $ret = $opt->validate('private');
+        $this->assertTrue($ret[0]);
+        $ret = $opt->validate('foo');
+        $this->assertFalse($ret[0]);
+        $this->assertEquals('--scope', $opt->renderReadableSpec(true));
+    }
+
+    public function testOptionWithoutValidator()
+    {
+        $opt = new Option('scope');
+        $ret = $opt->validate('public');
+        $this->assertTrue($ret[0]);
+        $ret = $opt->validate('private');
+        $this->assertTrue($ret[0]);
+        $ret = $opt->validate('foo');
+        $this->assertTrue($ret[0]);
+        $this->assertEquals('--scope',$opt->renderReadableSpec(true));
+    }
+
+
+
+
+    public function testSuggestionsCallback()
+    {
+        $opt = new Option('scope');
+        $this->assertEmpty($opt->getSuggestions());
+
+        $opt->suggestions(function() {
+            return ['public', 'private'];
+        });
+        $this->assertNotEmpty($opt->getSuggestions());
+        $this->assertSame(['public', 'private'],$opt->getSuggestions());
+        $opt->setValue('public');
+        $opt->setValue('private');
+        $this->assertEquals('private',$opt->value);
+
+        $this->assertEquals('--scope=[public,private]',$opt->renderReadableSpec(true));
+    }
+
+    public function testSuggestions()
+    {
+        $opt = new Option('scope');
+        $opt->suggestions(['public', 'private']);
+        $this->assertNotEmpty($opt->getSuggestions());
+        $this->assertSame(['public', 'private'],$opt->getSuggestions());
+        $opt->setValue('public');
+        $opt->setValue('private');
+        $this->assertEquals('private',$opt->value);
+
+        $this->assertEquals('--scope=[public,private]',$opt->renderReadableSpec(true));
+    }
+
+    public function testValidValuesCallback() {
+        $opt = new Option('scope');
+        $opt->validValues(function() {
+            return ['public', 'private'];
+        });
+        ok($opt->getValidValues());
+        $this->assertNotEmpty($opt->getValidValues());
+
+        $opt->setValue('public');
+        $opt->setValue('private');
+        $this->assertEquals('private',$opt->value);
+        $this->assertEquals('--scope=(public,private)',$opt->renderReadableSpec(true));
     }
 
     public function testValidValues() {
         $opt = new Option('scope');
         $opt->validValues([ 'public', 'private' ])
             ;
-        ok( $opt->getValidValues() );
-        ok( is_array($opt->getValidValues()) );
+        ok($opt->getValidValues());
+        $this->assertTrue(is_array($opt->getValidValues()));
 
         $opt->setValue('public');
         $opt->setValue('private');
-        ok($opt->value);
-        is('private',$opt->value);
+        $this->assertEquals('private',$opt->value);
+        $this->assertEquals('--scope=(public,private)',$opt->renderReadableSpec(true));
     }
 
 
@@ -55,7 +150,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
         })
         ;
         $opt->setValue('aa');
-        is('xx', $opt->value);
+        $this->assertEquals('xx', $opt->value);
     }
 }
 
