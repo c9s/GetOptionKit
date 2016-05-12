@@ -28,7 +28,7 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $options = new OptionCollection;
         $options->add('n|nice:' , 'I take negative value');
         $parser = new OptionParser($options);
-        $result = $parser->parse(array('a', '-n', '-1'));
+        $result = $parser->parse(array('a', '-n', '-1', '--', '......'));
 
         $this->assertTrue(isset($result['nice']));
         $this->assertEquals(-1, $result['nice']->value);
