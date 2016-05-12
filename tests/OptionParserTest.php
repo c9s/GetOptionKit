@@ -324,6 +324,17 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $parser->parse(array('--foo'));
     }
 
+    /**
+     * @expectedException GetOptionKit\Exception\InvalidOptionException
+     */
+    public function testParseInvalidOption()
+    {
+        $parser = new OptionParser(new OptionCollection);
+        $parser->parse(array('app','--foo'));
+    }
+
+
+
     public function testMore()
     {
         $this->specs->add('f|foo:' , 'option require value' );
