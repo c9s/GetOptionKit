@@ -62,6 +62,8 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
     public function booleanTestProvider()
     {
         return [
+            [true  , true, true],
+            [false , true, false], 
             ['true'  , true, true],
             ['false' , true, false], 
             ['0'     , true, false], 
