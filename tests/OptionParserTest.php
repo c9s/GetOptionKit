@@ -22,7 +22,25 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->parser = new OptionParser($this->specs);
     }
 
-    public function testOptionWithNegativeValue() {
+
+    public function testResultArrayAccessor()
+    {
+        $options = new OptionCollection;
+        $options->add('n|nice:' , 'I take negative value');
+        $parser = new OptionParser($options);
+        $result = $parser->parse(array('a', '-n', '-1'));
+
+        $this->assertTrue(isset($result['nice']));
+        $this->assertEquals(-1, $result['nice']->value);
+
+        $res = clone $result['nice'];
+        $res->value = 10;
+        $result['nice'] = $res;
+        $this->assertEquals(10, $result['nice']->value);
+    }
+
+    public function testOptionWithNegativeValue()
+    {
         $this->specs->add( 'n|nice:' , 'I take negative value' );
         $result = $this->parser->parse(array('a', '-n', '-1'));
         $this->assertEquals(-1, $result->nice);

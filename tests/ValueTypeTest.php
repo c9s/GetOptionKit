@@ -89,6 +89,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($type->test('tests'));
         $this->assertFalse($type->test('composer.json'));
         $this->assertFalse($type->test('foo/bar'));
+        $this->assertInstanceOf('SplFileInfo',$type->parse('tests'));
     }
 
     public function testFileType()
@@ -118,30 +119,72 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://t.c', $url->parse('http://t.c'));
     }
 
-    public function testIpType()
+    public function ipV4Provider()
+    {
+        return [
+            ['192.168.25.58', true],
+            ['8.8.8.8', true],
+            ['github.com', false],
+        ];
+    }
+
+    public function ipV6Provider()
+    {
+        return [
+            ['192.168.25.58', false],
+            ['2607:f0d0:1002:51::4', true],
+            ['2607:f0d0:1002:0051:0000:0000:0000:0004', true],
+            ['::1', true],
+            ['10.10.15.10/16', false],
+            ['github.com', false],
+        ];
+    }
+
+    public function ipProvider()
+    {
+        return [
+            ['192.168.25.58', true],
+            ['2607:f0d0:1002:51::4', true],
+            ['::1', true],
+            ['10.10.15.10/16', false],
+            ['github.com', false],
+        ];
+    }
+
+    /**
+     * @dataProvider ipProvider
+     */
+    public function testIpType($ipstr, $pass = true)
     {
         $ip = new IpType;
-        $this->assertTrue($ip->test('192.168.25.58'));
-        $this->assertTrue($ip->test('2607:f0d0:1002:51::4'));
-        $this->assertTrue($ip->test('::1'));
-        $this->assertFalse($ip->test('10.10.15.10/16'));
-        $this->assertEquals('10.10.15.10/16',$ip->parse('10.10.15.10/16'));
+        $this->assertEquals($pass, $ip->test($ipstr));
+        if ($pass) {
+            $this->assertNotNull($ip->parse($ipstr));
+        }
     }
 
-    public function testIpv4Type()
+    /**
+     * @dataProvider ipV4Provider
+     */
+    public function testIpv4Type($ipstr, $pass = true)
     {
         $ipv4 = new Ipv4Type;
-        ok($ipv4->test('192.168.25.58'));
-        ok($ipv4->test('8.8.8.8'));
-        $this->assertFalse($ipv4->test('2607:f0d0:1002:51::4'));
+        $this->assertEquals($pass, $ipv4->test($ipstr));
+        if ($pass) {
+            $this->assertNotNull($ipv4->parse($ipstr));
+        }
     }
 
-    public function testIpv6Type()
+    /**
+     * @dataProvider ipV6Provider
+     */
+    public function testIpv6Type($ipstr, $pass = true)
     {
         $ipv6 = new Ipv6Type;
-        ok( $ipv6->test('2607:f0d0:1002:51::4') );
-        ok( $ipv6->test('2607:f0d0:1002:0051:0000:0000:0000:0004') );
-        $this->assertFalse($ipv6->test('192.168.25.58'));
+        $this->assertEquals($pass, $ipv6->test($ipstr));
+        if ($pass) {
+            $this->assertNotNull($ipv6->parse($ipstr));
+        }
     }
 
     public function testEmailType()
