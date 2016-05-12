@@ -2,6 +2,7 @@
 use GetOptionKit\ValueType\BooleanType;
 use GetOptionKit\ValueType\StringType;
 use GetOptionKit\ValueType\FileType;
+use GetOptionKit\ValueType\DirType;
 use GetOptionKit\ValueType\NumberType;
 use GetOptionKit\ValueType\UrlType;
 use GetOptionKit\ValueType\IpType;
@@ -82,13 +83,30 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testDirType()
+    {
+        $type = new DirType;
+        $this->assertTrue($type->test('tests'));
+        $this->assertFalse($type->test('composer.json'));
+        $this->assertFalse($type->test('foo/bar'));
+    }
+
+    public function testFileType()
+    {
+        $type = new FileType;
+        $this->assertFalse($type->test('tests'));
+        $this->assertTrue($type->test('composer.json'));
+        $this->assertFalse($type->test('foo/bar'));
+        $this->assertInstanceOf('SplFileInfo', $type->parse('composer.json'));
+    }
+
     public function testPathType()
     {
-        $url = new PathType;
-        $this->assertTrue($url->test('tests'));
-        $this->assertTrue($url->test('composer.json'));
-        $this->assertFalse($url->test('foo/bar'));
-        $this->assertInstanceOf('SplFileInfo', $url->parse('composer.json'));
+        $type = new PathType;
+        $this->assertTrue($type->test('tests'));
+        $this->assertTrue($type->test('composer.json'));
+        $this->assertFalse($type->test('foo/bar'));
+        $this->assertInstanceOf('SplFileInfo', $type->parse('composer.json'));
     }
 
     public function testUrlType()
