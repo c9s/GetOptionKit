@@ -25,9 +25,9 @@ class ConsoleOptionPrinter implements OptionPrinter
         $c1 = '';
         if ($opt->short && $opt->long) {
             $c1 = sprintf('-%s, --%s', $opt->short, $opt->long);
-        } elseif ($opt->short) {
+        } else if ($opt->short) {
             $c1 = sprintf('-%s', $opt->short);
-        } elseif ($opt->long) {
+        } else if ($opt->long) {
             $c1 = sprintf('--%s', $opt->long);
         }
         $c1 .= $opt->renderValueHint();

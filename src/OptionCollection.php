@@ -76,7 +76,7 @@ class OptionCollection
 
         if (is_object($first) && $first instanceof Option) {
             $this->addObject($first);
-        } elseif (is_string($first)) {
+        } else if (is_string($first)) {
             $specString = $args[0];
             $desc = isset($args[1]) ? $args[1] : null;
             $key = isset($args[2]) ? $args[2] : null;
@@ -132,9 +132,9 @@ class OptionCollection
     {
         if (isset($this->data[$id])) {
             return $this->data[$id];
-        } elseif (isset($this->longOptions[$id])) {
+        } else if (isset($this->longOptions[$id])) {
             return $this->longOptions[$id];
-        } elseif (isset($this->shortOptions[$id])) {
+        } else if (isset($this->shortOptions[$id])) {
             return $this->shortOptions[$id];
         }
     }

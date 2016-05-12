@@ -114,9 +114,9 @@ class Option
         // check long,short option name.
         if (strpos($name, '|') !== false) {
             list($short, $long) = explode('|', $name);
-        } elseif (strlen($name) === 1) {
+        } else if (strlen($name) === 1) {
             $short = $name;
-        } elseif (strlen($name) > 1) {
+        } else if (strlen($name) > 1) {
             $long = $name;
         }
 
@@ -126,13 +126,13 @@ class Option
         // option is required.
         if (strpos($attributes, ':') !== false) {
             $this->required();
-        } elseif (strpos($attributes, '+') !== false) {
+        } else if (strpos($attributes, '+') !== false) {
             // option with multiple value
             $this->multiple();
-        } elseif (strpos($attributes, '?') !== false) {
+        } else if (strpos($attributes, '?') !== false) {
             // option is optional.(zero or one value)
             $this->optional();
-        } elseif (strpos($attributes, '*') !== false) {
+        } else if (strpos($attributes, '*') !== false) {
             // option is multiple value and optional (zero or more)
             throw new Exception('not implemented yet');
         } else {
@@ -150,7 +150,7 @@ class Option
     {
         if ($this->key) {
             return $this->key;
-        } elseif ($this->long) {
+        } else if ($this->long) {
             return $this->long;
         }
 
@@ -359,11 +359,11 @@ class Option
         $n = null;
         if ($this->valueName) {
             $n = $this->valueName;
-        } elseif ($values = $this->getValidValues()) {
+        } else if ($values = $this->getValidValues()) {
             $n = '('.implode(',', $values).')';
-        } elseif ($values = $this->getSuggestions()) {
+        } else if ($values = $this->getSuggestions()) {
             $n = '['.implode(',', $values).']';
-        } elseif ($val = $this->defaultValue) {
+        } else if ($val = $this->defaultValue) {
             // This allows for `0` and `false` values to be displayed also.
             if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
                 if (is_bool($val)) {
@@ -379,9 +379,9 @@ class Option
         }
         if ($this->isRequired()) {
             return sprintf('=%s', $n);
-        } elseif ($this->isOptional() || $this->defaultValue) {
+        } else if ($this->isOptional() || $this->defaultValue) {
             return sprintf('[=%s]', $n);
-        } elseif ($n) {
+        } else if ($n) {
             return '='.$n;
         }
 
@@ -415,9 +415,9 @@ class Option
         $c1 = '';
         if ($this->short && $this->long) {
             $c1 = sprintf('-%s, --%s', $this->short, $this->long);
-        } elseif ($this->short) {
+        } else if ($this->short) {
             $c1 = sprintf('-%s', $this->short);
-        } elseif ($this->long) {
+        } else if ($this->long) {
             $c1 = sprintf('--%s', $this->long);
         }
         if ($renderHint) {
@@ -525,9 +525,9 @@ class Option
             $ret = call_user_func($this->validator, $value);
             if (is_array($ret)) {
                 return $ret;
-            } elseif ($ret === false) {
+            } else if ($ret === false) {
                 return array(false, "Invalid value: $value");
-            } elseif ($ret === true) {
+            } else if ($ret === true) {
                 return array(true, 'Successfully validated.');
             }
             throw new InvalidArgumentException('Invalid return value from the validator.');

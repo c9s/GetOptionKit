@@ -36,11 +36,11 @@ class OptionParser
     {
         if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
-        } elseif ($spec->defaultValue) {
+        } else if ($spec->defaultValue) {
             $spec->setValue($spec->defaultValue);
-        } elseif ($spec->isFlag()) {
+        } else if ($spec->isFlag()) {
             $spec->setValue(true);
-        } elseif ($next && !$next->isEmpty()) {
+        } else if ($next && !$next->isEmpty()) {
             $spec->setValue($next->arg);
         } else {
             $spec->setValue(true);
@@ -159,22 +159,22 @@ class OptionParser
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isMultiple()) {
+            } else if ($spec->isMultiple()) {
                 $this->pushOptionValue($spec, $arg, $next);
                 if ($next && !$next->isOption()) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isOptional()) {
+            } else if ($spec->isOptional()) {
                 $this->takeOptionValue($spec, $arg, $next);
                 if (($spec->value || $spec->defaultValue) && $next && !$next->isOption()) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isIncremental()) {
+            } else if ($spec->isIncremental()) {
                 $spec->increaseValue();
                 $result->set($spec->getId(), $spec);
-            } elseif ($spec->isFlag()) {
+            } else if ($spec->isFlag()) {
                 $spec->setValue(true);
                 $result->set($spec->getId(), $spec);
             } else {
