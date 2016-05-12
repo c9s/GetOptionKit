@@ -193,11 +193,8 @@ class ContinuousOptionParser extends OptionParser
                     ++$this->index;
                 }
                 $result->set($spec->getId(), $spec);
-            } else if ($spec->isIncremental()) {
-                $spec->increaseValue();
-                $result->set($spec->getId(), $spec);
             } else if ($spec->isFlag()) {
-                $spec->setValue(true);
+                $this->consumeOptionValue($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
                 throw new Exception('Unknown attribute.');

@@ -38,16 +38,22 @@ class OptionParser
      */
     protected function consumeOptionValue(Option $spec, $arg, $next)
     {
-        if ($next && !$next->anyOfOptions($this->specs)) {
+        // Check options doesn't require next token before 
+        // all options that require values.
+        if ($spec->isFlag()) {
+            if ($spec->isIncremental()) {
+                $spec->increaseValue();
+            } else {
+                $spec->setValue(true);
+            }
+            return 0;
+        } else if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
             return 1;
         } else if ($spec->defaultValue) {
             // if (($spec->value || $spec->defaultValue) && $next && !$next->isOption()) {
             $spec->setValue($spec->defaultValue);
-            return 0;
-        } else if ($spec->isFlag()) {
-            $spec->setValue(true);
-            return 0;
+            return 0; 
         } else if ($next && !$next->isEmpty()) {
             $spec->setValue($next->arg);
             return 1;
@@ -182,11 +188,8 @@ class OptionParser
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
-            } else if ($spec->isIncremental()) {
-                $spec->increaseValue();
-                $result->set($spec->getId(), $spec);
             } else if ($spec->isFlag()) {
-                $spec->setValue(true);
+                $this->consumeOptionValue($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
                 throw new Exception('Unknown attribute.');
