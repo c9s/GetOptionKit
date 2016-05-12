@@ -141,10 +141,6 @@ class ContinuousOptionParser extends OptionParser
             }
         }
 
-        if ($this->isEnd()) {
-            return $result;
-        }
-
         // from last parse index
         for (; $this->index < $this->length; ++$this->index) {
             $arg = new Argument($this->argv[$this->index]);

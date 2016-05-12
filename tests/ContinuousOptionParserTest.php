@@ -205,11 +205,11 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $argv = explode(' ','program subcommand1 -a 1 subcommand2 -a 2 subcommand3 -a 3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();
-        while( ! $parser->isEnd() ) {
-            if( @$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
+        while (! $parser->isEnd()) {
+            if (!empty($subcommands) && $parser->getCurrentArgument() == $subcommands[0] ) {
                 $parser->advance();
                 $subcommand = array_shift( $subcommands );
-                $parser->setSpecs( $subcommand_specs[$subcommand] );
+                $parser->setSpecs($subcommand_specs[$subcommand]);
                 $subcommand_options[ $subcommand ] = $parser->continueParse();
             } else {
                 $arguments[] = $parser->advance();
@@ -225,6 +225,23 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         ok( 2, $subcommand_options['subcommand2']->a );
         ok( 3, $subcommand_options['subcommand3']->a );
     }
+
+    /**
+     * @expectedException GetOptionKit\Exception\InvalidOptionException
+     */
+    public function testParseInvalidOptionException()
+    {
+        $parser = new ContinuousOptionParser(new OptionCollection);
+        $parser->parse(array('app','--foo'));
+        $arguments = array();
+        while (!$parser->isEnd())
+        {
+            $arguments[] = $parser->getCurrentArgument();
+            $parser->advance();
+        }
+    }
+
+
 
     public function testMultipleShortOption()
     {
