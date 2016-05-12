@@ -48,7 +48,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         );
         $subcommand_options = array();
 
-        $argv = explode(' ','program -v -c subcommand1 --as 99 arg1 arg2 arg3');
+        $argv = explode(' ','program -v -c subcommand1 --as 99 arg1 arg2 arg3 -- zz xx vv');
         // $argv = explode(' ','program subcommand1 -a 1 subcommand2 -a 2 subcommand3 -a 3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();

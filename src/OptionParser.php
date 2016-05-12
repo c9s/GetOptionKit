@@ -71,13 +71,15 @@ class OptionParser
     {
         // preprocessing arguments
         $newArgv = array();
+        $extra = array();
         $afterDash = false;
         foreach ($argv as $arg) {
-            if ($arg == '--') {
+            if ($arg === '--') {
                 $afterDash = true;
+                continue;
             }
             if ($afterDash) {
-                $newArgv[] = $arg;
+                $extra[] = $arg;
                 continue;
             }
 
@@ -86,11 +88,10 @@ class OptionParser
                 list($opt, $val) = $a->splitAsOption();
                 array_push($newArgv, $opt, $val);
             } else {
-                array_push($newArgv, $arg);
+                $newArgv[] = $arg;
             }
         }
-
-        return $newArgv;
+        return [$newArgv, $extra];
     }
 
     /**
@@ -105,7 +106,7 @@ class OptionParser
     public function parse(array $argv)
     {
         $result = new OptionResult();
-        $argv = $this->preprocessingArguments($argv);
+        list($argv, $extra) = $this->preprocessingArguments($argv);
 
         foreach ($this->specs as $spec) {
             if ($spec->defaultValue !== null) {
