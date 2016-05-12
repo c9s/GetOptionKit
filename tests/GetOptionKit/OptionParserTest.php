@@ -11,7 +11,7 @@
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 
-class GetOptionKitTest extends PHPUnit_Framework_TestCase 
+class OptionParserTest extends PHPUnit_Framework_TestCase 
 {
     public $parser;
     public $specs;
