@@ -12,15 +12,13 @@ class RegexType extends BaseType
             return false;
         }
         $pm = preg_match($this->option, $value);
-        if ($pm == 0) {
-            $pm = false;
-        }
-
-        return $pm;
+        return $pm !== 0;
     }
 
     public function parse($value)
     {
+        // todo: match and return mached patterns
+        // $pm = preg_match($this->option, $value);
         return strval($value);
     }
 }

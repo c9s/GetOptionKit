@@ -12,6 +12,7 @@ use GetOptionKit\ValueType\EmailType;
 use GetOptionKit\ValueType\PathType;
 use GetOptionKit\ValueType\DateType;
 use GetOptionKit\ValueType\DateTimeType;
+use GetOptionKit\ValueType\RegexType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -30,6 +31,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new Ipv6Type );
         ok( new EmailType );
         ok( new PathType );
+        ok( new RegexType );
     }
 
 
@@ -43,8 +45,6 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(30, $a->format('d'));
         $this->assertFalse($type->test('foo'));
     }
-
-
 
     public function testDateType()
     {
