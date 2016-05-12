@@ -10,17 +10,18 @@
  */
 
 namespace GetOptionKit;
-use GetOptionKit\Exception\NonNumericException;
+
 use Exception;
 use LogicException;
 use InvalidArgumentException;
 
-class InvalidOptionValue extends Exception {  }
+class InvalidOptionValue extends Exception
+{
+}
 
-class Option 
+class Option
 {
     public $short;
-
 
     public $long;
 
@@ -65,24 +66,22 @@ class Option
 
     public $required = false;
 
-    public $flag     = false;
-
+    public $flag = false;
 
     /**
      * @var callable trigger callback after value is set.
      */
     protected $trigger;
 
-
     public function __construct($specString = null)
     {
-        if( $specString ) {
+        if ($specString) {
             $this->initFromSpecString($specString);
         }
     }
 
     /**
-     * Build spec attributes from spec string 
+     * Build spec attributes from spec string.
      *
      * @param string $specString
      */
@@ -100,40 +99,40 @@ class Option
         (?:=(boolean|string|number|date|file|url|email|ip|ipv6|ipv4))?
         /x';
 
-        if( preg_match( $pattern, $specString , $regs ) === false ) {
-            throw new Exception( "Unknown spec string" );
+        if (preg_match($pattern, $specString, $regs) === false) {
+            throw new Exception('Unknown spec string');
         }
 
-        $orig       = $regs[0];
-        $name       = $regs[1];
+        $orig = $regs[0];
+        $name = $regs[1];
         $attributes = isset($regs[2]) ? $regs[2] : null;
-        $type       = isset($regs[3]) ? $regs[3] : null;
+        $type = isset($regs[3]) ? $regs[3] : null;
 
         $short = null;
         $long = null;
 
         // check long,short option name.
-        if (strpos($name,'|') !== false ) {
-            list($short,$long) = explode('|',$name);
-        } elseif( strlen($name) === 1 ) {
+        if (strpos($name, '|') !== false) {
+            list($short, $long) = explode('|', $name);
+        } elseif (strlen($name) === 1) {
             $short = $name;
-        } elseif( strlen($name) > 1 ) {
+        } elseif (strlen($name) > 1) {
             $long = $name;
         }
 
-        $this->short  = $short;
-        $this->long   = $long;
+        $this->short = $short;
+        $this->long = $long;
 
         // option is required.
-        if (strpos($attributes,':') !== false ) {
+        if (strpos($attributes, ':') !== false) {
             $this->required();
-        } else if ( strpos($attributes,'+') !== false ) {
+        } elseif (strpos($attributes, '+') !== false) {
             // option with multiple value
             $this->multiple();
-        } else if (strpos($attributes,'?') !== false ) {
+        } elseif (strpos($attributes, '?') !== false) {
             // option is optional.(zero or one value)
             $this->optional();
-        } else if(strpos($attributes,'*') !== false) {
+        } elseif (strpos($attributes, '*') !== false) {
             // option is multiple value and optional (zero or more)
             throw new Exception('not implemented yet');
         } else {
@@ -144,7 +143,6 @@ class Option
         }
     }
 
-
     /*
      * get the option key for result key mapping.
      */
@@ -152,30 +150,34 @@ class Option
     {
         if ($this->key) {
             return $this->key;
-        } else if ($this->long) {
+        } elseif ($this->long) {
             return $this->long;
         }
+
         return $this->short;
     }
 
     /**
-     * To make -v, -vv, -vvv works 
+     * To make -v, -vv, -vvv works.
      */
     public function incremental()
     {
         $this->incremental = true;
+
         return $this;
     }
 
     public function required()
     {
         $this->required = true;
+
         return $this;
     }
 
     public function defaultValue($value)
     {
         $this->defaultValue = $value;
+
         return $this;
     }
 
@@ -189,28 +191,28 @@ class Option
     public function optional()
     {
         $this->optional = true;
+
         return $this;
     }
 
     public function flag()
     {
         $this->flag = true;
+
         return $this;
     }
-
 
     public function trigger(callable $trigger)
     {
         $this->trigger = $trigger;
+
         return $this;
     }
-
 
     public function isIncremental()
     {
         return $this->incremental;
     }
-
 
     public function isFlag()
     {
@@ -237,26 +239,32 @@ class Option
         return $this->isa == 'number';
     }
 
-    public function isType($type) {
+    public function isType($type)
+    {
         return $this->isa === $type;
     }
 
-    public function getTypeClass() {
-        $class = 'GetOptionKit\\ValueType\\' . ucfirst($this->isa) . 'Type';
-        if ( class_exists($class, true) ) {
+    public function getTypeClass()
+    {
+        $class = 'GetOptionKit\\ValueType\\'.ucfirst($this->isa).'Type';
+        if (class_exists($class, true)) {
             return new $class($this->isaOption);
         }
+
         return false;
     }
 
-    public function testValue($value) {
-        if ( $type = $this->getTypeClass() ) {
+    public function testValue($value)
+    {
+        if ($type = $this->getTypeClass()) {
             return $type->test($value);
         }
+
         return true; // always true if type class is not found.
     }
 
-    protected function _preprocessValue($value) {
+    protected function _preprocessValue($value)
+    {
         $val = $value;
 
         if ($isa = ucfirst($this->isa)) {
@@ -268,21 +276,21 @@ class Option
                 }
             } else {
                 throw new LogicException("Type class of $isa not found.");
-
             }
         }
 
         // check pre-filter for option value
-        if ( $this->filter ) {
+        if ($this->filter) {
             $val = call_user_func($this->filter, $val);
         }
 
         // check validValues
         if ($validValues = $this->getValidValues()) {
-            if ( ! in_array($value, $validValues) ) {
-                throw new InvalidOptionValue("valid values are: " . join(', ', $validValues) );
+            if (!in_array($value, $validValues)) {
+                throw new InvalidOptionValue('valid values are: '.implode(', ', $validValues));
             }
         }
+
         return $val;
     }
 
@@ -304,22 +312,21 @@ class Option
         $this->callTrigger();
     }
 
-
     /**
-     * This method is for incremental option
+     * This method is for incremental option.
      */
     public function increaseValue()
     {
-        if (!$this->value ) {
+        if (!$this->value) {
             $this->value = 1;
         } else {
-            $this->value++;
+            ++$this->value;
         }
         $this->callTrigger();
     }
 
     /**
-     * push option value, when the option accept multiple values 
+     * push option value, when the option accept multiple values.
      *
      * @param mixed
      */
@@ -336,25 +343,27 @@ class Option
     }
 
     /**
-     * valueName is for option value hinting:
+     * valueName is for option value hinting:.
      *
      *   --name=<name>
      */
     public function valueName($name)
     {
         $this->valueName = $name;
+
         return $this;
     }
 
-    public function renderValueHint() {
+    public function renderValueHint()
+    {
         $n = null;
         if ($this->valueName) {
             $n = $this->valueName;
-        } else if ($values = $this->getValidValues()) {
-            $n = '(' . join(',', $values) . ')';
-        } else if ($values = $this->getSuggestions()) {
-            $n = '[' . join(',', $values) . ']';
-        } else if ($val = $this->defaultValue) {
+        } elseif ($values = $this->getValidValues()) {
+            $n = '('.implode(',', $values).')';
+        } elseif ($values = $this->getSuggestions()) {
+            $n = '['.implode(',', $values).']';
+        } elseif ($val = $this->defaultValue) {
             // This allows for `0` and `false` values to be displayed also.
             if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
                 if (is_bool($val)) {
@@ -366,23 +375,25 @@ class Option
         }
 
         if (!$n && $this->isa !== null) {
-            $n = '<' . $this->isa . '>';
+            $n = '<'.$this->isa.'>';
         }
         if ($this->isRequired()) {
             return sprintf('=%s', $n);
-        } else if ($this->isOptional() || $this->defaultValue) {
+        } elseif ($this->isOptional() || $this->defaultValue) {
             return sprintf('[=%s]', $n);
-        } else if ($n) {
-            return '=' . $n;
+        } elseif ($n) {
+            return '='.$n;
         }
+
         return '';
     }
 
-
-    public function getValue() {
+    public function getValue()
+    {
         if (null !== $this->value) {
             return $this->value;
         }
+
         return $this->defaultValue;
     }
 
@@ -395,7 +406,7 @@ class Option
     }
 
     /**
-     * get readable spec for printing
+     * get readable spec for printing.
      * 
      * @param string $renderHint render also value hint
      */
@@ -403,15 +414,16 @@ class Option
     {
         $c1 = '';
         if ($this->short && $this->long) {
-            $c1 = sprintf('-%s, --%s',$this->short,$this->long);
-        } else if( $this->short ) {
-            $c1 = sprintf('-%s',$this->short);
-        } else if( $this->long ) {
-            $c1 = sprintf('--%s',$this->long );
+            $c1 = sprintf('-%s, --%s', $this->short, $this->long);
+        } elseif ($this->short) {
+            $c1 = sprintf('-%s', $this->short);
+        } elseif ($this->long) {
+            $c1 = sprintf('--%s', $this->long);
         }
         if ($renderHint) {
-            return $c1 . $this->renderValueHint();
+            return $c1.$this->renderValueHint();
         }
+
         return $c1;
     }
 
@@ -419,107 +431,115 @@ class Option
     {
         $c1 = $this->renderReadableSpec();
         $return = '';
-        $return .= sprintf("* key:%-8s spec:%s  desc:%s",$this->getId(), $c1,$this->desc) . "\n";
+        $return .= sprintf('* key:%-8s spec:%s  desc:%s', $this->getId(), $c1, $this->desc)."\n";
         $val = $this->getValue();
         if (is_array($val)) {
-            $return .= '  ' . print_r(  $val, true ) . "\n";
+            $return .= '  '.print_r($val, true)."\n";
         } else {
-            $return .= sprintf("  value => %s" , $val) . "\n";
+            $return .= sprintf('  value => %s', $val)."\n";
         }
+
         return $return;
     }
 
-
     /**
-     * Value Type Setters
+     * Value Type Setters.
      *
-     * @param string $type the value type, valid values are 'number', 'string', 
-     *                      'file', 'boolean', you can also use your own value type name.
-     *
+     * @param string $type   the value type, valid values are 'number', 'string', 
+     *                       'file', 'boolean', you can also use your own value type name.
      * @param mixed  $option option(s) for value type class (optionnal)
-     *
      */
-    public function isa($type, $option = null) {
+    public function isa($type, $option = null)
+    {
         // "bool" was kept for backward compatibility
-        if ($type === "bool") {
-            $type = "boolean";
+        if ($type === 'bool') {
+            $type = 'boolean';
         }
         $this->isa = $type;
         $this->isaOption = $option;
+
         return $this;
     }
 
     /**
      * Assign validValues to member value.
      */
-    public function validValues($values) {
+    public function validValues($values)
+    {
         $this->validValues = $values;
+
         return $this;
     }
 
     /**
-     * Assign suggestions
+     * Assign suggestions.
      *
-     * @param Closure|Array
+     * @param Closure|array
      */
-    public function suggestions($suggestions) {
+    public function suggestions($suggestions)
+    {
         $this->suggestions = $suggestions;
+
         return $this;
     }
 
-
     /**
-     * Return valud values array
+     * Return valud values array.
      *
      * @return string[] or nil
      */
-    public function getValidValues() { 
+    public function getValidValues()
+    {
         if ($this->validValues) {
             if (is_callable($this->validValues)) {
                 return call_user_func($this->validValues);
             }
+
             return $this->validValues;
         }
-        return null;
+
+        return;
     }
 
-
-
     /**
-     * Return suggestions
+     * Return suggestions.
      *
      * @return string[] or nil
      */
-    public function getSuggestions() { 
-        if ( $this->suggestions ) {
+    public function getSuggestions()
+    {
+        if ($this->suggestions) {
             if (is_callable($this->suggestions)) {
                 return call_user_func($this->suggestions);
             }
+
             return $this->suggestions;
         }
-        return null;
+
+        return;
     }
 
-    public function validate($value) {
+    public function validate($value)
+    {
         if ($this->validator) {
             $ret = call_user_func($this->validator, $value);
             if (is_array($ret)) {
                 return $ret;
-            } else if ($ret === false) {
+            } elseif ($ret === false) {
                 return array(false, "Invalid value: $value");
-            } else if ($ret === true) {
-                return array(true, "Successfully validated.");
+            } elseif ($ret === true) {
+                return array(true, 'Successfully validated.');
             }
-            throw new InvalidArgumentException("Invalid return value from the validator.");
+            throw new InvalidArgumentException('Invalid return value from the validator.');
         }
+
         return array(true);
     }
-
-
 
     public function validator($cb)
     {
         $this->validator = $cb;
+
         return $this;
     }
 
@@ -531,9 +551,7 @@ class Option
     public function filter($cb)
     {
         $this->filter = $cb;
+
         return $this;
     }
-
 }
-
-

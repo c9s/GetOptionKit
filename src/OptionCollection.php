@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  *
  */
+
 namespace GetOptionKit;
-use GetOptionKit\Option;
-use Iterator;
+
+
 use ArrayIterator;
 use IteratorAggregate;
 use Countable;
@@ -41,8 +42,6 @@ class OptionCollection
      */
     public $options = array();
 
-
-
     public function __construct()
     {
         $this->data = array();
@@ -50,22 +49,22 @@ class OptionCollection
 
     public function __clone()
     {
-        foreach( $this->data as $k => $v ) {
+        foreach ($this->data as $k => $v) {
             $this->data[ $k ] = clone $v;
         }
-        foreach( $this->longOptions as $k => $v ) {
+        foreach ($this->longOptions as $k => $v) {
             $this->longOptions[ $k ] = clone $v;
         }
-        foreach( $this->shortOptions as $k => $v ) {
+        foreach ($this->shortOptions as $k => $v) {
             $this->shortOptions[ $k ] = clone $v;
         }
-        foreach( $this->options as $k => $v ) {
+        foreach ($this->options as $k => $v) {
             $this->options[ $k ] = clone $v;
         }
     }
 
     /**
-     * add( [spec string], [desc string] )
+     * add( [spec string], [desc string] ).
      *
      * add( [option object] )
      */
@@ -76,48 +75,54 @@ class OptionCollection
         $first = $args[0];
 
         if (is_object($first) && $first instanceof Option) {
-            $this->addObject( $first );
-        } else if ( is_string( $first ) ) {
-            $specString  = $args[0];
+            $this->addObject($first);
+        } elseif (is_string($first)) {
+            $specString = $args[0];
             $desc = isset($args[1]) ? $args[1] : null;
-            $key         = isset($args[2]) ? $args[2] : null;
+            $key = isset($args[2]) ? $args[2] : null;
 
             // parse spec string
             $spec = new Option($specString);
-            if( $desc )
+            if ($desc) {
                 $spec->desc($desc);
-            if( $key )
+            }
+            if ($key) {
                 $spec->key = $key;
-            $this->add( $spec );
+            }
+            $this->add($spec);
+
             return $spec;
         } else {
-            throw new Exception( 'Unknown Spec Type' );
+            throw new Exception('Unknown Spec Type');
         }
     }
 
     /**
-     * Add option object
+     * Add option object.
      *
-     * @param Object $spec the option object.
+     * @param object $spec the option object.
      */
-    public function addObject( Option $spec )
+    public function addObject(Option $spec)
     {
         $this->data[ $spec->getId() ] = $spec;
-        if( $spec->long )
+        if ($spec->long) {
             $this->longOptions[ $spec->long ] = $spec;
-        if( $spec->short )
+        }
+        if ($spec->short) {
             $this->shortOptions[ $spec->short ] = $spec;
+        }
         $this->options[] = $spec;
-        if( ! $spec->long && ! $spec->short )
+        if (!$spec->long && !$spec->short) {
             throw new Exception('Wrong option spec');
+        }
     }
 
-    public function getLongOption( $name )
+    public function getLongOption($name)
     {
         return isset($this->longOptions[ $name ]) ? $this->longOptions[ $name ] : null;
     }
 
-    public function getShortOption( $name )
+    public function getShortOption($name)
     {
         return isset($this->shortOptions[ $name ]) ? $this->shortOptions[ $name ] : null;
     }
@@ -134,9 +139,9 @@ class OptionCollection
         }
     }
 
-
-    public function find($name) {
-        foreach( $this->options as $option ) {
+    public function find($name)
+    {
+        foreach ($this->options as $option) {
             if ($option->short == $name || $option->long == $name) {
                 return $option;
             }
@@ -156,17 +161,18 @@ class OptionCollection
     public function toArray()
     {
         $array = array();
-        foreach($this->data as $k => $spec) {
+        foreach ($this->data as $k => $spec) {
             $item = array();
             if ($spec->long) {
                 $item['long'] = $spec->long;
             }
-            if ($spec->short ) {
+            if ($spec->short) {
                 $item['short'] = $spec->short;
             }
             $item['desc'] = $spec->desc;
             $array[] = $item;
         }
+
         return $array;
     }
 
@@ -175,12 +181,13 @@ class OptionCollection
         return array_merge(array_keys($this->longOptions), array_keys($this->shortOptions));
     }
 
-    public function count() {
+    public function count()
+    {
         return count($this->data);
     }
 
-
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->data);
     }
 }

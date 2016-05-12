@@ -1,5 +1,7 @@
 <?php
+
 namespace GetOptionKit\ValueType;
+
 use DateTime;
 
 class DateTimeType extends BaseType
@@ -18,4 +20,3 @@ class DateTimeType extends BaseType
         return DateTime::createFromFormat($this->option['format'], $value);
     }
 }
-

@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  */
-namespace GetOptionKit;
-use GetOptionKit\OptionCollection;
 
-class Argument 
+namespace GetOptionKit;
+
+class Argument
 {
     public $arg;
 
@@ -20,16 +20,15 @@ class Argument
         $this->arg = $arg;
     }
 
-
     public function isLongOption()
     {
-        return substr($this->arg,0,2) === '--';
+        return substr($this->arg, 0, 2) === '--';
     }
 
     public function isShortOption()
     {
-        return (substr($this->arg,0,1) === '-' ) 
-            && (substr($this->arg,1,1) !== '-');
+        return (substr($this->arg, 0, 1) === '-')
+            && (substr($this->arg, 1, 1) !== '-');
     }
 
     public function isEmpty()
@@ -37,17 +36,16 @@ class Argument
         return $this->arg === null || empty($this->arg) && ('0' !== $this->arg);
     }
 
-
     /**
-     * Check if an option is one of the option in the collection
+     * Check if an option is one of the option in the collection.
      */
     public function anyOfOptions(OptionCollection $options)
     {
         $name = $this->getOptionName();
         $keys = $options->keys();
+
         return in_array($name, $keys);
     }
-
 
     /**
      * Check current argument is an option by the preceding dash.
@@ -61,55 +59,56 @@ class Argument
         return $this->isShortOption() || $this->isLongOption();
     }
 
-
     /**
      * Parse option and return the name after dash. e.g., 
      * '--foo' returns 'foo'
-     * '-f' returns 'f'
+     * '-f' returns 'f'.
      *
      * @return string
      */
     public function getOptionName()
     {
-        if (preg_match('/^[-]+([a-zA-Z0-9-]+)/',$this->arg,$regs)) {
+        if (preg_match('/^[-]+([a-zA-Z0-9-]+)/', $this->arg, $regs)) {
             return $regs[1];
         }
     }
 
-    public function splitAsOption() {
+    public function splitAsOption()
+    {
         return explode('=', $this->arg, 2);
     }
 
     public function containsOptionValue()
     {
-        return preg_match('/=.+/',$this->arg);
+        return preg_match('/=.+/', $this->arg);
     }
 
     public function getOptionValue()
     {
-        if (preg_match('/=(.+)/',$this->arg,$regs)) {
+        if (preg_match('/=(.+)/', $this->arg, $regs)) {
             return $regs[1];
         }
-        return null;
+
+        return;
     }
 
     /** 
-     * Check combined short flags for "-abc" or "-vvv"
+     * Check combined short flags for "-abc" or "-vvv".
      *
      * like: -abc
      */
     public function withExtraFlagOptions()
     {
-        return preg_match('/^-[a-zA-Z0-9]{2,}/',$this->arg);
+        return preg_match('/^-[a-zA-Z0-9]{2,}/', $this->arg);
     }
 
     public function extractExtraFlagOptions()
     {
         $args = array();
-        for($i=2;$i< strlen($this->arg); ++$i) {
-            $args[] = '-' . $this->arg[$i];
+        for ($i = 2;$i < strlen($this->arg); ++$i) {
+            $args[] = '-'.$this->arg[$i];
         }
-        $this->arg = substr($this->arg,0,2); # -[a-z]
+        $this->arg = substr($this->arg, 0, 2); # -[a-z]
         return $args;
     }
 
@@ -117,8 +116,4 @@ class Argument
     {
         return $this->arg;
     }
-
 }
-
-
-

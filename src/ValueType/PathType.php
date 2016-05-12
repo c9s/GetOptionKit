@@ -1,5 +1,7 @@
 <?php
+
 namespace GetOptionKit\ValueType;
+
 use SplFileInfo;
 
 class PathType extends BaseType
@@ -14,5 +16,3 @@ class PathType extends BaseType
         return new SplFileInfo($value);
     }
 }
-
-

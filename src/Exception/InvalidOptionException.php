@@ -1,8 +1,9 @@
 <?php
+
 namespace GetOptionKit\Exception;
+
 use Exception;
 
-class InvalidOptionException extends Exception { }
-
-
-
+class InvalidOptionException extends Exception
+{
+}

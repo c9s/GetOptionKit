@@ -1,4 +1,5 @@
 <?php
+
 namespace GetOptionKit\ValueType;
 
 class Ipv6Type extends BaseType
@@ -8,7 +9,8 @@ class Ipv6Type extends BaseType
         return filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }
 
-    public function parse($value) {
+    public function parse($value)
+    {
         return strval($value);
     }
 }

@@ -1,10 +1,11 @@
 <?php
+
 namespace GetOptionKit\ValueType;
 
 abstract class BaseType
 {
     /**
-     * Type option
+     * Type option.
      * 
      * @var mixed
      */
@@ -12,19 +13,20 @@ abstract class BaseType
 
     public function __construct($option = null)
     {
-        if ($option)
+        if ($option) {
             $this->option = $option;
+        }
     }
 
     /**
-     * Test a value to see if it fit the type
+     * Test a value to see if it fit the type.
      *
      * @param mixed $value
      */
     abstract public function test($value);
 
     /**
-     * Parse a string value into it's type value
+     * Parse a string value into it's type value.
      *
      * @param mixed $value
      */

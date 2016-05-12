@@ -8,25 +8,23 @@
  * file that was distributed with this source code.
  *
  */
+
 namespace GetOptionKit;
+
 use ArrayIterator;
 use ArrayAccess;
-use Iterator;
 use IteratorAggregate;
-use GetOptionKit\Argument;
-use GetOptionKit\Option;
 
 /**
- * Define the getopt parsing result
+ * Define the getopt parsing result.
  *
  * create option result from array()
  *
  *     OptionResult::create($spec, array( 
  *         'key' => 'value'
  *     ), array( ... arguments ... ) );
- *
  */
-class OptionResult 
+class OptionResult
     implements IteratorAggregate, ArrayAccess
 {
     /**
@@ -39,7 +37,8 @@ class OptionResult
     /* arguments */
     public $arguments = array();
 
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->keys);
     }
 
@@ -63,12 +62,11 @@ class OptionResult
         //    get $options->baseDir as $option->{'base-dir'}
         $parts = preg_split('/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/', $key);
         if (sizeof($parts) > 1) {
-            $key = join('-', array_map('strtolower', $parts));
+            $key = implode('-', array_map('strtolower', $parts));
         }
         if (isset($this->keys[$key])) {
             return $this->keys[$key]->getValue();
         }
-
     }
 
     public function __set($key, $value)
@@ -93,55 +91,55 @@ class OptionResult
 
     public function getArguments()
     {
-        return array_map( function($e) { return $e->__toString(); }, $this->arguments );
+        return array_map(function ($e) { return $e->__toString(); }, $this->arguments);
     }
 
-    public function offsetSet($name,$value)
+    public function offsetSet($name, $value)
     {
         $this->keys[ $name ] = $value;
     }
-    
+
     public function offsetExists($name)
     {
         return isset($this->keys[ $name ]);
     }
-    
+
     public function offsetGet($name)
     {
         return $this->keys[ $name ];
     }
-    
+
     public function offsetUnset($name)
     {
         unset($this->keys[$name]);
     }
-    
+
     public function toArray()
     {
         $array = array();
-        foreach ($this->keys as $key => $option ) {
+        foreach ($this->keys as $key => $option) {
             $array[ $key ] = $option->getValue();
         }
+
         return $array;
     }
 
-    static function create($specs, array $values = array(), array $arguments = null)
+    public static function create($specs, array $values = array(), array $arguments = null)
     {
-        $new = new self;
+        $new = new self();
         foreach ($specs as $spec) {
             $id = $spec->getId();
             if (isset($values[$id])) {
                 $new->$id = $spec;
-                $spec->setValue( $values[$id] );
+                $spec->setValue($values[$id]);
             }
             if ($arguments) {
-                foreach ($arguments as $arg){
-                    $new->addArgument( new Argument( $arg ) );
+                foreach ($arguments as $arg) {
+                    $new->addArgument(new Argument($arg));
                 }
             }
         }
+
         return $new;
     }
-
 }
-
