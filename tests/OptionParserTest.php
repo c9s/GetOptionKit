@@ -364,10 +364,22 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException GetOptionKit\Exception\InvalidOptionException
      */
-    public function testParseInvalidOption()
+    public function testParseInvalidOptionException()
     {
         $parser = new OptionParser(new OptionCollection);
         $parser->parse(array('app','--foo'));
+    }
+
+    /**
+     * @expectedException GetOptionKit\Exception\RequireValueException
+     */
+    public function testParseOptionRequireValueException()
+    {
+        $options = new OptionCollection;
+        $options->add('name:=string', 'name');
+
+        $parser = new OptionParser($options);
+        $parser->parse(array('app','--name'));
     }
 
 
