@@ -37,17 +37,13 @@ Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://git
 
 ## Install From Composer
 
-```json
-{
-    "require": { 
-        "corneltek/getoptionkit": "~2"
-    }
-}
+```sh
+composer require corneltek/getoptionkit
 ```
 
-## Supported formats
+## Supported Option Formats
 
-flags:
+simple flags:
 
     program.php -a -b -c
     program.php -abc
