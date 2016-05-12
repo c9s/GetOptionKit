@@ -53,51 +53,68 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2016, $a['year']);
         $this->assertEquals(12, $a['month']);
         $this->assertEquals(30, $a['day']);
-
         $this->assertFalse($type->test('foo'));
     }
 
-    public function testBooleanType()
+
+
+    public function booleanTestProvider()
+    {
+        return [
+            ['true'  , true, true],
+            ['false' , true, false], 
+            ['0'     , true, false], 
+            ['1'     , true, true], 
+            ['foo'   , false, null], 
+            ['123'   , false, null], 
+        ];
+    }
+
+    /**
+     * @dataProvider booleanTestProvider
+     */
+    public function testBooleanType($a, $test, $expected)
     {
         $bool = new BooleanType;
-        $this->assertTrue( $bool->test('true') );
-        $this->assertTrue( $bool->test('false') );
-        $this->assertTrue( $bool->test('0') );
-        $this->assertTrue( $bool->test('1') );
-        $this->assertFalse( $bool->test('foo') );
-        $this->assertFalse( $bool->test('123') );
+        $this->assertEquals($test, $bool->test($a));
+        if ($bool->test($a)) {
+            $this->assertEquals($expected, $bool->parse($a));
+        }
     }
 
     public function testPathType()
     {
         $url = new PathType;
-        $this->assertTrue( $url->test('tests') );
-        $this->assertTrue($url->test('composer.json') );
+        $this->assertTrue($url->test('tests'));
+        $this->assertTrue($url->test('composer.json'));
         $this->assertFalse($url->test('foo/bar'));
+        $this->assertInstanceOf('SplFileInfo', $url->parse('composer.json'));
     }
 
     public function testUrlType()
     {
         $url = new UrlType;
-        ok( $url->test('http://t') );
-        ok( $url->test('http://t.c') );
+        $this->assertTrue($url->test('http://t'));
+        $this->assertTrue($url->test('http://t.c'));
         $this->assertFalse($url->test('t.c'));
+        $this->assertEquals('http://t.c', $url->parse('http://t.c'));
     }
 
     public function testIpType()
     {
         $ip = new IpType;
-        ok( $ip->test('192.168.25.58') );
-        ok( $ip->test('2607:f0d0:1002:51::4') );
-        ok( $ip->test('::1') );
+        $this->assertTrue($ip->test('192.168.25.58'));
+        $this->assertTrue($ip->test('2607:f0d0:1002:51::4'));
+        $this->assertTrue($ip->test('::1'));
         $this->assertFalse($ip->test('10.10.15.10/16'));
+        $this->assertEquals('10.10.15.10/16',$ip->parse('10.10.15.10/16'));
     }
 
     public function testIpv4Type()
     {
         $ipv4 = new Ipv4Type;
-        ok( $ipv4->test('192.168.25.58') );
-        ok( $ipv4->test('8.8.8.8') );
+        ok($ipv4->test('192.168.25.58'));
+        ok($ipv4->test('8.8.8.8'));
         $this->assertFalse($ipv4->test('2607:f0d0:1002:51::4'));
     }
 
@@ -112,8 +129,9 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
     public function testEmailType()
     {
         $email = new EmailType;
-        ok( $email->test('test@gmail.com') );
+        $this->assertTrue($email->test('test@gmail.com'));
         $this->assertFalse($email->test('test@test'));
+        $email->parse('test@gmail.com');
     }
 }
 
