@@ -7,7 +7,7 @@
     },
     "require-dev": {
         "corneltek/phpunit-testmore": "dev-master",
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "^1"
     },
     "license": "MIT",
     "authors": [ { "name": "Yo-An Lin", "email": "cornelius.howl@gmail.com" } ],
