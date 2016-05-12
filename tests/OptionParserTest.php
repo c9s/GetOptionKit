@@ -40,8 +40,8 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $parser = new OptionParser($options);
         $result = $parser->parse(array('a', '-n', '-1', '--', '......'));
 
-
         $this->assertTrue(isset($result->nice));
+        $this->assertTrue($result->has('nice'));
         $this->assertTrue(isset($result['nice']));
         $this->assertEquals(-1, $result['nice']->value);
 
@@ -51,6 +51,13 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $result['nice']->value);
 
         unset($result['nice']);
+    }
+
+    public function testCamelCaseOptionName()
+    {
+        $this->specs->add('base-dir:=dir' , 'I take path');
+        $result = $this->parser->parse(array('a', '--base-dir', 'src'));
+        $this->assertInstanceOf('SplFileInfo', $result->baseDir);
     }
 
     public function testOptionWithNegativeValue()
