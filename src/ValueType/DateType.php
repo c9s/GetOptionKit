@@ -1,6 +1,5 @@
 <?php
 namespace GetOptionKit\ValueType;
-use DateTime;
 
 class DateType extends BaseType
 {

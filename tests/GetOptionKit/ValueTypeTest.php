@@ -10,6 +10,7 @@ use GetOptionKit\ValueType\Ipv6Type;
 use GetOptionKit\ValueType\EmailType;
 use GetOptionKit\ValueType\PathType;
 use GetOptionKit\ValueType\DateType;
+use GetOptionKit\ValueType\DateTimeType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +20,8 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new BooleanType );
         ok( new StringType );
         ok( new FileType );
-        ok( new DateTime );
+        ok( new DateType );
+        ok( new DateTimeType );
         ok( new NumberType );
         ok( new UrlType );
         ok( new IpType );
@@ -28,6 +30,20 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new EmailType );
         ok( new PathType );
     }
+
+
+    public function testDateTimeType()
+    {
+        $type = new DateTimeType([ 'format' => 'Y-m-d' ]);
+        $this->assertTrue($type->test('2016-12-30'));
+        $a = $type->parse('2016-12-30');
+        $this->assertEquals(2016, $a->format('Y'));
+        $this->assertEquals(12, $a->format('m'));
+        $this->assertEquals(30, $a->format('d'));
+        $this->assertFalse($type->test('foo'));
+    }
+
+
 
     public function testDateType()
     {

@@ -12,7 +12,8 @@ abstract class BaseType
 
     public function __construct($option = null)
     {
-        if($option) $this->option = $option;
+        if ($option)
+            $this->option = $option;
     }
 
     /**
