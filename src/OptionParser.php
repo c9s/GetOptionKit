@@ -108,9 +108,10 @@ class OptionParser
         $result = new OptionResult();
         list($argv, $extra) = $this->preprocessingArguments($argv);
 
-        foreach ($this->specs as $spec) {
-            if ($spec->defaultValue !== null) {
-                $result->set($spec->getId(), $spec);
+        foreach ($this->specs as $opt) {
+            if ($opt->defaultValue !== null) {
+                $opt->setValue($opt->defaultValue);
+                $result->set($opt->getId(), $opt);
             }
         }
 
