@@ -9,7 +9,7 @@ php:
 
 before_script:
 - phpenv rehash
-- composer install --no-interaction
+- composer update --no-interaction
 - mkdir -p build/logs
 
 script:
