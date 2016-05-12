@@ -131,9 +131,10 @@ class ContinuousOptionParser extends OptionParser
         $this->length = count($this->argv);
 
         // register option result from options with default value 
-        foreach ($this->specs as $spec) {
-            if ($spec->defaultValue !== null) {
-                $result->set($spec->getId(), $spec);
+        foreach ($this->specs as $opt) {
+            if ($opt->defaultValue !== null) {
+                $opt->setValue($opt->defaultValue);
+                $result->set($opt->getId(), $opt);
             }
         }
 
@@ -176,9 +177,7 @@ class ContinuousOptionParser extends OptionParser
                 if (!$this->foundRequireValue($spec, $arg, $next)) {
                     throw new RequireValueException("Option '{$arg->getOptionName()}' requires a value.");
                 }
-
-                $this->takeOptionValue($spec, $arg, $next);
-                if ($next && !$next->anyOfOptions($this->specs)) {
+                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
                     ++$this->index;
                 }
                 $result->set($spec->getId(), $spec);
@@ -189,8 +188,8 @@ class ContinuousOptionParser extends OptionParser
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isOptional()) {
-                $this->takeOptionValue($spec, $arg, $next);
-                if (($spec->value || $spec->defaultValue) && $next && !$next->anyOfOptions($this->specs)) {
+                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
+                    // if (($spec->value || $spec->defaultValue) && $next && !$next->anyOfOptions($this->specs)) {
                     ++$this->index;
                 }
                 $result->set($spec->getId(), $spec);

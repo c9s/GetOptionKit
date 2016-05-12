@@ -31,20 +31,31 @@ class OptionParser
         $this->specs = $specs;
     }
 
-    /* take option value from current argument or from the next argument */
-    protected function takeOptionValue(Option $spec, $arg, $next)
+    /**
+     * consume option value from current argument or from the next argument
+     *
+     * @return boolean next token consumed?
+     */
+    protected function consumeOptionValue(Option $spec, $arg, $next)
     {
         if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
+            return 1;
         } else if ($spec->defaultValue) {
+            // if (($spec->value || $spec->defaultValue) && $next && !$next->isOption()) {
             $spec->setValue($spec->defaultValue);
+            return 0;
         } else if ($spec->isFlag()) {
             $spec->setValue(true);
+            return 0;
         } else if ($next && !$next->isEmpty()) {
             $spec->setValue($next->arg);
+            return 1;
         } else {
             $spec->setValue(true);
+            return 0;
         }
+        return false;
     }
 
     /* 
@@ -156,8 +167,7 @@ class OptionParser
                 if (!$this->foundRequireValue($spec, $arg, $next)) {
                     throw new RequireValueException("Option {$arg->getOptionName()} requires a value. given '{$next}'");
                 }
-                $this->takeOptionValue($spec, $arg, $next);
-                if ($next && !$next->anyOfOptions($this->specs)) {
+                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
@@ -168,8 +178,7 @@ class OptionParser
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isOptional()) {
-                $this->takeOptionValue($spec, $arg, $next);
-                if (($spec->value || $spec->defaultValue) && $next && !$next->isOption()) {
+                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
