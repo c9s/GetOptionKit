@@ -173,27 +173,11 @@ class ContinuousOptionParser extends OptionParser
                 throw new InvalidOptionException('Invalid option: '.$arg);
             }
 
-            if ($spec->isRequired()) {
-                if (!$this->foundRequireValue($spec, $arg, $next)) {
-                    throw new RequireValueException("Option '{$arg->getOptionName()}' requires a value.");
-                }
+            if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
                 $this->index += $this->consumeOptionToken($spec, $arg, $next);
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isMultiple()) {
-                $this->pushOptionValue($spec, $arg, $next);
-                if ($next && !$next->anyOfOptions($this->specs)) {
-                    ++$this->index;
-                }
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isOptional()) {
-                // if (($spec->value || $spec->defaultValue) && $next && !$next->anyOfOptions($this->specs)) {
-                $this->index += $this->consumeOptionToken($spec, $arg, $next);
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isFlag()) {
-                $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
-                throw new Exception('Unknown attribute.');
+                throw new Exception('Unknown option type');
             }
         }
 

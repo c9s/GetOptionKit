@@ -41,12 +41,30 @@ class OptionParser
         // Check options doesn't require next token before 
         // all options that require values.
         if ($spec->isFlag()) {
+
             if ($spec->isIncremental()) {
                 $spec->increaseValue();
             } else {
                 $spec->setValue(true);
             }
             return 0;
+
+        } else if ($spec->isRequired()) {
+
+            if ($next && !$next->isEmpty() && !$next->anyOfOptions($this->specs)) {
+                $spec->setValue($next->arg);
+                return 1;
+            } else {
+                throw new RequireValueException("Option '{$arg->getOptionName()}' requires a value.");
+            }
+
+        } else if ($spec->isMultiple()) {
+
+            if ($next && !$next->isEmpty() && !$next->anyOfOptions($this->specs)) {
+                $this->pushOptionValue($spec, $arg, $next);
+                return 1;
+            }
+
         } else if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
             return 1;
@@ -72,16 +90,6 @@ class OptionParser
         if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->pushValue($next->arg);
         }
-    }
-
-    protected function foundRequireValue(Option $spec, $arg, $next)
-    {
-        /* argument doesn't contain value and next argument is option */
-        if ($next && !$next->isEmpty() && !$next->anyOfOptions($this->specs)) {
-            return true;
-        }
-
-        return false;
     }
 
     protected function preprocessingArguments(array $argv)
@@ -168,27 +176,11 @@ class OptionParser
             if (!$spec) {
                 throw new InvalidOptionException('Invalid option: '.$arg);
             }
-
-            if ($spec->isRequired()) {
-                if (!$this->foundRequireValue($spec, $arg, $next)) {
-                    throw new RequireValueException("Option {$arg->getOptionName()} requires a value. given '{$next}'");
-                }
+            if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
                 $i += $this->consumeOptionToken($spec, $arg, $next);
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isMultiple()) {
-                $this->pushOptionValue($spec, $arg, $next);
-                if ($next && !$next->isOption()) {
-                    ++$i;
-                }
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isOptional()) {
-                $i += $this->consumeOptionToken($spec, $arg, $next);
-                $result->set($spec->getId(), $spec);
-            } else if ($spec->isFlag()) {
-                $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
-                throw new Exception('Unknown attribute.');
+                throw new Exception('Unknown option type');
             }
         }
 
