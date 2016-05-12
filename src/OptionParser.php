@@ -65,20 +65,12 @@ class OptionParser
                 return 1;
             }
 
-        } else if ($next && !$next->anyOfOptions($this->specs)) {
+        } else if ($spec->isOptional() && $next && !$next->isEmpty() && !$next->anyOfOptions($this->specs)) {
+
             $spec->setValue($next->arg);
             return 1;
-        } else if ($spec->defaultValue) {
-            // if (($spec->value || $spec->defaultValue) && $next && !$next->isOption()) {
-            $spec->setValue($spec->defaultValue);
-            return 0; 
-        } else if ($next && !$next->isEmpty()) {
-            $spec->setValue($next->arg);
-            return 1;
-        } else {
-            $spec->setValue(true);
-            return 0;
-        }
+
+        } 
         return 0;
     }
 
