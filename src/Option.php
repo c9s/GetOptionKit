@@ -257,14 +257,11 @@ class Option
         $val = $value;
 
         if ($isa = ucfirst($this->isa)) {
-            if ($type = $this->getTypeClass()) {
-                if ($type->test($value)) {
-                    $val = $type->parse($value);
-                } else {
-                    throw new InvalidOptionValue("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
-                }
+            $type = $this->getTypeClass();
+            if ($type->test($value)) {
+                $val = $type->parse($value);
             } else {
-                throw new LogicException("Type class of $isa not found.");
+                throw new InvalidOptionValue("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
             }
         }
 
