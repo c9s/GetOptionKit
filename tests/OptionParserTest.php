@@ -315,6 +315,14 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testParseWithoutProgramName()
+    {
+        $parser = new OptionParser(new OptionCollection);
+        $parser->parse(array('--foo'));
+    }
 
     public function testMore()
     {
