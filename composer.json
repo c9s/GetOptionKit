@@ -10,13 +10,7 @@
         "satooshi/php-coveralls": "dev-master"
     },
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Yo-An Lin",
-            "email": "cornelius.howl@gmail.com",
-            "homepage": "http://c9s.me"
-        }
-    ],
+    "authors": [ { "name": "Yo-An Lin", "email": "cornelius.howl@gmail.com" } ],
     "autoload": {
         "psr-4": {
             "GetOptionKit\\": "src/GetOptionKit/"
