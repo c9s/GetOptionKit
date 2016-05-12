@@ -162,6 +162,18 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertSame([1,2,3],$result->bar);
     }
 
+
+    public function testDefaultValue()
+    {
+        $opts = new OptionCollection;
+        $opts->add('p|proc?=number' , 'option with required value')
+            ->defaultValue(10)
+            ;
+        $parser = new OptionParser($opts);
+        $result = $parser->parse(explode(' ','app --proc'));
+        $this->assertEquals(10, $result['proc']->value);
+    }
+
     public function testMultipleString()
     {
         $opts = new OptionCollection;
