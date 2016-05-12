@@ -7,11 +7,10 @@ class DateType extends BaseType
     public function test($value)
     {
         $a = date_parse($value);
-        if ($a === false) {
+        if ($a === false || $a['error_count'] > 0) {
             return false;
         }
-
-        return $a['error_count'] == 0;
+        return true;
     }
 
     public function parse($value)
