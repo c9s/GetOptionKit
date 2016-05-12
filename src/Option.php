@@ -73,11 +73,9 @@ class Option
      */
     protected $trigger;
 
-    public function __construct($specString = null)
+    public function __construct($specString)
     {
-        if ($specString) {
-            $this->initFromSpecString($specString);
-        }
+        $this->initFromSpecString($specString);
     }
 
     /**
