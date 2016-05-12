@@ -15,17 +15,19 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
     function test()
     {
         $arg = new Argument( '--option' );
-        ok( $arg->isLongOption() );
-        not_ok( $arg->isShortOption() );
-        is( 'option' , $arg->getOptionName() );
+        $this->assertTrue( $arg->isLongOption() );
+        $this->assertFalse( $arg->isShortOption() );
+        $this->assertEquals('option' , $arg->getOptionName());
+
+        $this->assertEquals(null, $arg->getOptionValue());
     }
 
     function test2()
     {
-        $arg = new Argument( '--option=value' );
+        $arg = new Argument('--option=value');
         ok( $arg->containsOptionValue() );
-        is( 'value' , $arg->getOptionValue() );
-        is( 'option' , $arg->getOptionName() );
+        $this->assertEquals('value' , $arg->getOptionValue());
+        $this->assertEquals('option' , $arg->getOptionName());
     }
 
     function test3()

@@ -62,13 +62,6 @@ class Argument
     }
 
 
-    public function getOption() {
-        if (preg_match('/^([-]+[a-zA-Z0-9-]+)/', $this->arg, $regs)) {
-            return $regs[1];
-        }
-    }
-
-
     /**
      * Parse option and return the name after dash. e.g., 
      * '--foo' returns 'foo'
@@ -97,6 +90,7 @@ class Argument
         if (preg_match('/=(.+)/',$this->arg,$regs)) {
             return $regs[1];
         }
+        return null;
     }
 
     /** 
