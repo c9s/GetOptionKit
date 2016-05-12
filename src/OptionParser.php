@@ -36,7 +36,7 @@ class OptionParser
      *
      * @return boolean next token consumed?
      */
-    protected function consumeOptionToken(Option $spec, $arg, $next)
+    protected function consumeOptionToken(Option $spec, $arg, $next, & $success = false)
     {
         // Check options doesn't require next token before 
         // all options that require values.
@@ -61,7 +61,7 @@ class OptionParser
             $spec->setValue(true);
             return 0;
         }
-        return false;
+        return 0;
     }
 
     /* 
@@ -173,9 +173,7 @@ class OptionParser
                 if (!$this->foundRequireValue($spec, $arg, $next)) {
                     throw new RequireValueException("Option {$arg->getOptionName()} requires a value. given '{$next}'");
                 }
-                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
-                    ++$i;
-                }
+                $i += $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isMultiple()) {
                 $this->pushOptionValue($spec, $arg, $next);
@@ -184,9 +182,7 @@ class OptionParser
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isOptional()) {
-                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
-                    ++$i;
-                }
+                $i += $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isFlag()) {
                 $this->consumeOptionToken($spec, $arg, $next);
