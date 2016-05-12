@@ -93,7 +93,11 @@ class Option
                     (?:[a-zA-Z0-9-]+)
                 )?
         )
+
+        # option attribute operators
         ([:+?])?
+
+        # value types
         (?:=(boolean|string|number|date|file|url|email|ip|ipv6|ipv4))?
         /x';
 
