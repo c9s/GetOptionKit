@@ -2,6 +2,8 @@ GetOptionKit
 ============
 
 [![Build Status](https://travis-ci.org/c9s/GetOptionKit.svg?branch=master)](https://travis-ci.org/c9s/GetOptionKit)
+[![Coverage Status](https://coveralls.io/repos/github/c9s/GetOptionKit/badge.svg?branch=master)](https://coveralls.io/github/c9s/GetOptionKit?branch=master)
+
 [![Latest Stable Version](https://poser.pugx.org/corneltek/getoptionkit/v/stable)](https://packagist.org/packages/corneltek/getoptionkit) 
 [![Latest Unstable Version](https://poser.pugx.org/corneltek/getoptionkit/v/unstable)](https://packagist.org/packages/corneltek/getoptionkit) 
 [![Total Downloads](https://poser.pugx.org/corneltek/getoptionkit/downloads)](https://packagist.org/packages/corneltek/getoptionkit) 
