@@ -129,7 +129,26 @@ class OptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('--scope=(public,private)',$opt->renderReadableSpec(true));
     }
 
-    public function testValidValues() {
+    public function testTrigger()
+    {
+        $opt = new Option('scope');
+        $opt->validValues([ 'public', 'private' ]);
+
+        $state = 0;
+        $opt->trigger(function($val) use(& $state) {
+            $state++;
+        });
+        $this->assertNotEmpty($opt->getValidValues());
+        $opt->setValue('public');
+
+        $this->assertEquals(1, $state);
+        $opt->setValue('private');
+        $this->assertEquals(2, $state);
+
+    }
+
+    public function testValidValues()
+    {
         $opt = new Option('scope');
         $opt->validValues([ 'public', 'private' ])
             ;
@@ -140,6 +159,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
         $opt->setValue('private');
         $this->assertEquals('private',$opt->value);
         $this->assertEquals('--scope=(public,private)',$opt->renderReadableSpec(true));
+        $this->assertNotEmpty($opt->__toString());
     }
 
 
