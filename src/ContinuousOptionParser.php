@@ -93,6 +93,9 @@ class ContinuousOptionParser extends OptionParser
         $this->index = 1;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function startFrom($index)
     {
         $this->index = $index;

@@ -70,6 +70,18 @@ class OptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('--scope', $opt->renderReadableSpec(true));
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testValidatorReturnValue()
+    {
+        $opt = new Option('scope');
+        $opt->validator(function($val) {
+            return 123454;
+        });
+        $ret = $opt->validate('public');
+    }
+
     public function testOptionWithoutValidator()
     {
         $opt = new Option('scope');
