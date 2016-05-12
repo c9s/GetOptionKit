@@ -150,12 +150,12 @@ class Option
      */
     public function getId()
     {
-        if( $this->key )
+        if ($this->key) {
             return $this->key;
-        if( $this->long )
+        } else if ($this->long) {
             return $this->long;
-        if( $this->short )
-            return $this->short;
+        }
+        return $this->short;
     }
 
     /**

@@ -54,14 +54,6 @@ class OptionParser
     }
 
 
-
-
-    /* detect option */
-    public function isOption($arg)
-    {
-        return substr($arg,0,1) === '-';
-    }
-
     /* take option value from current argument or from the next argument */
     public function takeOptionValue(Option $spec, $arg, $next)
     {
