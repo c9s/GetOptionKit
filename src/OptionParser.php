@@ -34,7 +34,7 @@ class OptionParser
     }
 
     /* take option value from current argument or from the next argument */
-    public function takeOptionValue(Option $spec, $arg, $next)
+    protected function takeOptionValue(Option $spec, $arg, $next)
     {
         if ($next && !$next->anyOfOptions($this->specs)) {
             $spec->setValue($next->arg);
@@ -52,14 +52,14 @@ class OptionParser
     /* 
      * push value to multipl value option
      */
-    public function pushOptionValue(Option $spec,$arg,$next)
+    protected function pushOptionValue(Option $spec, $arg,$next)
     {
         if ($next && ! $next->anyOfOptions($this->specs)) {
             $spec->pushValue( $next->arg );
         }
     }
 
-    public function foundRequireValue(Option $spec,$arg,$next)
+    protected function foundRequireValue(Option $spec, $arg,$next)
     {
         /* argument doesn't contain value and next argument is option */
         if ($next && ! $next->isEmpty() && !$next->anyOfOptions($this->specs)) {
@@ -68,8 +68,7 @@ class OptionParser
         return false;
     }
 
-
-    public function preprocessingArguments(array $argv)
+    protected function preprocessingArguments(array $argv)
     {
         // preprocessing arguments
         $newArgv = array();
