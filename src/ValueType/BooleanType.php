@@ -8,8 +8,8 @@ class BooleanType extends BaseType
     {
         if (is_string($value)) {
             $value = strtolower($value);
-
-            return '0' == $value || '1' == $value || 'true' == $value || 'false' == $value;
+            return '0' === $value || '1' === $value 
+                || 'true' === $value || 'false' === $value;
         }
 
         return is_bool($value);
@@ -18,10 +18,10 @@ class BooleanType extends BaseType
     public function parse($value)
     {
         $value = strtolower($value);
-        if ($value == '0' || $value == 'false') {
+        if ($value === '0' || $value === 'false') {
             return false;
         }
-        if ($value == '1' || $value == 'true') {
+        if ($value === '1' || $value === 'true') {
             return true;
         }
 
