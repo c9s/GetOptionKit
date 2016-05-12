@@ -9,6 +9,7 @@ use GetOptionKit\ValueType\Ipv4Type;
 use GetOptionKit\ValueType\Ipv6Type;
 use GetOptionKit\ValueType\EmailType;
 use GetOptionKit\ValueType\PathType;
+use GetOptionKit\ValueType\DateType;
 
 class ValueTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -18,6 +19,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new BooleanType );
         ok( new StringType );
         ok( new FileType );
+        ok( new DateTime );
         ok( new NumberType );
         ok( new UrlType );
         ok( new IpType );
@@ -25,6 +27,18 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new Ipv6Type );
         ok( new EmailType );
         ok( new PathType );
+    }
+
+    public function testDateType()
+    {
+        $type = new DateType;
+        $this->assertTrue($type->test('2016-12-30'));
+        $a = $type->parse('2016-12-30');
+        $this->assertEquals(2016, $a['year']);
+        $this->assertEquals(12, $a['month']);
+        $this->assertEquals(30, $a['day']);
+
+        $this->assertFalse($type->test('foo'));
     }
 
     public function testBooleanType()
