@@ -148,7 +148,7 @@ class OptionCollection
     public function find($name)
     {
         foreach ($this->options as $option) {
-            if ($option->short == $name || $option->long == $name) {
+            if ($option->short === $name || $option->long === $name) {
                 return $option;
             }
         }

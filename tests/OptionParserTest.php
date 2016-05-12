@@ -105,8 +105,17 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('d', $opt->short);
         $this->assertTrue($opt->isFlag());
 
+        return $options;
+    }
+
+    /**
+     * @depends testSpec
+     */
+    public function testOptionFinder($options)
+    {
         $this->assertNotNull($options->find('f'));
         $this->assertNotNull($options->find('foo'));
+        $this->assertNull($options->find('xyz'));
     }
 
     public function testRequire()
