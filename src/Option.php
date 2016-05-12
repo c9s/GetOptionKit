@@ -243,17 +243,13 @@ class Option
         if (class_exists($class, true)) {
             return new $class($this->isaOption);
         }
-
-        return false;
+        throw new Exception("Type class '$class' not found.");
     }
 
     public function testValue($value)
     {
-        if ($type = $this->getTypeClass()) {
-            return $type->test($value);
-        }
-
-        return true; // always true if type class is not found.
+        $type = $this->getTypeClass();
+        return $type->test($value);
     }
 
     protected function _preprocessValue($value)

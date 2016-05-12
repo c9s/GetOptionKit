@@ -71,6 +71,16 @@ class OptionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException Exception
+     */
+    public function testInvalidTypeClass()
+    {
+        $opt = new Option('scope');
+        $opt->isa('SomethingElse');
+        $class = $opt->getTypeClass();
+    }
+
+    /**
      * @expectedException InvalidArgumentException
      */
     public function testValidatorReturnValue()
