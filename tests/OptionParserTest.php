@@ -74,9 +74,9 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
 
         $spec = $this->specs->get( 'debug' );
         $this->assertNotNull( $spec );
-        is_class( 'GetOptionKit\\Option', $spec );
-        is( 'debug', $spec->long );
-        is( 'd', $spec->short );
+        $this->assertInstanceOf('GetOptionKit\\Option', $spec);
+        is('debug', $spec->long);
+        is('d', $spec->short);
         $this->assertTrue( $spec->isFlag() );
     }
 
@@ -302,6 +302,16 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         is( 'foo value', $result->foo );
         ok( $result->verbose );
         ok( $result->debug );
+
+        foreach ($result as $k => $v) {
+            $this->assertTrue(in_array($k, ['foo','bar','zoo','verbose', 'debug']));
+            $this->assertInstanceOf('GetOptionKit\\Option', $v);
+        }
+        $this->assertSame([
+            'foo' => 'foo value',
+            'verbose' => true,
+            'debug' => true
+        ], $result->toArray());
 
         $result = $this->parser->parse( array('a', '-f=foo value' , '-v' , '-d' ) );
         ok( $result );
