@@ -64,6 +64,9 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $options->add( 'z|zoo?' , 'option with optional value' );
         $options->add( 'v|verbose' , 'verbose message' );
         $options->add( 'd|debug'   , 'debug message' );
+        $this->assertEquals(5, $options->size());
+        $this->assertEquals(5, count($options));
+
 
         $opt = $options->get('foo');
         $this->assertTrue($opt->isRequired());
