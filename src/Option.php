@@ -296,7 +296,7 @@ class Option
         return $val;
     }
 
-    public function callTrigger()
+    protected function callTrigger()
     {
         if ($this->trigger) {
             if ($ret = call_user_func($this->trigger, $this->value)) {
