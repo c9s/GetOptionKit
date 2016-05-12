@@ -1,14 +1,15 @@
 <?php
-require 'Argument.php';
-require 'Exception/NonNumericException.php';
-require 'Exception/InvalidOptionException.php';
-require 'Exception/RequireValueException.php';
-require 'OptionResult.php';
-require 'Option.php';
-require 'OptionCollection.php';
-require 'OptionPrinterInterface.php';
-require 'OptionPrinter.php';
-require 'OptionParser.php';
-require 'GetOptionKit.php';
-require 'ContinuousOptionParser.php';
-require 'ContinuousOptionKit.php';
+/**
+ * @codeCoverageIgnore
+ */
+require __DIR__ . '/Argument.php';
+require __DIR__ . '/Exception/NonNumericException.php';
+require __DIR__ . '/Exception/InvalidOptionException.php';
+require __DIR__ . '/Exception/RequireValueException.php';
+require __DIR__ . '/OptionResult.php';
+require __DIR__ . '/Option.php';
+require __DIR__ . '/OptionCollection.php';
+require __DIR__ . '/OptionPrinter/OptionPrinterInterface.php';
+require __DIR__ . '/OptionPrinter/ConsoleOptionPrinter.php';
+require __DIR__ . '/OptionParser.php';
+require __DIR__ . '/ContinuousOptionParser.php';
