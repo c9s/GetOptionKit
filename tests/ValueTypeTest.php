@@ -31,7 +31,7 @@ class ValueTypeTest extends PHPUnit_Framework_TestCase
         ok( new Ipv6Type );
         ok( new EmailType );
         ok( new PathType );
-        ok( new RegexType );
+        ok( new RegexType("/[a-z]/"));
     }
 
 

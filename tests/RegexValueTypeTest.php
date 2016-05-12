@@ -4,11 +4,6 @@ use GetOptionKit\ValueType\RegexType;
 
 class RegexValueTypeTest extends PHPUnit_Framework_TestCase
 {
-    public function testTypeClass() 
-    {
-        ok(new RegexType);
-    }
-
     public function testOption()
     {
         $regex = new RegexType('#^Test$#');
