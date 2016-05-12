@@ -33,27 +33,6 @@ class OptionParser
         $this->specs = $specs;
     }
 
-
-    /* a helper to build option specification object from string spec 
-     *
-     * @param $specString string
-     * @param $description string
-     * @param $key
-     *
-     * */
-    public function addSpec($specString, $description , $key = null ) 
-    {
-        $spec = $this->specs->add($specString,$description,$key);
-        return $spec;
-    }
-
-    /* get option specification by Id */
-    public function getSpec($id)
-    {
-        return $this->specs->get($id);
-    }
-
-
     /* take option value from current argument or from the next argument */
     public function takeOptionValue(Option $spec, $arg, $next)
     {
