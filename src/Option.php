@@ -134,9 +134,6 @@ class Option
         } else if (strpos($attributes, '?') !== false) {
             // option is optional.(zero or one value)
             $this->optional();
-        } else if (strpos($attributes, '*') !== false) {
-            // option is multiple value and optional (zero or more)
-            throw new Exception('not implemented yet');
         } else {
             $this->flag();
         }

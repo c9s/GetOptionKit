@@ -344,7 +344,6 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
     {
         $opts = new OptionCollection();
         $opts->add($specString, $desc);
-
         $parser = new OptionParser($opts);
         foreach ($argvList as $argv) {
             $res = $parser->parse($argv);
