@@ -16,6 +16,11 @@ class ConsoleOptionPrinterTest extends PHPUnit_Framework_TestCase
         $options->add('z|zoo?', 'option with optional value.' )
             ->isa('Boolean')
             ;
+
+        $options->add('n', 'n flag' );
+
+        $options->add('verbose', 'verbose');
+
         $options->add('o|output?', 'option with optional value.' )
             ->isa('File')
             ->defaultValue('output.txt')
