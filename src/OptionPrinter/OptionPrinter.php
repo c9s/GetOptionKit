@@ -3,7 +3,7 @@ namespace GetOptionKit\OptionPrinter;
 use GetOptionKit\OptionCollection;
 use GetOptionKit\Option;
 
-interface OptionPrinterInterface {
+interface OptionPrinter {
     public function renderOption(Option $option);
     public function render(OptionCollection $options);
 }

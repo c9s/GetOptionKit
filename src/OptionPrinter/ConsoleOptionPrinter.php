@@ -11,9 +11,9 @@
 namespace GetOptionKit\OptionPrinter;
 use GetOptionKit\OptionCollection;
 use GetOptionKit\Option;
-use GetOptionKit\OptionPrinter\OptionPrinterInterface;
+use GetOptionKit\OptionPrinter\OptionPrinter;
 
-class ConsoleOptionPrinter implements OptionPrinterInterface
+class ConsoleOptionPrinter implements OptionPrinter
 {
 
     public $screenWidth = 78;
