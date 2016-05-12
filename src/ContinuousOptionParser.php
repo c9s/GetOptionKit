@@ -177,7 +177,7 @@ class ContinuousOptionParser extends OptionParser
                 if (!$this->foundRequireValue($spec, $arg, $next)) {
                     throw new RequireValueException("Option '{$arg->getOptionName()}' requires a value.");
                 }
-                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
+                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
                     ++$this->index;
                 }
                 $result->set($spec->getId(), $spec);
@@ -188,13 +188,13 @@ class ContinuousOptionParser extends OptionParser
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isOptional()) {
-                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
+                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
                     // if (($spec->value || $spec->defaultValue) && $next && !$next->anyOfOptions($this->specs)) {
                     ++$this->index;
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isFlag()) {
-                $this->consumeOptionValue($spec, $arg, $next);
+                $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
                 throw new Exception('Unknown attribute.');

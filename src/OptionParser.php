@@ -36,7 +36,7 @@ class OptionParser
      *
      * @return boolean next token consumed?
      */
-    protected function consumeOptionValue(Option $spec, $arg, $next)
+    protected function consumeOptionToken(Option $spec, $arg, $next)
     {
         // Check options doesn't require next token before 
         // all options that require values.
@@ -173,7 +173,7 @@ class OptionParser
                 if (!$this->foundRequireValue($spec, $arg, $next)) {
                     throw new RequireValueException("Option {$arg->getOptionName()} requires a value. given '{$next}'");
                 }
-                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
+                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
@@ -184,12 +184,12 @@ class OptionParser
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isOptional()) {
-                if ($this->consumeOptionValue($spec, $arg, $next) > 0) {
+                if ($this->consumeOptionToken($spec, $arg, $next) > 0) {
                     ++$i;
                 }
                 $result->set($spec->getId(), $spec);
             } else if ($spec->isFlag()) {
-                $this->consumeOptionValue($spec, $arg, $next);
+                $this->consumeOptionToken($spec, $arg, $next);
                 $result->set($spec->getId(), $spec);
             } else {
                 throw new Exception('Unknown attribute.');
