@@ -15,6 +15,7 @@ namespace GetOptionKit;
 use ArrayIterator;
 use IteratorAggregate;
 use Countable;
+use Exception;
 
 class OptionCollection
     implements IteratorAggregate, Countable
@@ -75,7 +76,7 @@ class OptionCollection
         $first = $args[0];
 
         if (is_object($first) && $first instanceof Option) {
-            $this->addObject($first);
+            $this->addOption($first);
         } else if (is_string($first)) {
             $specString = $args[0];
             $desc = isset($args[1]) ? $args[1] : null;
@@ -102,18 +103,18 @@ class OptionCollection
      *
      * @param object $spec the option object.
      */
-    public function addObject(Option $spec)
+    public function addOption(Option $spec)
     {
-        $this->data[ $spec->getId() ] = $spec;
+        $this->data[$spec->getId()] = $spec;
         if ($spec->long) {
-            $this->longOptions[ $spec->long ] = $spec;
+            $this->longOptions[$spec->long] = $spec;
         }
         if ($spec->short) {
-            $this->shortOptions[ $spec->short ] = $spec;
+            $this->shortOptions[$spec->short] = $spec;
         }
         $this->options[] = $spec;
         if (!$spec->long && !$spec->short) {
-            throw new Exception('Wrong option spec');
+            throw new Exception('Neither long option name nor short name is not given.');
         }
     }
 
