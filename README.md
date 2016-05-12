@@ -166,7 +166,29 @@ try {
 }
 ```
 
-Option value type:
+
+## Documentation
+
+See <https://github.com/c9s/GetOptionKit/wiki> for more details.
+
+### Option Value Type
+
+The option value type help you validate the input,
+the following list is the current supported types:
+
+- `string`
+- `number`
+- `boolean`
+- `file`
+- `date`
+- `url`
+- `email`
+- `ip`
+- `ipv4`
+- `ipv6`
+- `regex`
+
+And here is the related sample code:
 
 ```php
 $opt->add( 'f|foo:' , 'with string type value' )
@@ -205,8 +227,7 @@ $specs->add('r|regex:', 'with custom regex type value')
 
 > Please note that currently only `string`, `number`, `boolean` types can be validated.
 
-
-More low-level usage:
+### ContinuousOptionParser
 
 ```php
 $specs = new OptionCollection;
@@ -221,6 +242,8 @@ $result = $parser->parse(explode(' ','program -v -d test -a -b -c subcommand -e 
 $result2 = $parser->continueParse();
 ```
 
+### OptionPrinter
+
 GetOptionKit\OptionPrinter can print options for you:
 
     * Available options:
@@ -233,7 +256,7 @@ GetOptionKit\OptionPrinter can print options for you:
                          -s   short option name only.
 
 
-## For Command-line application with subcommands
+## Command-line app with subcommands
 
 For application with subcommands is designed by following form:
 
@@ -283,10 +306,9 @@ while (! $parser->isEnd()) {
 ## Todo
 
 * Option Spec group.
-* Named option value.
-* Conflict option checking.
+* conflict option checking.
 * option valid value checking.
-* Custom command mapping.
+* custom command mapping.
 
 ## Command Line Utility Design Concept
 
@@ -311,19 +333,12 @@ Fork this repository and clone it:
 
     $ git clone git://github.com/c9s/GetOptionKit.git
     $ cd GetOptionKit
-    $ composer install --dev
+    $ composer install
 
 Run PHPUnit to test:
 
     $ phpunit 
 
-
 ## License
 
-MIT License
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/c9s/getoptionkit/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+This project is released under MIT License.
