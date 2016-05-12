@@ -181,6 +181,20 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertSame(['a','b','c'], $result->getArguments());
     }
 
+    public function testParseIncrementalOption()
+    {
+        $opts = new OptionCollection;
+        $opts->add('v|verbose' , 'verbose')
+            ->isa("number")
+            ->incremental();
+
+        $parser = new OptionParser($opts);
+        $result = $parser->parse(explode(' ','app -vvv arg1 arg2'));
+        $this->assertInstanceOf('GetOptionKit\Option',$result['verbose']); 
+        $this->assertNotNull($result['verbose']);
+        $this->assertEquals(3, $result['verbose']->value);
+    }
+
 
     /**
      * @expectedException Exception
@@ -262,6 +276,7 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         ok($result->a);
         ok($result->b);
     }
+
 
     public function testSpecCollection()
     {
