@@ -45,24 +45,32 @@ composer require corneltek/getoptionkit
 
 simple flags:
 
-    program.php -a -b -c
-    program.php -abc
-    program.php -vvv   # incremental flag v=3
-    program.php -a -bc
+```sh
+program.php -a -b -c
+program.php -abc
+program.php -vvv   # incremental flag v=3
+program.php -a -bc
+```
 
 with multiple values:
 
-    program.php -a foo -a bar -a zoo -b -b -b
+```sh
+program.php -a foo -a bar -a zoo -b -b -b
+```
 
 specify value with equal sign:
 
-    program.php -a=foo
-    program.php --long=foo
+```sh
+program.php -a=foo
+program.php --long=foo
+```
 
 with normal arguments:
 
-    program.php -a=foo -b=bar arg1 arg2 arg3
-    program.php arg1 arg2 arg3 -a=foo -b=bar
+```
+program.php -a=foo -b=bar arg1 arg2 arg3
+program.php arg1 arg2 arg3 -a=foo -b=bar
+```
 
 ## Option SPEC
 
@@ -92,7 +100,9 @@ Please check `examples/demo.php`.
 
 Run:
 
-    % php examples/demo.php -f test -b 123 -b 333
+```sh
+% php examples/demo.php -f test -b 123 -b 333
+```
 
 Print:
 
