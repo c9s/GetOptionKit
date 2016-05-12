@@ -73,9 +73,9 @@ class Option
      */
     protected $trigger;
 
-    public function __construct($specString)
+    public function __construct($spec)
     {
-        $this->initFromSpecString($specString);
+        $this->initFromSpecString($spec);
     }
 
     /**
@@ -83,7 +83,7 @@ class Option
      *
      * @param string $specString
      */
-    public function initFromSpecString($specString)
+    protected function initFromSpecString($specString)
     {
         $pattern = '/
         (

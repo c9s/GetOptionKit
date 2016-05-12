@@ -10,6 +10,7 @@
  */
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
+use GetOptionKit\Option;
 
 class OptionParserTest extends PHPUnit_Framework_TestCase 
 {
@@ -20,6 +21,15 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
     {
         $this->specs = new OptionCollection;
         $this->parser = new OptionParser($this->specs);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testInvalidOption()
+    {
+        $options = new OptionCollection;
+        $options->addOption(new Option(0));
     }
 
 
