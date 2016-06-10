@@ -168,7 +168,7 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $result = $parser->parse(explode(' ','app --bar 1 --bar 2 --bar 3'));
         $this->assertNotNull($result->bar);
         $this->assertCount(3,$result->bar);
-        $this->assertSame([1,2,3],$result->bar);
+        $this->assertSame(array(1,2,3),$result->bar);
     }
 
     public function testSimpleOptionWithDefaultValue()
@@ -208,8 +208,8 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $result = $parser->parse(explode(' ','app --bar lisa --bar mary --bar john a b c'));
         $this->assertNotNull($result->bar);
         $this->assertCount(3,$result->bar);
-        $this->assertSame(['lisa', 'mary', 'john'],$result->bar);
-        $this->assertSame(['a','b','c'], $result->getArguments());
+        $this->assertSame(array('lisa', 'mary', 'john'),$result->bar);
+        $this->assertSame(array('a','b','c'), $result->getArguments());
     }
 
     public function testParseIncrementalOption()
@@ -330,20 +330,20 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
 
     public function optionTestProvider()
     {
-        return [
-            [ 'foo', 'simple boolean option', 'foo', true,
+        return array(
+            array( 'foo', 'simple boolean option', 'foo', true,
                 [['a','--foo','a', 'b', 'c']]
-            ],
-            [ 'f|foo', 'simple boolean option', 'foo', true,
+            ),
+            array( 'f|foo', 'simple boolean option', 'foo', true,
                 [['a','--foo'], ['a','-f']] 
-            ],
-            [ 'f|foo:=string', 'string option', 'foo', 'xxx',
+            ),
+            array( 'f|foo:=string', 'string option', 'foo', 'xxx',
                 [['a','--foo','xxx'], ['a','-f', 'xxx']] 
-            ],
-            [ 'f|foo:=string', 'string option', 'foo', 'xxx',
+            ),
+            array( 'f|foo:=string', 'string option', 'foo', 'xxx',
                 [['a','b', 'c', '--foo','xxx'], ['a', 'a', 'b', 'c', '-f', 'xxx']] 
-            ],
-        ];
+            ),
+        );
     }
 
     /**
