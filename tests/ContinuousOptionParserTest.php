@@ -252,7 +252,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
 
         $parser = new ContinuousOptionParser($options);
 
-        $result = $parser->parse(['app', '-ab', 'foo', 'bar']);
+        $result = $parser->parse(array('app', '-ab', 'foo', 'bar'));
         while (!$parser->isEnd())
         {
             $arguments[] = $parser->getCurrentArgument();
@@ -268,7 +268,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $options = new OptionCollection;
         $options->add("v|verbose")->incremental();
         $parser = new ContinuousOptionParser($options);
-        $result = $parser->parse(['app', '-vvv']);
+        $result = $parser->parse(array('app', '-vvv'));
         $this->assertEquals(3, $result->keys["verbose"]->value);
     }
 
