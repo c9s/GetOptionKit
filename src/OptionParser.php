@@ -108,7 +108,7 @@ class OptionParser
                 $newArgv[] = $arg;
             }
         }
-        return [$newArgv, $extra];
+        return array($newArgv, $extra);
     }
 
     /**
