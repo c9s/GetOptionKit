@@ -173,6 +173,8 @@ try {
     foreach( $result as $key => $spec ) {
         echo $spec . "\n";
     }
+    $args = $result->getArguments();
+    var_dump($args);
 } catch( Exception $e ) {
     echo $e->getMessage();
 }
