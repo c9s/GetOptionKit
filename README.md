@@ -170,9 +170,13 @@ $parser = new OptionParser($specs);
 echo "Enabled options: \n";
 try {
     $result = $parser->parse( $argv );
-    foreach( $result as $key => $spec ) {
-        echo $spec . "\n";
+    foreach ($result as $key => $spec) {
+        echo $spec->getValue() . "\n";
     }
+
+    $opt = $result['f'] // return the option object.
+    $str = $result->f; // return the option value
+
     $args = $result->getArguments();
     var_dump($args);
 } catch( Exception $e ) {

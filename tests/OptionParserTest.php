@@ -67,6 +67,13 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $result->nice);
     }
 
+    public function testShortOptionName()
+    {
+        $this->specs->add('f:' , 'file');
+        $result = $this->parser->parse(array('a', '-f', 'aaa'));
+        $this->assertEquals('aaa',$result['f']->getValue());
+    }
+
     public function testOptionWithShortNameAndLongName()
     {
         $this->specs->add( 'f|foo' , 'flag' );
