@@ -35,6 +35,15 @@ class OptionTest extends PHPUnit_Framework_TestCase
         new Option('....');
     }
 
+    public function testValueName()
+    {
+        $opt = new Option('z');
+        $opt->defaultValue(10);
+        $opt->valueName('priority');
+        $this->assertEquals('[=priority]', $opt->renderValueHint());
+        $this->assertEquals('-z[=priority]', $opt->renderReadableSpec());
+    }
+
 
     public function testDefaultValue()
     {
