@@ -25,8 +25,39 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /* test parser without options */
-    public function testParseSubCommandOptions()
+
+    public function argumentProvider()
+    {
+        return [
+            [
+                ['program','subcommand1', 'arg1', 'arg2', 'arg3', 'subcommand2', '-b', 1, 'subcommand3', '-b', 2],
+                [
+                    'args' => ['arg1', 'arg2', 'arg3']
+                ],
+            ],
+            [
+                ['program','-v', '-c', 'subcommand1', '--as', 99, 'arg1', 'arg2', 'arg3'],
+                [
+                    'app' => ['verbose' => true ],
+                    'args' => ['arg1', 'arg2', 'arg3']
+                ],
+            ],
+            [
+                ['program','-v', '-c', 'subcommand1', '--as', 99, 'arg1', 'arg2', 'arg3', '--','zz','xx','vv'],
+                [
+                    'app' => ['verbose' => true],
+                    'args' => ['arg1', 'arg2', 'arg3']
+                ],
+            ],
+        ];
+    }
+
+
+
+    /**
+     * @dataProvider argumentProvider
+     */
+    public function testParseSubCommandOptions($argv, $expected)
     {
         $appspecs = new OptionCollection;
         $appspecs->add('v|verbose');
@@ -35,8 +66,8 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
 
         $cmdspecs = new OptionCollection;
         $cmdspecs->add('as:');
-        $cmdspecs->add('b');
-        $cmdspecs->add('c');
+        $cmdspecs->add('b:');
+        $cmdspecs->add('c:');
 
         $parser = new ContinuousOptionParser( $appspecs );
 
@@ -48,25 +79,28 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         );
         $subcommand_options = array();
 
-        $argv = explode(' ','program -v -c subcommand1 --as 99 arg1 arg2 arg3 -- zz xx vv');
+        // $argv = explode(' ','program -v -c subcommand1 --as 99 arg1 arg2 arg3 -- zz xx vv');
         // $argv = explode(' ','program subcommand1 -a 1 subcommand2 -a 2 subcommand3 -a 3 arg1 arg2 arg3');
         $app_options = $parser->parse( $argv );
         $arguments = array();
         while (! $parser->isEnd()) {
-            if (@$subcommands[0] && $parser->getCurrentArgument() == $subcommands[0] ) {
+            if (!empty($subcommands) && $parser->getCurrentArgument() == $subcommands[0]) {
                 $parser->advance();
-                $subcommand = array_shift( $subcommands );
-                $parser->setSpecs( $subcommand_specs[$subcommand] );
-                $subcommand_options[ $subcommand ] = $parser->continueParse();
+                $subcommand = array_shift($subcommands);
+                $parser->setSpecs($subcommand_specs[$subcommand]);
+                $subcommand_options[$subcommand] = $parser->continueParse();
             } else {
                 $arguments[] = $parser->advance();
             }
         }
-        
-        $this->assertEquals( 'arg1', $arguments[0] );
-        $this->assertEquals( 'arg2', $arguments[1] );
-        $this->assertEquals( 'arg3', $arguments[2] );
-        $this->assertEquals( 99, $subcommand_options['subcommand1']->as );
+        $this->assertSame($expected['args'], $arguments);
+        if (isset($expected['app'])) {
+            foreach ($expected['app'] as $k => $v) {
+                $this->assertEquals($v, $app_options->get($k));
+            }
+        }
+
+        // $this->assertEquals(99, $subcommand_options['subcommand1']->as);
     }
 
 
