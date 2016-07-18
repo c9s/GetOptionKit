@@ -383,14 +383,6 @@ class Option
         return $this->defaultValue;
     }
 
-    /*
-     * set option spec key for saving option result
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-    }
-
     /**
      * get readable spec for printing.
      * 
