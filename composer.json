@@ -16,5 +16,5 @@
             "GetOptionKit\\": "src/"
         }
     },
-    "extra": { "branch-alias": { "dev-master": "2.4.x-dev" } }
+    "extra": { "branch-alias": { "dev-master": "2.5.x-dev" } }
 }
