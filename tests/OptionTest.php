@@ -186,12 +186,24 @@ class OptionTest extends PHPUnit_Framework_TestCase
 
     }
 
+
+
+    public function testArrayValueToString()
+    {
+        $opt = new Option('uid');
+        $opt->setValue([1,2,3,4]);
+        $toString = '* key:uid      spec:--uid  desc:
+  value => 1,2,3,4
+';
+        $this->assertEquals($toString,$opt->__toString());
+    }
+
     public function testValidValues()
     {
         $opt = new Option('scope');
         $opt->validValues([ 'public', 'private' ])
             ;
-        ok($opt->getValidValues());
+        $this->assertNotEmpty($opt->getValidValues());
         $this->assertTrue(is_array($opt->getValidValues()));
 
         $opt->setValue('public');

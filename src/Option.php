@@ -420,7 +420,7 @@ class Option
         $return .= sprintf('* key:%-8s spec:%s  desc:%s', $this->getId(), $c1, $this->desc)."\n";
         $val = $this->getValue();
         if (is_array($val)) {
-            $return .= '  '.print_r($val, true)."\n";
+            $return .= '  value => ' . join(',', array_map(function($v) { return var_export($v, true); }, $val))."\n";
         } else {
             $return .= sprintf('  value => %s', $val)."\n";
         }
