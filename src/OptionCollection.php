@@ -16,6 +16,7 @@ use ArrayIterator;
 use IteratorAggregate;
 use Countable;
 use Exception;
+use LogicException;
 
 class OptionCollection
     implements IteratorAggregate, Countable
@@ -98,7 +99,7 @@ class OptionCollection
 
         } else {
 
-            throw new Exception('Unknown Spec Type');
+            throw new LogicException('Unknown Spec Type');
 
         }
     }
