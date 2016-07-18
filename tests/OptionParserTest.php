@@ -301,13 +301,20 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('arg3', $args[2]);
     }
 
+    public function testStringQuoteOptionValue()
+    {
+        $opts = new OptionCollection();
+        $opts->add('f|foo:' , 'option requires a value.');
+        $parser = new OptionParser($opts);
+        $res = $parser->parse(['app','--foo=aa bb cc']);
+        $this->assertEquals('aa bb cc', $res->get('foo'));
+    }
 
     public function testSpec2()
     {
-        $this->specs->add( 'long'   , 'long option name only.' );
-        $this->specs->add( 'a'   , 'short option name only.' );
-        $this->specs->add( 'b'   , 'short option name only.' );
-
+        $this->specs->add('long'   , 'long option name only.');
+        $this->specs->add('a'   , 'short option name only.');
+        $this->specs->add('b'   , 'short option name only.');
         ok($this->specs->all());
         ok($this->specs);
         ok($result = $this->parser->parse(explode(' ','app -a -b --long')) );

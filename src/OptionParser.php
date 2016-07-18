@@ -84,6 +84,12 @@ class OptionParser
         }
     }
 
+    /**
+     * preprocess the argv array
+     *
+     * - split option and option value
+     * - separate arguments after "--"
+     */
     protected function preprocessingArguments(array $argv)
     {
         // preprocessing arguments
