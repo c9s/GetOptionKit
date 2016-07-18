@@ -12,6 +12,7 @@
 namespace GetOptionKit;
 
 use Exception;
+use LogicException;
 use GetOptionKit\Exception\InvalidOptionException;
 use GetOptionKit\Exception\RequireValueException;
 

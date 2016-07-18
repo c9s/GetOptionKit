@@ -319,5 +319,17 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $result = $parser->parse(array('app', '-b'));
     }
 
+    /**
+     * @expectedException LogicException
+     */
+    public function testAdvancedOutOfBounds()
+    {
+        $options = new OptionCollection;
+        $options->add("v|verbose");
+        $parser = new ContinuousOptionParser($options);
+        $result = $parser->parse(array('app', '-v'));
+        $parser->advance();
+    }
+
 }
 
