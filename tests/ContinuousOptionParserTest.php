@@ -68,6 +68,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $cmdspecs->add('as:');
         $cmdspecs->add('b:');
         $cmdspecs->add('c:');
+        $cmdspecs->add('def:')->isa('number')->defaultValue(3);
 
         $parser = new ContinuousOptionParser( $appspecs );
 
@@ -306,6 +307,17 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $result->keys["verbose"]->value);
     }
 
+
+    /**
+     * @expectedException GetOptionKit\Exception\InvalidOptionException
+     */
+    public function testUnknownOption()
+    {
+        $options = new OptionCollection;
+        $options->add("v|verbose");
+        $parser = new ContinuousOptionParser($options);
+        $result = $parser->parse(array('app', '-b'));
+    }
 
 }
 
