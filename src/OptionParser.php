@@ -174,12 +174,11 @@ class OptionParser
             if (!$spec) {
                 throw new InvalidOptionException('Invalid option: '.$arg);
             }
-            if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
-                $i += $this->consumeOptionToken($spec, $arg, $next);
-                $result->set($spec->getId(), $spec);
-            } else {
-                throw new Exception('Unknown option type');
-            }
+
+            // This if expr might be unnecessary, becase we have default mode - flag
+            // if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
+            $i += $this->consumeOptionToken($spec, $arg, $next);
+            $result->set($spec->getId(), $spec);
         }
 
         return $result;
