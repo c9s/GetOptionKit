@@ -107,15 +107,24 @@ class ContinuousOptionParser extends OptionParser
         return $this->index >= $this->length;
     }
 
+    /**
+     * Return the current argument and advance to the next position.
+     *
+     * @return string
+     */
     public function advance()
     {
-        if ($this->index < $this->length) {
-            $arg = $this->argv[$this->index++];
-
-            return $arg;
+        if ($this->index >= $this->length) {
+            throw new LogicException("Argument index out of bounds.");
         }
+        return $this->argv[$this->index++];
     }
 
+    /**
+     * Return the current argument that the index pointed to.
+     *
+     * @return string
+     */
     public function getCurrentArgument()
     {
         return $this->argv[$this->index];
