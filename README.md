@@ -15,11 +15,11 @@ Versions & Stats
 [![Daily Downloads](https://poser.pugx.org/corneltek/getoptionkit/d/daily)](https://packagist.org/packages/corneltek/getoptionkit)
 [![License](https://poser.pugx.org/corneltek/getoptionkit/license)](https://packagist.org/packages/corneltek/getoptionkit)
 
-A powerful GetOpt toolkit for PHP, which supports type constraints, flag,
-multiple flag, multiple values, required value checking.
+A powerful option parser toolkit for PHP, supporting type constraints,
+flag, multiple flag, multiple values and required value checking.
 
-GetOptionKit is based on PHP5.3, with fine unit testing with PHPUnit
-testing framework.
+GetOptionKit supports PHP5.3, with fine unit testing with PHPUnit testing
+framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
