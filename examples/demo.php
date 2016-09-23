@@ -60,9 +60,17 @@ $parser = new OptionParser($specs);
 echo "Enabled options: \n";
 try {
     $result = $parser->parse( $argv );
-    foreach ($result as $key => $spec) {
-        echo $spec . "\n";
+    foreach ($result->keys as $key => $spec) {
+        print_r($spec);
     }
+
+    $opt = $result->keys['foo']; // return the option object.
+    $str = $result->keys['foo']->value; // return the option value
+    
+    print_r($opt);
+    var_dump($str);
+    
 } catch( Exception $e ) {
     echo $e->getMessage();
 }
+
