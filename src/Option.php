@@ -277,6 +277,10 @@ class Option
             }
         }
 
+        if (!$this->validate($value)[0]) {
+            throw new InvalidOptionValue('option is invalid');
+        }
+
         return $val;
     }
 
