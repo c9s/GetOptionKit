@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  *
  */
+use GetOptionKit\InvalidOptionValue;
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 use GetOptionKit\Option;
@@ -447,5 +448,30 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         ok( $result->debug );
     }
 
+    public function testParseAcceptsValidOption()
+    {
+        $this->specs
+            ->add('f:foo', 'test option')
+            ->validator(function($value) {
+                return $value === 'valid-option';
+            });
 
+        $result = $this->parser->parse(array('a', '-f' , 'valid-option'));
+
+        $this->assertArrayHasKey('f', $result);
+    }
+
+    /**
+     * @expectedException GetOptionKit\InvalidOptionValue
+     */
+    public function testParseThrowsExceptionOnInvalidOption()
+    {
+        $this->specs
+            ->add('f:foo', 'test option')
+            ->validator(function($value) {
+                return $value === 'valid-option';
+            });
+
+        $this->parser->parse(array('a', '-f' , 'not-a-valid-option'));
+    }
 }
