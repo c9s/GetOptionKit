@@ -381,6 +381,9 @@ class Option
     public function getValue()
     {
         if (null !== $this->value) {
+            if (is_callable($this->value)) {
+                return call_user_func($this->value);
+            }
             return $this->value;
         }
 
