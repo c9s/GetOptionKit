@@ -131,12 +131,6 @@ class OptionParser
         $result = new OptionResult();
         list($argv, $extra) = $this->preprocessingArguments($argv);
 
-        foreach ($this->specs as $opt) {
-            if ($opt->defaultValue !== null) {
-                $opt->setValue($opt->defaultValue);
-                $result->set($opt->getId(), $opt);
-            }
-        }
 
         $len = count($argv);
 
@@ -179,6 +173,13 @@ class OptionParser
             // if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
             $i += $this->consumeOptionToken($spec, $arg, $next);
             $result->set($spec->getId(), $spec);
+        }
+
+        foreach ($this->specs as $opt) {
+            if ($opt->value === null && $opt->defaultValue !== null) {
+                $opt->setValue($opt->getDefaultValue());
+                $result->set($opt->getId(), $opt);
+            }
         }
 
         return $result;

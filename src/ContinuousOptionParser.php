@@ -143,13 +143,6 @@ class ContinuousOptionParser extends OptionParser
         list($this->argv, $extra) = $this->preprocessingArguments($argv);
         $this->length = count($this->argv);
 
-        // register option result from options with default value 
-        foreach ($this->specs as $opt) {
-            if ($opt->defaultValue !== null) {
-                $opt->setValue($opt->getDefaultValue());
-                $result->set($opt->getId(), $opt);
-            }
-        }
 
         // from last parse index
         for (; $this->index < $this->length; ++$this->index) {
@@ -186,6 +179,14 @@ class ContinuousOptionParser extends OptionParser
             // if ($spec->isRequired() || $spec->isMultiple() || $spec->isOptional() || $spec->isFlag()) {
             $this->index += $this->consumeOptionToken($spec, $arg, $next);
             $result->set($spec->getId(), $spec);
+        }
+
+        // register option result from options with default value 
+        foreach ($this->specs as $opt) {
+            if ($opt->value === null && $opt->defaultValue !== null) {
+                $opt->setValue($opt->getDefaultValue());
+                $result->set($opt->getId(), $opt);
+            }
         }
 
         return $result;
