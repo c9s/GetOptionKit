@@ -37,7 +37,7 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
 
         $args = $arg->extractExtraFlagOptions();
         ok( $args );
-        count_ok( 2, $args );
+        $this->assertCount( 2, $args );
 
         is( '-b', $args[0] );
         is( '-c', $args[1] );
