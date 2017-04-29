@@ -146,7 +146,7 @@ class ContinuousOptionParser extends OptionParser
         // register option result from options with default value 
         foreach ($this->specs as $opt) {
             if ($opt->defaultValue !== null) {
-                $opt->setValue($opt->defaultValue);
+                $opt->setValue($opt->getDefaultValue());
                 $result->set($opt->getId(), $opt);
             }
         }

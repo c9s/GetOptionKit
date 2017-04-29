@@ -167,6 +167,11 @@ class Option
         return $this;
     }
 
+    /**
+     * Set default value
+     *
+     * @param mixed|Closure $value
+     */
     public function defaultValue($value)
     {
         $this->defaultValue = $value;
@@ -353,7 +358,7 @@ class Option
             $n = '('.implode(',', $values).')';
         } else if ($values = $this->getSuggestions()) {
             $n = '['.implode(',', $values).']';
-        } else if ($val = $this->defaultValue) {
+        } else if ($val = $this->getDefaultValue()) {
             // This allows for `0` and `false` values to be displayed also.
             if ((is_scalar($val) && strlen((string) $val)) || is_bool($val)) {
                 if (is_bool($val)) {
@@ -378,6 +383,15 @@ class Option
         return '';
     }
 
+    public function getDefaultValue()
+    {
+        if (is_callable($this->defaultValue)) {
+            return $this->defaultValue;
+        }
+
+        return $this->defaultValue;
+    }
+
     public function getValue()
     {
         if (null !== $this->value) {
@@ -387,7 +401,7 @@ class Option
             return $this->value;
         }
 
-        return $this->defaultValue;
+        return $this->getDefaultValue();
     }
 
     /**
