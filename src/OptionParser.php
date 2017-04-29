@@ -117,6 +117,17 @@ class OptionParser
         return array($newArgv, $extra);
     }
 
+    protected function fillDefaultValues(OptionCollection $opts, OptionResult $result)
+    {
+        // register option result from options with default value 
+        foreach ($opts as $opt) {
+            if ($opt->value === null && $opt->defaultValue !== null) {
+                $opt->setValue($opt->getDefaultValue());
+                $result->set($opt->getId(), $opt);
+            }
+        }
+    }
+
     /**
      * @param array $argv
      *
@@ -129,8 +140,8 @@ class OptionParser
     public function parse(array $argv)
     {
         $result = new OptionResult();
-        list($argv, $extra) = $this->preprocessingArguments($argv);
 
+        list($argv, $extra) = $this->preprocessingArguments($argv);
 
         $len = count($argv);
 
@@ -175,12 +186,7 @@ class OptionParser
             $result->set($spec->getId(), $spec);
         }
 
-        foreach ($this->specs as $opt) {
-            if ($opt->value === null && $opt->defaultValue !== null) {
-                $opt->setValue($opt->getDefaultValue());
-                $result->set($opt->getId(), $opt);
-            }
-        }
+        $this->fillDefaultValues($this->specs, $result);
 
         return $result;
     }

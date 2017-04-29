@@ -136,13 +136,25 @@ class ContinuousOptionParser extends OptionParser
         return $this->parse($this->argv);
     }
 
+
+    protected function fillDefaultValues(OptionCollection $opts, OptionResult $result)
+    {
+        // register option result from options with default value 
+        foreach ($opts as $opt) {
+            if ($opt->value === null && $opt->defaultValue !== null) {
+                $opt->setValue($opt->getDefaultValue());
+                $result->set($opt->getId(), $opt);
+            }
+        }
+    }
+
+
     public function parse(array $argv)
     {
         // create new Result object.
         $result = new OptionResult();
         list($this->argv, $extra) = $this->preprocessingArguments($argv);
         $this->length = count($this->argv);
-
 
         // from last parse index
         for (; $this->index < $this->length; ++$this->index) {
@@ -151,6 +163,7 @@ class ContinuousOptionParser extends OptionParser
             /* let the application decide for: command or arguments */
             if (!$arg->isOption()) {
                 # echo "stop at {$this->index}\n";
+                $this->fillDefaultValues($this->specs, $result);
                 return $result;
             }
 
@@ -181,13 +194,7 @@ class ContinuousOptionParser extends OptionParser
             $result->set($spec->getId(), $spec);
         }
 
-        // register option result from options with default value 
-        foreach ($this->specs as $opt) {
-            if ($opt->value === null && $opt->defaultValue !== null) {
-                $opt->setValue($opt->getDefaultValue());
-                $result->set($opt->getId(), $opt);
-            }
-        }
+        $this->fillDefaultValues($this->specs, $result);
 
         return $result;
     }
