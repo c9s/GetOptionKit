@@ -2,7 +2,7 @@
 use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
 use GetOptionKit\OptionCollection;
 
-class ConsoleOptionPrinterTest extends PHPUnit_Framework_TestCase
+class ConsoleOptionPrinterTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
     {

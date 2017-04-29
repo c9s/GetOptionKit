@@ -13,7 +13,7 @@ use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 use GetOptionKit\Option;
 
-class OptionParserTest extends PHPUnit_Framework_TestCase 
+class OptionParserTest extends \PHPUnit\Framework\TestCase 
 {
     public $parser;
     public $specs;
@@ -316,11 +316,11 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->specs->add('long'   , 'long option name only.');
         $this->specs->add('a'   , 'short option name only.');
         $this->specs->add('b'   , 'short option name only.');
-        ok($this->specs->all());
-        ok($this->specs);
-        ok($result = $this->parser->parse(explode(' ','app -a -b --long')) );
-        ok($result->a);
-        ok($result->b);
+        $this->assertNotNull($this->specs->all());
+        $this->assertNotNull($this->specs);
+        $this->assertNotNull($result = $this->parser->parse(explode(' ','app -a -b --long')) );
+        $this->assertNotNull($result->a);
+        $this->assertNotNull($result->b);
     }
 
 
@@ -334,8 +334,8 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->specs->add( 'long'   , 'long option name only.' );
         $this->specs->add( 's'   , 'short option name only.' );
 
-        ok( $this->specs->all() );
-        ok( $this->specs );
+        $this->assertNotNull( $this->specs->all() );
+        $this->assertNotNull( $this->specs );
 
         $this->assertCount( 7 , $array = $this->specs->toArray() );
         $this->assertNotEmpty( isset($array[0]['long'] ));
@@ -416,12 +416,12 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         $this->specs->add('d|debug'   , 'debug message' );
 
         $result = $this->parser->parse( array('a', '-f' , 'foo value' , '-v' , '-d' ) );
-        ok($result->foo);
-        ok($result->verbose);
-        ok($result->debug);
-        is( 'foo value', $result->foo );
-        ok( $result->verbose );
-        ok( $result->debug );
+        $this->assertNotNull($result->foo);
+        $this->assertNotNull($result->verbose);
+        $this->assertNotNull($result->debug);
+        $this->assertEquals( 'foo value', $result->foo );
+        $this->assertNotNull( $result->verbose );
+        $this->assertNotNull( $result->debug );
 
         foreach ($result as $k => $v) {
             $this->assertTrue(in_array($k, ['foo','bar','zoo','verbose', 'debug']));
@@ -434,18 +434,18 @@ class OptionParserTest extends PHPUnit_Framework_TestCase
         ], $result->toArray());
 
         $result = $this->parser->parse( array('a', '-f=foo value' , '-v' , '-d' ) );
-        ok( $result );
-        ok( $result->foo );
-        ok( $result->verbose );
-        ok( $result->debug );
+        $this->assertNotNull( $result );
+        $this->assertNotNull( $result->foo );
+        $this->assertNotNull( $result->verbose );
+        $this->assertNotNull( $result->debug );
 
-        is( 'foo value', $result->foo );
-        ok( $result->verbose );
-        ok( $result->debug );
+        $this->assertEquals( 'foo value', $result->foo );
+        $this->assertNotNull( $result->verbose );
+        $this->assertNotNull( $result->debug );
 
         $result = $this->parser->parse( array('a', '-vd' ) );
-        ok( $result->verbose );
-        ok( $result->debug );
+        $this->assertNotNull( $result->verbose );
+        $this->assertNotNull( $result->debug );
     }
 
     public function testParseAcceptsValidOption()

@@ -2,7 +2,7 @@
 
 use GetOptionKit\ValueType\RegexType;
 
-class RegexValueTypeTest extends PHPUnit_Framework_TestCase
+class RegexValueTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testOption()
     {

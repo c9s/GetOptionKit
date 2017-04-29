@@ -10,7 +10,7 @@
  */
 
 use GetOptionKit\Argument;
-class ArgumentTest extends PHPUnit_Framework_TestCase 
+class ArgumentTest extends \PHPUnit\Framework\TestCase 
 {
     function test()
     {
@@ -25,7 +25,7 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
     function test2()
     {
         $arg = new Argument('--option=value');
-        ok( $arg->containsOptionValue() );
+        $this->assertNotNull( $arg->containsOptionValue() );
         $this->assertEquals('value' , $arg->getOptionValue());
         $this->assertEquals('option' , $arg->getOptionName());
     }
@@ -33,23 +33,23 @@ class ArgumentTest extends PHPUnit_Framework_TestCase
     function test3()
     {
         $arg = new Argument( '-abc' );
-        ok( $arg->withExtraFlagOptions() );
+        $this->assertNotNull( $arg->withExtraFlagOptions() );
 
         $args = $arg->extractExtraFlagOptions();
-        ok( $args );
+        $this->assertNotNull( $args );
         $this->assertCount( 2, $args );
 
-        is( '-b', $args[0] );
-        is( '-c', $args[1] );
-        is( '-a', $arg->arg);
+        $this->assertEquals( '-b', $args[0] );
+        $this->assertEquals( '-c', $args[1] );
+        $this->assertEquals( '-a', $arg->arg);
     }
 
     function testZeroValue()
     {
         $arg = new Argument( '0' );
-        not_ok( $arg->isShortOption() );
-        not_ok( $arg->isLongOption() );
-        not_ok( $arg->isEmpty() );
+        $this->assertFalse( $arg->isShortOption() );
+        $this->assertFalse( $arg->isLongOption() );
+        $this->assertFalse( $arg->isEmpty() );
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
 use GetOptionKit\Option;
 
-class OptionTest extends PHPUnit_Framework_TestCase
+class OptionTest extends \PHPUnit\Framework\TestCase
 {
 
 
@@ -24,7 +24,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
     public function testOptionSpec($spec)
     {
         $opt = new Option($spec);
-        ok($opt);
+        $this->assertNotNull($opt);
     }
 
     /**
@@ -159,7 +159,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
         $opt->validValues(function() {
             return ['public', 'private'];
         });
-        ok($opt->getValidValues());
+        $this->assertNotNull($opt->getValidValues());
         $this->assertNotEmpty($opt->getValidValues());
 
         $opt->setValue('public');

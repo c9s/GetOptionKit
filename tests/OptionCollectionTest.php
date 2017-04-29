@@ -2,7 +2,7 @@
 use GetOptionKit\Option;
 use GetOptionKit\OptionCollection;
 
-class OptionCollectionTest extends PHPUnit_Framework_TestCase
+class OptionCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testAddOption()
     {

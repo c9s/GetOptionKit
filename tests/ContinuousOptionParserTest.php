@@ -13,10 +13,10 @@ namespace tests\GetOptionKit;
 use GetOptionKit\ContinuousOptionParser;
 use GetOptionKit\OptionCollection;
 
-class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase 
+class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function testOptionCollection() 
+    public function testOptionCollection()
     {
         $specs = new OptionCollection;
         $specVerbose = $specs->add('v|verbose');
@@ -170,7 +170,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
 
 
         $parser = new ContinuousOptionParser( $appspecs );
-        ok( $parser );
+        $this->assertNotNull( $parser );
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
         $subcommand_specs = array(
@@ -194,19 +194,19 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        ok( $subcommand_options );
-        ok( $subcommand_options['subcommand1'] );
-        ok( $subcommand_options['subcommand2'] );
-        ok( $subcommand_options['subcommand3'] );
+        $this->assertNotNull( $subcommand_options );
+        $this->assertNotNull( $subcommand_options['subcommand1'] );
+        $this->assertNotNull( $subcommand_options['subcommand2'] );
+        $this->assertNotNull( $subcommand_options['subcommand3'] );
 
         $r = $subcommand_options['subcommand3'];
-        ok( $r );
+        $this->assertNotNull( $r );
 
 
         
-        ok( $r->a , 'option a' );
-        ok( $r->b , 'option b' );
-        ok( $r->c , 'option c' );
+        $this->assertNotNull( $r->a , 'option a' );
+        $this->assertNotNull( $r->b , 'option b' );
+        $this->assertNotNull( $r->c , 'option c' );
 
         $this->assertEquals( 'a', $r->a );
         $this->assertEquals( 'b', $r->b );
@@ -227,7 +227,7 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $cmdspecs->add('c');
 
         $parser = new ContinuousOptionParser( $appspecs );
-        ok( $parser );
+        $this->assertNotNull( $parser );
 
         $subcommands = array('subcommand1','subcommand2','subcommand3');
         $subcommand_specs = array(
@@ -254,11 +254,11 @@ class ContinuousOptionParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals( 'arg1', $arguments[0] );
         $this->assertEquals( 'arg2', $arguments[1] );
         $this->assertEquals( 'arg3', $arguments[2] );
-        ok( $subcommand_options );
+        $this->assertNotNull( $subcommand_options );
 
         $this->assertEquals(1, $subcommand_options['subcommand1']->a);
-        ok( 2, $subcommand_options['subcommand2']->a );
-        ok( 3, $subcommand_options['subcommand3']->a );
+        $this->assertNotNull( 2, $subcommand_options['subcommand2']->a );
+        $this->assertNotNull( 3, $subcommand_options['subcommand3']->a );
     }
 
     /**

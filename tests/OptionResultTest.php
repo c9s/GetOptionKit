@@ -9,22 +9,22 @@
  *
  */
 
-class OptionResultTest extends PHPUnit_Framework_TestCase 
+class OptionResultTest extends \PHPUnit\Framework\TestCase 
 {
 
     function testOption()
     {
         $option = new \GetOptionKit\OptionResult;
-        ok( $option );
+        $this->assertNotNull( $option );
 
         $specs = new \GetOptionKit\OptionCollection;
         $specs->add('name:','name');
         $result = \GetOptionKit\OptionResult::create($specs,array( 'name' => 'c9s' ),array( 'arg1' ));
-        ok( $result );
-        ok( $result->arguments );
-        ok( $result->name );
-        is( 'c9s', $result->name );
-        is( $result->arguments[0] , 'arg1' );
+        $this->assertNotNull( $result );
+        $this->assertNotNull( $result->arguments );
+        $this->assertNotNull( $result->name );
+        $this->assertEquals( 'c9s', $result->name );
+        $this->assertEquals( $result->arguments[0] , 'arg1' );
     }
 
 }

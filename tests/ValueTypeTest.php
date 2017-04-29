@@ -14,24 +14,24 @@ use GetOptionKit\ValueType\DateType;
 use GetOptionKit\ValueType\DateTimeType;
 use GetOptionKit\ValueType\RegexType;
 
-class ValueTypeTest extends PHPUnit_Framework_TestCase
+class ValueTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testTypeClass() 
     {
-        ok( new BooleanType );
-        ok( new StringType );
-        ok( new FileType );
-        ok( new DateType );
-        ok( new DateTimeType );
-        ok( new NumberType );
-        ok( new UrlType );
-        ok( new IpType );
-        ok( new Ipv4Type );
-        ok( new Ipv6Type );
-        ok( new EmailType );
-        ok( new PathType );
-        ok( new RegexType("/[a-z]/"));
+        $this->assertNotNull( new BooleanType );
+        $this->assertNotNull( new StringType );
+        $this->assertNotNull( new FileType );
+        $this->assertNotNull( new DateType );
+        $this->assertNotNull( new DateTimeType );
+        $this->assertNotNull( new NumberType );
+        $this->assertNotNull( new UrlType );
+        $this->assertNotNull( new IpType );
+        $this->assertNotNull( new Ipv4Type );
+        $this->assertNotNull( new Ipv6Type );
+        $this->assertNotNull( new EmailType );
+        $this->assertNotNull( new PathType );
+        $this->assertNotNull( new RegexType("/[a-z]/"));
     }
 
 
