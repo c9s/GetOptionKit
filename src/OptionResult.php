@@ -14,6 +14,7 @@ namespace GetOptionKit;
 use ArrayIterator;
 use ArrayAccess;
 use IteratorAggregate;
+use Countable;
 
 /**
  * Define the getopt parsing result.
@@ -25,7 +26,7 @@ use IteratorAggregate;
  *     ), array( ... arguments ... ) );
  */
 class OptionResult
-    implements IteratorAggregate, ArrayAccess
+    implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
      * @var array option specs, key => Option object 
@@ -40,6 +41,17 @@ class OptionResult
     public function getIterator()
     {
         return new ArrayIterator($this->keys);
+    }
+
+    public function count()
+    {
+        return count($this->keys);
+    }
+
+    public function merge(OptionResult $a)
+    {
+        $this->keys = array_merge($this->keys, $a->keys);
+        $this->arguments = array_merge($this->arguments, $a->arguments);
     }
 
     public function __isset($key)
