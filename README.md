@@ -23,7 +23,9 @@ framework.
 
 GetOptionKit is object-oriented, it's flexible and extendable.
 
-Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://github.com/c9s/CLIFramework> and AssetKit <https://github.com/c9s/AssetKit>.
+Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://github.com/c9s/CLIFramework> and AssetKit <https://github.com/c9s/AssetKit>
+
+
 
 ## Features
 
@@ -39,13 +41,14 @@ Powering PHPBrew <https://github.com/phpbrew/phpbrew>, CLIFramework <https://git
 
 ## Requirements
 
-* PHP 5.4+
+* PHP 5.3+
 
 ## Install From Composer
 
 ```sh
 composer require corneltek/getoptionkit
 ```
+
 
 ## Supported Option Formats
 
@@ -99,6 +102,11 @@ program.php arg1 arg2 arg3 -a=foo -b=bar
     app [app-opts] subcommand [subcommand-opts] [subcommand-args]
 
     app [app-opts] subcmd1 [subcmd-opts1] subcmd2 [subcmd-opts] subcmd3 [subcmd-opts3] [subcommand arguments....]
+
+
+## Documentation
+
+See more details in the [documentation](https://github.com/c9s/GetOptionKit/wiki)
 
 ## Demo
 
