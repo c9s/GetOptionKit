@@ -8,7 +8,7 @@ php:
 - 7.1
 - hhvm
 
-before_script:
+install:
 - phpenv rehash
 - composer require "satooshi/php-coveralls" "^1" --dev --no-update
 - composer install --no-interaction
