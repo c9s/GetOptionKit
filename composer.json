@@ -5,11 +5,8 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "require-dev": {
-        "satooshi/php-coveralls": "^1"
-    },
     "license": "MIT",
-    "authors": [ { "name": "Yo-An Lin", "email": "cornelius.howl@gmail.com" } ],
+    "authors": [ { "name": "Yo-An Lin", "email": "yoanlin93@gmail.com" } ],
     "autoload": {
         "psr-4": {
             "GetOptionKit\\": "src/"
