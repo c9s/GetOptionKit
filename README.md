@@ -333,7 +333,6 @@ while (! $parser->isEnd()) {
 ## Todo
 
 * Option Spec group.
-* conflict option checking.
 * option valid value checking.
 * custom command mapping.
 
