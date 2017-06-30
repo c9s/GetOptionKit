@@ -266,6 +266,9 @@ class Option
             if ($type->test($value)) {
                 $val = $type->parse($value);
             } else {
+                if (strtolower($isa) === 'regex') {
+                    $isa .= '('.$this->isaOption.')';
+                }
                 throw new InvalidOptionValue("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
             }
         }
