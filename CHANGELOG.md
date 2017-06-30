@@ -1,6 +1,33 @@
 CHANGELOG
 ==================
 
+## v2.6.0 - 30 Jun 2017
+
+- Added option conflict verification in OptionCollection
+- Moved InvalidOptionValue to GetOptionKit\Exception\InvalidOptionValueException
+- Added detail about regex when raising an InvalidOptionValue exception
+
+## v2.5.4 - 30 Apr 2017
+
+- Implemented countable interface and merge method in OptionResult
+
+## v2.5.3 - 29 Apr 2017
+
+- Fixed default value settings in ContinuousOptionParser
+
+## v2.5.2 - 25 Apr 2017
+
+- Added closure support for defaultValue attribute
+
+## v2.5.1 - 21 Feb 2017
+
+- Commit ded820e: Merged pull request #51 from ErikBooij/master
+- Added PHPUnit as a dev dependency
+
+## v2.4.0 - 10 Jun 2016
+
+- Removed 5.4+ new array syntax to support 5.3+
+
 ## v2.3.0 - Thu May 12 10:29:19 2016
 
 - Fixed bugs for multiple value parsing with arguments.
