@@ -13,6 +13,6 @@ namespace GetOptionKit\Exception;
 
 use Exception;
 
-class RequireValueException extends Exception
+class InvalidOptionValueException extends Exception
 {
 }

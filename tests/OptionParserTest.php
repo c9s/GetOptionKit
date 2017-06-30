@@ -462,7 +462,7 @@ class OptionParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException GetOptionKit\InvalidOptionValue
+     * @expectedException GetOptionKit\Exception\InvalidOptionValueException
      */
     public function testParseThrowsExceptionOnInvalidOption()
     {

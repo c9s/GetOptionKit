@@ -11,13 +11,11 @@
 
 namespace GetOptionKit;
 
+
 use Exception;
 use LogicException;
 use InvalidArgumentException;
-
-class InvalidOptionValue extends Exception
-{
-}
+use GetOptionKit\Exception\InvalidOptionValueException;
 
 class Option
 {
@@ -269,7 +267,7 @@ class Option
                 if (strtolower($isa) === 'regex') {
                     $isa .= '('.$this->isaOption.')';
                 }
-                throw new InvalidOptionValue("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
+                throw new InvalidOptionValueException("Invalid value for {$this->renderReadableSpec(false)}. Requires a type $isa.");
             }
         }
 
@@ -281,12 +279,12 @@ class Option
         // check validValues
         if ($validValues = $this->getValidValues()) {
             if (!in_array($value, $validValues)) {
-                throw new InvalidOptionValue('valid values are: '.implode(', ', $validValues));
+                throw new InvalidOptionValueException('valid values are: '.implode(', ', $validValues));
             }
         }
 
         if (!$this->validate($value)[0]) {
-            throw new InvalidOptionValue('option is invalid');
+            throw new InvalidOptionValueException('option is invalid');
         }
 
         return $val;
