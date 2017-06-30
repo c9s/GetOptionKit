@@ -17,6 +17,7 @@ use IteratorAggregate;
 use Countable;
 use Exception;
 use LogicException;
+use GetOptionKit\Exception\OptionConflictException;
 
 class OptionCollection
     implements IteratorAggregate, Countable
@@ -113,9 +114,15 @@ class OptionCollection
     {
         $this->data[$spec->getId()] = $spec;
         if ($spec->long) {
+            if (isset($this->longOptions[$spec->long])) {
+                throw new OptionConflictException('Option conflict: --'.$spec->long.' is already defined.');
+            }
             $this->longOptions[$spec->long] = $spec;
         }
         if ($spec->short) {
+            if (isset($this->shortOptions[$spec->short])) {
+                throw new OptionConflictException('Option conflict: -'.$spec->short.' is already defined.');
+            }
             $this->shortOptions[$spec->short] = $spec;
         }
         $this->options[] = $spec;
