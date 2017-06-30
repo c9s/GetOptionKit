@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  */
-use GetOptionKit\InvalidOptionValue;
+use GetOptionKit\Exception\InvalidOptionValueException;
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
 use GetOptionKit\Option;
 
-class OptionParserTest extends \PHPUnit\Framework\TestCase 
+class OptionParserTest extends \PHPUnit\Framework\TestCase
 {
     public $parser;
     public $specs;
