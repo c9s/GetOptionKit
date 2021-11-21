@@ -195,11 +195,13 @@ class OptionCollection
         return array_merge(array_keys($this->longOptions), array_keys($this->shortOptions));
     }
 
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->data);
     }
 
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->data);
