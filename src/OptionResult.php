@@ -38,11 +38,13 @@ class OptionResult
     /* arguments */
     public $arguments = array();
 
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->keys);
     }
 
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->keys);
@@ -106,21 +108,25 @@ class OptionResult
         return array_map(function ($e) { return $e->__toString(); }, $this->arguments);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($name, $value)
     {
         $this->keys[ $name ] = $value;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($name)
     {
         return isset($this->keys[ $name ]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->keys[ $name ];
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($name)
     {
         unset($this->keys[$name]);

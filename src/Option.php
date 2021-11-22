@@ -123,8 +123,10 @@ class Option
         $this->short = $short;
         $this->long = $long;
 
-        // option is required.
-        if (strpos($attributes, ':') !== false) {
+        if ($attributes === null) {
+            $this->flag();
+        } else if (strpos($attributes, ':') !== false) {
+            // option is required.
             $this->required();
         } else if (strpos($attributes, '+') !== false) {
             // option with multiple value
