@@ -261,7 +261,7 @@ class Option
     {
         $val = $value;
 
-        if ($isa = ucfirst($this->isa)) {
+        if ($isa = ucfirst((string) $this->isa)) {
             $type = $this->getTypeClass();
             if ($type->test($value)) {
                 $val = $type->parse($value);
