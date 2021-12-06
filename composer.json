@@ -15,12 +15,6 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
-    "repositories": {
-        "phpunit/php-token-stream": {
-            "type": "path",
-            "url": "../../phpunit/php-token-stream-1.x"
-        }
-    },
     "require": {
         "php": ">=5.3.0"
     },
