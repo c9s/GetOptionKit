@@ -18,7 +18,7 @@ class OptionParserTest extends \PHPUnit\Framework\TestCase
     public $parser;
     public $specs;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->specs = new OptionCollection;
         $this->parser = new OptionParser($this->specs);

@@ -16,12 +16,10 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=7.2.0"
     },
     "require-dev": {
-        "cweagans/composer-patches": "^1.7",
-        "phpunit/phpunit": "^7.0",
-        "phpunit/php-token-stream": "dev-3.x-php800 as 3.1.3"
+        "phpunit/phpunit": "^8.0 || ^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -30,14 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6.x-dev"
-        },
-        "enable-patching": true,
-        "composer-exit-on-patch-failure": true,
-        "patches": {
-            "phpunit/phpunit": {
-                "https://github.com/Sweetchuck/phpunit/pull/2 - phpunit-7.x - Support for PHP 8.1": "https://patch-diff.githubusercontent.com/raw/Sweetchuck/phpunit/pull/2.patch"
-            }
+            "dev-master": "2.7.x-dev"
         }
     }
 }
