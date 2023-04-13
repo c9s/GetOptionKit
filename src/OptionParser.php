@@ -98,7 +98,6 @@ class OptionParser
         foreach ($argv as $arg) {
             if ($arg === '--') {
                 $afterDash = true;
-                continue;
             }
             if ($afterDash) {
                 $newArgv[] = $arg;
