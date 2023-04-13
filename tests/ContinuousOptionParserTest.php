@@ -46,7 +46,7 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
                 ['program','-v', '-c', 'subcommand1', '--as', 99, 'arg1', 'arg2', 'arg3', '--','zz','xx','vv'],
                 [
                     'app' => ['verbose' => true],
-                    'args' => ['arg1', 'arg2', 'arg3']
+                    'args' => ['arg1', 'arg2', 'arg3', 'zz', 'xx', 'vv']
                 ],
             ],
         ];
@@ -203,7 +203,7 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull( $r );
 
 
-        
+
         $this->assertNotNull( $r->a , 'option a' );
         $this->assertNotNull( $r->b , 'option b' );
         $this->assertNotNull( $r->c , 'option c' );
@@ -250,7 +250,7 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
                 $arguments[] = $parser->advance();
             }
         }
-        
+
         $this->assertEquals( 'arg1', $arguments[0] );
         $this->assertEquals( 'arg2', $arguments[1] );
         $this->assertEquals( 'arg3', $arguments[2] );
@@ -261,11 +261,10 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull( 3, $subcommand_options['subcommand3']->a );
     }
 
-    /**
-     * @expectedException GetOptionKit\Exception\InvalidOptionException
-     */
     public function testParseInvalidOptionException()
     {
+        $this->expectException(\GetOptionKit\Exception\InvalidOptionException::class);
+
         $parser = new ContinuousOptionParser(new OptionCollection);
         $parser->parse(array('app','--foo'));
         $arguments = array();
@@ -307,23 +306,20 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(3, $result->keys["verbose"]->value);
     }
 
-
-    /**
-     * @expectedException GetOptionKit\Exception\InvalidOptionException
-     */
     public function testUnknownOption()
     {
+        $this->expectException(\GetOptionKit\Exception\InvalidOptionException::class);
+
         $options = new OptionCollection;
         $options->add("v|verbose");
         $parser = new ContinuousOptionParser($options);
         $result = $parser->parse(array('app', '-b'));
     }
 
-    /**
-     * @expectedException LogicException
-     */
     public function testAdvancedOutOfBounds()
     {
+        $this->expectException(\LogicException::class);
+
         $options = new OptionCollection;
         $options->add("v|verbose");
         $parser = new ContinuousOptionParser($options);

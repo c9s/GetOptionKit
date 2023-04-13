@@ -12,32 +12,28 @@ class OptionCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($o, $opts->getShortOption('v'));
     }
 
-
-    /**
-     * @expectedException LogicException
-     */
     public function testAddInvalidOption()
     {
+        $this->expectException(\LogicException::class);
+
         $opts = new OptionCollection;
         $opts->add(123);
     }
 
-    /**
-     * @expectedException GetOptionKit\Exception\OptionConflictException
-     */
     public function testOptionConflictShort()
     {
+        $this->expectException(\GetOptionKit\Exception\OptionConflictException::class);
+
         $opts = new OptionCollection;
         $opts->add('r|repeat');
         $opts->add('t|time');
         $opts->add('r|regex');
     }
 
-    /**
-     * @expectedException GetOptionKit\Exception\OptionConflictException
-     */
     public function testOptionConflictLong()
     {
+        $this->expectException(\GetOptionKit\Exception\OptionConflictException::class);
+
         $opts = new OptionCollection;
         $opts->add('r|repeat');
         $opts->add('t|time');

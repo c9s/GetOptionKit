@@ -38,7 +38,7 @@ class OptionParser
      */
     protected function consumeOptionToken(Option $spec, $arg, $next, & $success = false)
     {
-        // Check options doesn't require next token before 
+        // Check options doesn't require next token before
         // all options that require values.
         if ($spec->isFlag()) {
 
@@ -70,11 +70,11 @@ class OptionParser
             $spec->setValue($next->arg);
             return 1;
 
-        } 
+        }
         return 0;
     }
 
-    /* 
+    /*
      * push value to multipl value option
      */
     protected function pushOptionValue(Option $spec, $arg, $next)
@@ -94,7 +94,6 @@ class OptionParser
     {
         // preprocessing arguments
         $newArgv = array();
-        $extra = array();
         $afterDash = false;
         foreach ($argv as $arg) {
             if ($arg === '--') {
@@ -102,7 +101,7 @@ class OptionParser
                 continue;
             }
             if ($afterDash) {
-                $extra[] = $arg;
+                $newArgv[] = $arg;
                 continue;
             }
 
@@ -111,15 +110,15 @@ class OptionParser
                 list($opt, $val) = $a->splitAsOption();
                 array_push($newArgv, $opt, $val);
             } else {
-                $newArgv[] = $arg;
+                array_push($newArgv, $arg);
             }
         }
-        return array($newArgv, $extra);
+        return $newArgv;
     }
 
     protected function fillDefaultValues(OptionCollection $opts, OptionResult $result)
     {
-        // register option result from options with default value 
+        // register option result from options with default value
         foreach ($opts as $opt) {
             if ($opt->value === null && $opt->defaultValue !== null) {
                 $opt->setValue($opt->getDefaultValue());
@@ -141,7 +140,7 @@ class OptionParser
     {
         $result = new OptionResult();
 
-        list($argv, $extra) = $this->preprocessingArguments($argv);
+        $argv = $this->preprocessingArguments($argv);
 
         $len = count($argv);
 

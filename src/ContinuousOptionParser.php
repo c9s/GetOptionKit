@@ -64,7 +64,7 @@ use GetOptionKit\Exception\RequireValueException;
  *
  *      // command arguments
  *      $arguments = array();
- * 
+ *
  *      $argv = explode(' ','-v -d -c subcommand1 -a -b -c subcommand2 -c subcommand3 arg1 arg2 arg3');
  *
  *      // parse application options first
@@ -139,7 +139,7 @@ class ContinuousOptionParser extends OptionParser
 
     protected function fillDefaultValues(OptionCollection $opts, OptionResult $result)
     {
-        // register option result from options with default value 
+        // register option result from options with default value
         foreach ($opts as $opt) {
             if ($opt->value === null && $opt->defaultValue !== null) {
                 $opt->setValue($opt->getDefaultValue());
@@ -153,7 +153,7 @@ class ContinuousOptionParser extends OptionParser
     {
         // create new Result object.
         $result = new OptionResult();
-        list($this->argv, $extra) = $this->preprocessingArguments($argv);
+        $this->argv = $this->preprocessingArguments($argv);
         $this->length = count($this->argv);
 
         // from last parse index
