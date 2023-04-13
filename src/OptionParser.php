@@ -98,7 +98,6 @@ class OptionParser
         foreach ($argv as $arg) {
             if ($arg === '--') {
                 $afterDash = true;
-                continue;
             }
             if ($afterDash) {
                 $newArgv[] = $arg;
@@ -175,6 +174,11 @@ class OptionParser
             }
 
             $spec = $this->specs->get($arg->getOptionName());
+
+            if ($arg->arg === '--') {
+                continue;
+            }
+
             if (!$spec) {
                 throw new InvalidOptionException('Invalid option: '.$arg);
             }
