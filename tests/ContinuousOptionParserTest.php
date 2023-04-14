@@ -46,7 +46,7 @@ class ContinuousOptionParserTest extends \PHPUnit\Framework\TestCase
                 ['program','-v', '-c', 'subcommand1', '--as', 99, 'arg1', 'arg2', 'arg3', '--','zz','xx','vv'],
                 [
                     'app' => ['verbose' => true],
-                    'args' => ['arg1', 'arg2', 'arg3', 'zz', 'xx', 'vv']
+                    'args' => ['arg1', 'arg2', 'arg3', '--', 'zz', 'xx', 'vv']
                 ],
             ],
         ];
