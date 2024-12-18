@@ -142,7 +142,7 @@ class OptionResult
         return $array;
     }
 
-    public static function create($specs, array $values = array(), array $arguments = null)
+    public static function create($specs, array $values = array(), array $arguments = [])
     {
         $new = new self();
         foreach ($specs as $spec) {
