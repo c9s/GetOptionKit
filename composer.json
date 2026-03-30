@@ -12,6 +12,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
+        "platform": {
+            "php": "7.4.0"
+        },
         "optimize-autoloader": true,
         "sort-packages": true
     },
